@@ -1,0 +1,32 @@
+.navbarButton {
+    -fx-background-color: #b6ccdb;
+    -fx-background-radius: 0;
+    -fx-font-size: 19;
+}
+
+.navbarButton:hover {
+    -fx-background-color: #728fa3;
+    -fx-background-radius: 0;
+}
+
+.navbarButton:pressed {
+    -fx-background-color: #415b6e;
+    -fx-background-radius: 0;
+}
+.navbarButton.active {
+    -fx-background-color: #728fa3;
+}
+
+.editButton:pressed{
+
+}
+
+.navbar {
+    -fx-background-color: #b6ccdb;
+}
+
+.grid {
+    -fx-padding: 30;
+}
+.startPicture:hover{
+}

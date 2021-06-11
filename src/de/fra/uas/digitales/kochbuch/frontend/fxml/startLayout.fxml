@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
+    <children>
+        <VBox fx:id="vBox" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="5000.0" text="Alle Rezepte" textAlignment="CENTER" VBox.vgrow="NEVER">
+               <font>
+                  <Font name="Segoe UI" size="26.0" />
+               </font>
+            </Label>
+                <Pagination fx:id="pagination" centerShape="false" maxPageIndicatorCount="4" pageCount="5" prefHeight="36.0" prefWidth="600.0" scaleShape="false" VBox.vgrow="NEVER" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
