@@ -6,42 +6,42 @@ public class DataManager implements IDataManager {
 
 
     @Override
-    public IRecipe getRecipeByName(String name) {
+    public Recipe getRecipeByName(String name) {
         return null;
     }
 
     @Override
-    public IRecipe deleteRecipe(IRecipe recipe) {
+    public Recipe deleteRecipe(Recipe recipe) {
         return null;
     }
 
     @Override
-    public void editRecipe(IRecipe recipe) {
+    public void editRecipe(Recipe recipe) {
 
     }
 
     @Override
-    public IRecipe getRecipeByID(int id) {
+    public Recipe getRecipeByID(int id) {
         return null;
     }
 
     @Override
-    public void addNewRecipe(IRecipe iRecipe) {
+    public void addNewRecipe(Recipe iRecipe) {
 
     }
 
     @Override
-    public List<IRecipe> getStartRecipes(int page) {
+    public List<Recipe> getStartRecipes(int page) {
         return null;
     }
 
     @Override
-    public List<IRecipe> getRecipeByTag(List<String> tags, int page) {
+    public List<Recipe> getRecipeByTag(List<String> tags, int page) {
         return null;
     }
 
     @Override
-    public List<IRecipe> getRecipeByIngredient(List<String> ingredients, int page) {
+    public List<Recipe> getRecipeByIngredient(List<String> ingredients, int page) {
         return null;
     }
 }
