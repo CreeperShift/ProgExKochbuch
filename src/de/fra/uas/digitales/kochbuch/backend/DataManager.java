@@ -2,7 +2,9 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import java.util.List;
 
-public class DataManager implements IDataManager{
+public class DataManager implements IDataManager {
+
+
     @Override
     public IRecipe getRecipeByName(String name) {
         return null;

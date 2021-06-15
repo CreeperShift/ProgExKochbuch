@@ -16,14 +16,16 @@ import java.util.Objects;
 public class Main extends Application {
 
     public static BorderPane mainPanel;
+    public static ControllerBase controllerBase;
     public static AnchorPane startPane;
     public static ScrollPane recipePage;
     public static VBox newRecipePage;
     public static ControllerRecipe controllerRecipe;
-    public static ControllerBase controllerBase;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         FXMLLoader loaderBase = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/baseLayout.fxml")));
         mainPanel = loaderBase.load();
         controllerBase = loaderBase.getController();
@@ -38,7 +40,7 @@ public class Main extends Application {
         newRecipePage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
 
         primaryStage.setTitle("Digitales Kochbuch");
-        primaryStage.setScene(new Scene(mainPanel, 1280, 800));
+        primaryStage.setScene(new Scene(mainPanel, 1300, 800));
         primaryStage.show();
     }
 
