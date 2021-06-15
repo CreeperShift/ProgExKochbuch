@@ -16,36 +16,44 @@ public class Recipe{
     private int rating = 0;
     private float time = 0;
 
-    public void setId(int id) {
+    public Recipe setId(int id) {
         this.id = id;
+        return this;
     }
 
-    public void setName(String name) {
+    public Recipe setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setDesc(String desc) {
+    public Recipe setDesc(String desc) {
         this.desc = desc;
+        return this;
     }
 
-    public void setImage(Image image) {
+    public Recipe setImage(Image image) {
         this.image = image;
+        return this;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public Recipe setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
+        return this;
     }
 
-    public void setSteps(List<String> steps) {
+    public Recipe setSteps(List<String> steps) {
         this.steps = steps;
+        return this;
     }
 
-    public void setRating(int rating) {
+    public Recipe setRating(int rating) {
         this.rating = rating;
+        return this;
     }
 
-    public void setTime(float time) {
+    public Recipe setTime(float time) {
         this.time = time;
+        return this;
     }
 
     public int getID() {
