@@ -1,10 +1,10 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -12,9 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerStartLayout implements Initializable {
@@ -33,27 +32,20 @@ public class ControllerStartLayout implements Initializable {
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
 
+        List<Recipe> startRecipes = Main.dataManager.getStartRecipes(0);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Pane pane = new Pane();
                 pane.prefWidthProperty().bind(column1.prefWidthProperty());
                 pane.prefHeightProperty().bind(row1.prefHeightProperty());
-                FileInputStream pic = null;
-                try {
-                    pic = new FileInputStream("resources/images/flammkuchen.jpg");
-                    Image image = new Image(pic);
-                    ImageView imageView = new ImageView(image);
+
+                    ImageView imageView = new ImageView(startRecipes.get(i).getImage());
                     imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                     imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                     imageView.getStyleClass().add("startPicture");
                     
-                    setupImageListeners(pane, imageView);
-                    
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                    setupImageListeners(pane, imageView, startRecipes.get(i).getName());
 
                 gridPane.add(pane, i, j);
             }
@@ -62,7 +54,7 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    private void setupImageListeners(Pane pane, ImageView imageView) {
+    private void setupImageListeners(Pane pane, ImageView imageView, String name) {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label("Flammkuchen");
