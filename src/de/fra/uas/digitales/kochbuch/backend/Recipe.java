@@ -2,55 +2,94 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import javafx.scene.image.Image;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Recipe implements IRecipe {
 
-    int id;
-    String recipeName;
-    int rating;
-    String recipeDescription;
-    String instructions;
-    //to do picture
-    int recipeTime;
+    private int id = -1;
+    private String name = "";
+    private String desc = "";
+    private Image image = null;
+    private List<String> ingredients = new LinkedList<>();
+    private List<String> steps = new LinkedList<>();
+    private int rating = 0;
+    private float time = 0;
 
-    public int getID(){
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
+    }
+
+    @Override
+    public int getID() {
         return id;
     }
 
-    public String getName(){
-        return recipeName;
+    @Override
+    public String getName() {
+        return name;
     }
 
-    public String getDesc(){
-        return recipeDescription;
+    @Override
+    public String getDesc() {
+        return desc;
     }
 
-    //to do
-    public Image getImage(){
-        return null;
+    @Override
+    public Image getImage() {
+        return image;
     }
 
-    public String getInstructions() {
-        return instructions;
+    @Override
+    public List<String> getIngredients() {
+        return ingredients;
     }
 
-    //to do
-    public List<String> getIngredients(){
-        return null;
+    @Override
+    public List<String> getSteps() {
+        return steps;
     }
 
-    //to do
-    public List<String> getSteps(){
-        return null;
-    }
-
-    public int getRating(){
+    @Override
+    public int getRating() {
         return rating;
     }
 
-    public int getTime(){
-        return recipeTime;
+    @Override
+    public float getTime() {
+        return time;
     }
+
+    public Recipe() {
+    }
+
 
 }
