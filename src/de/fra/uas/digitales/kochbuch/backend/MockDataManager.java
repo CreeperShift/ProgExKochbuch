@@ -18,7 +18,7 @@ public class MockDataManager implements IDataManager {
 
     private static IDataManager INSTANCE = null;
     private static Recipe mockRecipe;
-    private static final List<String> ingredientList = new LinkedList<>();
+    private static final List<Ingredient> ingredientList = new LinkedList<>();
     private static final List<String> stepList = new LinkedList<>();
     private static final List<Recipe> fakeRecipeList = new LinkedList<>();
     private static Image image;
@@ -44,13 +44,13 @@ public class MockDataManager implements IDataManager {
         FileInputStream pic = null;
         pic = new FileInputStream("resources/images/flammkuchen.jpg");
 
-        ingredientList.add("200g Mehl");
-        ingredientList.add("50ml Wasser");
-        ingredientList.add("1g Salz");
-        ingredientList.add("2g Hefe");
-        ingredientList.add("1 Becher Creme Fraiche");
-        ingredientList.add("1 Zwiebel");
-        ingredientList.add("1 Packung Speck");
+        ingredientList.add(new Ingredient("Mehl", 200, "g"));
+        ingredientList.add(new Ingredient("Wasser", 50, "ml"));
+        ingredientList.add(new Ingredient("Salz", 1, "g"));
+        ingredientList.add(new Ingredient("Hefe", 2, "g"));
+        ingredientList.add(new Ingredient("Creme Fraiche", 1, "Becher"));
+        ingredientList.add(new Ingredient("Zwiebel", 1));
+        ingredientList.add(new Ingredient("Speck", 1, "Packung"));
 
         stepList.add("Mehl, Salz und Zucker in einer Schüssel mischen");
         stepList.add("Hefe zerbröckeln, daruntermischen. Wasser dazugiessen, zu einem weichen, glatten Teig kneten. Zugedeckt bei Raumtemperatur ca. 1 Std. aufs Doppelte aufgehen lassen.");
