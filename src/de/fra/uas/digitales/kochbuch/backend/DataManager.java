@@ -11,8 +11,7 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public Recipe deleteRecipe(Recipe recipe) {
-        return null;
+    public void deleteRecipe(Recipe recipe) {
     }
 
     @Override

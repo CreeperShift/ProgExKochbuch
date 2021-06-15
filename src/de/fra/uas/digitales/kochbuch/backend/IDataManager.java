@@ -6,7 +6,7 @@ public interface IDataManager {
 
     Recipe getRecipeByName(String name);
 
-    Recipe deleteRecipe(Recipe recipe);
+    void deleteRecipe(Recipe recipe);
 
     void editRecipe(Recipe recipe);
 
