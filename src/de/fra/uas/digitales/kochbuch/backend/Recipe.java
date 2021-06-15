@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Recipe implements IRecipe {
+public class Recipe{
 
     private int id = -1;
     private String name = "";
@@ -48,42 +48,34 @@ public class Recipe implements IRecipe {
         this.time = time;
     }
 
-    @Override
     public int getID() {
         return id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public String getDesc() {
         return desc;
     }
 
-    @Override
     public Image getImage() {
         return image;
     }
 
-    @Override
     public List<String> getIngredients() {
         return ingredients;
     }
 
-    @Override
     public List<String> getSteps() {
         return steps;
     }
 
-    @Override
     public int getRating() {
         return rating;
     }
 
-    @Override
     public float getTime() {
         return time;
     }

@@ -1,25 +1,24 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IDataManager {
 
-    IRecipe getRecipeByName(String name) throws SQLException;
+    Recipe getRecipeByName(String name);
 
-    IRecipe deleteRecipe(IRecipe recipe);
+    Recipe deleteRecipe(Recipe recipe);
 
-    void editRecipe(IRecipe recipe);
+    void editRecipe(Recipe recipe);
 
-    IRecipe getRecipeByID(int id) throws SQLException;
+    Recipe getRecipeByID(int id);
 
-    void addNewRecipe(IRecipe iRecipe);
+    void addNewRecipe(Recipe iRecipe);
 
-    List<IRecipe> getStartRecipes(int page);
+    List<Recipe> getStartRecipes(int page);
 
-    List<IRecipe> getRecipeByTag(List<String> tags, int page);
+    List<Recipe> getRecipeByTag(List<String> tags, int page);
 
-    List<IRecipe> getRecipeByIngredient(List<String> ingredients, int page);
+    List<Recipe> getRecipeByIngredient(List<String> ingredients, int page);
 
     //TODO: SEARCH
 
