@@ -20,6 +20,6 @@ public interface IRecipe {
 
     int getRating();
 
-    int getTime();
+    float getTime();
 
 }
