@@ -4,14 +4,15 @@ import javafx.scene.image.Image;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class Recipe{
+public class Recipe {
 
     private int id = -1;
     private String name = "";
     private String desc = "";
     private Image image = null;
-    private List<String> ingredients = new LinkedList<>();
+    private List<Ingredient> ingredients = new LinkedList<>();
     private List<String> steps = new LinkedList<>();
     private int rating = 0;
     private float time = 0;
@@ -36,7 +37,7 @@ public class Recipe{
         return this;
     }
 
-    public Recipe setIngredients(List<String> ingredients) {
+    public Recipe setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
         return this;
     }
@@ -72,8 +73,12 @@ public class Recipe{
         return image;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public List<String> getIngredientNames() {
+        return ingredients.stream().map(Ingredient::name).collect(Collectors.toList());
     }
 
     public List<String> getSteps() {
