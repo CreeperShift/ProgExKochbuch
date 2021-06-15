@@ -7,12 +7,21 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+Mock implementation for IDataManager without the database.
+This class can be used for local testing.
+A fake recipe is created, but as soon as the user adds a recipe, all the fake recipes are instead replaced by this new recipe.
+ */
+
+
 public class MockDataManager implements IDataManager {
 
     private static IDataManager INSTANCE = null;
     private static Recipe mockRecipe;
     private static final List<String> ingredientList = new LinkedList<>();
     private static final List<String> stepList = new LinkedList<>();
+    private static final List<Recipe> fakeRecipeList = new LinkedList<>();
+    private static Image image;
 
     private MockDataManager() {
 
@@ -50,7 +59,7 @@ public class MockDataManager implements IDataManager {
         stepList.add("Crème fraîche auf dem Teig verteilen, dabei ringsum einen Rand von ca. 1 cm frei lassen. Zwiebel schälen, in feine Ringe schneiden, mit den Speckwürfeli auf der Crème fraîche verteilen, würzen.");
 
 
-        Image image = new Image(pic);
+        image = new Image(pic);
         mockRecipe.setId(1)
                 .setDesc("Diese leckere Spezialität aus dem Elsass eignet sich sehr gut auch zum Apéro. Dünn ausgewallter Brotteig mit Sauerrahm, Zwiebeln und Speckwürfeli!")
                 .setImage(image)
@@ -59,6 +68,24 @@ public class MockDataManager implements IDataManager {
                 .setTime(15.0f)
                 .setSteps(stepList)
                 .setName("Flammkuchen");
+
+
+        /*
+        Start at 2 -> 11 because the first mockRecipe is ID 1
+         */
+        for (int i = 2; i < 11; i++) {
+            Recipe r = new Recipe()
+                    .setId(1)
+                    .setDesc("Diese leckere Spezialität aus dem Elsass eignet sich sehr gut auch zum Apéro. Dünn ausgewallter Brotteig mit Sauerrahm, Zwiebeln und Speckwürfeli!")
+                    .setIngredients(ingredientList)
+                    .setRating(3)
+                    .setTime(15.0f)
+                    .setSteps(stepList)
+                    .setName("Flammkuchen")
+                    .setImage(image);
+            fakeRecipeList.add(r);
+        }
+
 
     }
 
@@ -69,37 +96,36 @@ public class MockDataManager implements IDataManager {
     }
 
     @Override
-    public Recipe deleteRecipe(Recipe recipe) {
-        return null;
+    public void deleteRecipe(Recipe recipe) {
     }
 
     @Override
     public void editRecipe(Recipe recipe) {
-
     }
 
     @Override
     public Recipe getRecipeByID(int id) {
-        return null;
+        return mockRecipe;
     }
 
     @Override
     public void addNewRecipe(Recipe iRecipe) {
-
+        mockRecipe = iRecipe;
+        fakeRecipeList.forEach(r -> r = iRecipe);
     }
 
     @Override
-    public List<Recipe> getStartRecipes(int page) {
-        return null;
+    public final List<Recipe> getStartRecipes(int page) {
+        return fakeRecipeList;
     }
 
     @Override
-    public List<Recipe> getRecipeByTag(List<String> tags, int page) {
-        return null;
+    public final List<Recipe> getRecipeByTag(List<String> tags, int page) {
+        return fakeRecipeList;
     }
 
     @Override
-    public List<Recipe> getRecipeByIngredient(List<String> ingredients, int page) {
-        return null;
+    public final List<Recipe> getRecipeByIngredient(List<String> ingredients, int page) {
+        return fakeRecipeList;
     }
 }
