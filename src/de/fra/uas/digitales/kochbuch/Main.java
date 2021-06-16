@@ -30,6 +30,7 @@ public class Main extends Application {
     public static VBox newRecipePage;
     public static ControllerRecipe controllerRecipe;
     public static ControllerBase controllerBase;
+    public static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -56,6 +57,7 @@ public class Main extends Application {
         primaryStage.setTitle("Digitales Kochbuch");
         primaryStage.setScene(new Scene(mainPanel, 1280, 800));
         primaryStage.show();
+        stage = primaryStage;
     }
 
 

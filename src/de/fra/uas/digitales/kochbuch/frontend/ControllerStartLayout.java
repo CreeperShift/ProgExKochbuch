@@ -57,7 +57,7 @@ public class ControllerStartLayout implements Initializable {
     private void setupImageListeners(Pane pane, ImageView imageView, String name) {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
-                    Label label = new Label("Flammkuchen");
+                    Label label = new Label(name);
                     label.setFont(Font.font("Segeo UI", 20));
                     label.setLayoutY(pane.getHeight()-50);
                     label.setTextFill(Color.WHITE);
@@ -118,6 +118,39 @@ public class ControllerStartLayout implements Initializable {
         RowConstraints row3 = new RowConstraints();
         row3.setPercentHeight(33.3);
         gridPane.getRowConstraints().add(row3);
+
+    }
+
+    public void onPageClick(MouseEvent mouseEvent) {
+
+        System.out.println("ref");
+        gridPane = new GridPane();
+        gridPane.setPrefHeight(5000);
+        gridPane.getStyleClass().add("grid");
+        setupGrid(gridPane);
+        vBox.getChildren().remove(1);
+        vBox.getChildren().add(1, gridPane);
+
+        List<Recipe> startRecipes = Main.dataManager.getStartRecipes(0);
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                Pane pane = new Pane();
+                pane.prefWidthProperty().bind(column1.prefWidthProperty());
+                pane.prefHeightProperty().bind(row1.prefHeightProperty());
+
+                ImageView imageView = new ImageView(startRecipes.get(i).getImage());
+                imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
+                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
+                imageView.getStyleClass().add("startPicture");
+
+                setupImageListeners(pane, imageView, "wew");
+
+                gridPane.add(pane, i, j);
+            }
+        }
+
+
 
     }
 }

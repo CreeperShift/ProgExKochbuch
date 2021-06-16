@@ -3,14 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipeLayout">
    <children>
       <HBox prefHeight="51.0" prefWidth="600.0" style="-fx-spacing: 15; -fx-padding: 15;">
          <children>
@@ -29,7 +30,9 @@
       <HBox prefHeight="55.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;">
          <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Titelbild" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" text="Hinzufügen" />
+            <Button mnemonicParsing="false" onAction="#onBtnPicture" text="Hinzufügen" />
+            <TextField fx:id="picName" disable="true" editable="false" prefHeight="25.0" prefWidth="134.0" />
+            <TextField fx:id="picPath" disable="true" editable="false" prefHeight="25.0" prefWidth="403.0" />
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
@@ -41,9 +44,9 @@
                   <Insets top="4.0" />
                </padding>
             </Label>
-            <TextField fx:id="textIngredient" prefHeight="25.0" prefWidth="145.0">
+            <TextField fx:id="textIngredient" prefHeight="25.0" prefWidth="119.0">
                <HBox.margin>
-                  <Insets left="-12.0" right="15.0" />
+                  <Insets left="-8.0" right="15.0" />
                </HBox.margin>
             </TextField>
             <Label text="Menge:">
@@ -53,16 +56,26 @@
             </Label>
             <TextField fx:id="amountIngredient" prefHeight="25.0" prefWidth="45.0">
                <HBox.margin>
-                  <Insets left="-12.0" right="15.0" />
+                  <Insets left="-8.0" right="15.0" />
                </HBox.margin>
             </TextField>
+            <Label text="Einheit">
+               <padding>
+                  <Insets top="4.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="unitIngredient" prefHeight="25.0" prefWidth="45.0" />
             <Button mnemonicParsing="false" onAction="#onBtnIngredient" text="Zutat hinzufügen" />
          </children>
       </HBox>
-      <HBox prefHeight="33.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;" VBox.vgrow="ALWAYS">
+      <HBox maxHeight="1.7976931348623157E308" prefHeight="246.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;" VBox.vgrow="ALWAYS">
          <children>
             <Label prefHeight="25.0" prefWidth="100.0" text="Zutaten" HBox.hgrow="ALWAYS" />
-            <ListView fx:id="ingredientList" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <ScrollPane focusTraversable="false" hbarPolicy="NEVER" prefHeight="222.0" prefWidth="491.0" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="ingredientBox" prefHeight="221.0" prefWidth="645.0" spacing="5.0" styleClass="scrollbar" stylesheets="@main.css" />
+               </content>
+            </ScrollPane>
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
@@ -78,7 +91,8 @@
             <Button mnemonicParsing="false" onAction="#onSave" text="Speichern">
                <HBox.margin>
                   <Insets bottom="15.0" right="15.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

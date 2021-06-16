@@ -8,4 +8,9 @@ public record Ingredient(String name, float amount, String unit) {
     public Ingredient(String name, float amount) {
         this(name, amount, "x");
     }
+
+    @Override
+    public String toString() {
+        return amount + " " + unit + " " + name;
+    }
 }

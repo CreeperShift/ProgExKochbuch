@@ -81,6 +81,11 @@ public class Recipe {
         return ingredients.stream().map(Ingredient::name).collect(Collectors.toList());
     }
 
+    public final List<String> getFormattedIngredients() {
+
+        return ingredients.stream().map(Ingredient::toString).collect(Collectors.toList());
+    }
+
     public List<String> getSteps() {
         return steps;
     }
