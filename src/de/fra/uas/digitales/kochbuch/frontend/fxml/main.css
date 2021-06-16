@@ -13,11 +13,12 @@
     -fx-background-color: #415b6e;
     -fx-background-radius: 0;
 }
+
 .navbarButton.active {
     -fx-background-color: #728fa3;
 }
 
-.editButton:pressed{
+.editButton:pressed {
 
 }
 
@@ -28,5 +29,11 @@
 .grid {
     -fx-padding: 30;
 }
-.startPicture:hover{
+
+.startPicture:hover {
+}
+
+.scrollbar:focused {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
 }

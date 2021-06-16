@@ -15,7 +15,7 @@
                   <Font name="Segoe UI" size="26.0" />
                </font>
             </Label>
-                <Pagination fx:id="pagination" centerShape="false" maxPageIndicatorCount="4" pageCount="5" prefHeight="36.0" prefWidth="600.0" scaleShape="false" VBox.vgrow="NEVER" />
+                <Pagination fx:id="pagination" centerShape="false" maxPageIndicatorCount="4" onMouseClicked="#onPageClick" pageCount="5" prefHeight="36.0" prefWidth="600.0" scaleShape="false" VBox.vgrow="NEVER" />
             </children>
         </VBox>
     </children>

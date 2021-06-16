@@ -21,7 +21,6 @@ public class MockDataManager implements IDataManager {
     private static final List<Ingredient> ingredientList = new LinkedList<>();
     private static final List<String> stepList = new LinkedList<>();
     private static final List<Recipe> fakeRecipeList = new LinkedList<>();
-    private static Image image;
 
     private MockDataManager() {
 
@@ -59,7 +58,7 @@ public class MockDataManager implements IDataManager {
         stepList.add("Crème fraîche auf dem Teig verteilen, dabei ringsum einen Rand von ca. 1 cm frei lassen. Zwiebel schälen, in feine Ringe schneiden, mit den Speckwürfeli auf der Crème fraîche verteilen, würzen.");
 
 
-        image = new Image(pic);
+        Image image = new Image(pic);
         mockRecipe.setId(1)
                 .setDesc("Diese leckere Spezialität aus dem Elsass eignet sich sehr gut auch zum Apéro. Dünn ausgewallter Brotteig mit Sauerrahm, Zwiebeln und Speckwürfeli!")
                 .setImage(image)
@@ -111,7 +110,10 @@ public class MockDataManager implements IDataManager {
     @Override
     public void addNewRecipe(Recipe iRecipe) {
         mockRecipe = iRecipe;
-        fakeRecipeList.forEach(r -> r = iRecipe);
+        fakeRecipeList.clear();
+        for(int i = 0; i < 9; i++){
+            fakeRecipeList.add(iRecipe);
+        }
     }
 
     @Override
