@@ -1,5 +1,7 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
+import javafx.scene.image.Image;
+
 import java.sql.*;
 import java.util.List;
 
@@ -32,7 +34,9 @@ public class DataManager implements IDataManager {
             recipe.setDesc(resultSet.getString("recipeDescription"));
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
-            //TODO: picture
+            Blob picture = resultSet.getBlob("picture");
+            Image image = new Image(picture.getBinaryStream());
+            recipe.setImage(image);
             //TODO: Ingredients
         }
         return recipe;
