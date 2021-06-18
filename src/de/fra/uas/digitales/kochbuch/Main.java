@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+
 public class Main extends Application {
 
     public static BorderPane mainPanel;
@@ -43,7 +44,11 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
+
         launch(args);
+
     }
 }
+
+
