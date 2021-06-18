@@ -14,6 +14,8 @@ public interface IRecipe {
 
     Image getImage();
 
+    String getInstructions();
+
     List<String> getIngredients();
 
     List<String> getSteps();
