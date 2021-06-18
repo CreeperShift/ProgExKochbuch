@@ -1,7 +1,7 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
-import javafx.scene.image.Image;
-
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class DataManager implements IDataManager {
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "progex");
         statement = connection.createStatement();
 
     }
@@ -23,11 +23,16 @@ public class DataManager implements IDataManager {
 
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE recipeName='" + name + "'");
 
-        return getFullRecipeFromResultSet(new Recipe(), resultSet);
+        try {
+            return getFullRecipeFromResultSet(new Recipe(), resultSet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
-    private Recipe getFullRecipeFromResultSet(Recipe recipe, ResultSet resultSet) throws SQLException {
+    private Recipe getFullRecipeFromResultSet(Recipe recipe, ResultSet resultSet) throws SQLException, IOException {
         while (resultSet.next()) {
             recipe.setName(resultSet.getString("recipeName"));
             recipe.setRating(resultSet.getInt("rating"));
@@ -35,8 +40,7 @@ public class DataManager implements IDataManager {
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
             Blob picture = resultSet.getBlob("picture");
-            Image image = new Image(picture.getBinaryStream());
-            recipe.setImage(image);
+            recipe.setImageRaw(picture.getBytes(0, 0));
             //TODO: Ingredients
         }
         return recipe;
@@ -56,12 +60,70 @@ public class DataManager implements IDataManager {
 
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE id='" + id + "'");
 
-        return getFullRecipeFromResultSet(new Recipe(), resultSet);
+        try {
+            return getFullRecipeFromResultSet(new Recipe(), resultSet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public void addNewRecipe(Recipe iRecipe) {
+    public void addNewRecipe(Recipe recipe) throws SQLException {
+        String insertRecipe = "insert into recipe (recipename, rating, recipeDescription, instructions, picture, recipeTime)" + "values (? , ? , ? , ? ,?, ?)";
+        String insertIngredient = "insert into recipeingredients (recipe, ingredient, amount, unit)" + " values (?, ?, ?, ?)";
 
+        PreparedStatement pState = connection.prepareStatement(insertRecipe);
+        pState.setString(1, recipe.getName());
+        pState.setInt(2, recipe.getRating());
+        pState.setString(3, recipe.getDesc());
+        pState.setString(4, recipe.getSteps());
+        pState.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
+        pState.setFloat(6, recipe.getTime());
+        pState.executeUpdate();
+        pState.close();
+
+        Statement getId = connection.createStatement();
+        ResultSet resultSet = getId.executeQuery("SELECT id FROM recipe WHERE recipeName='" + recipe.getName() + "'");
+        if(resultSet.next()) {
+            int id = resultSet.getInt("id");
+
+
+            PreparedStatement ingredStatement = connection.prepareStatement(insertIngredient);
+
+            for (Ingredient i : recipe.getIngredients()) {
+                ingredStatement.setInt(1, id);
+                ingredStatement.setInt(2, getCreateIngredient(i));
+                ingredStatement.setFloat(3, i.amount());
+                ingredStatement.setString(4, i.unit());
+                ingredStatement.executeUpdate();
+            }
+
+            ingredStatement.close();
+        }
+    }
+
+    private int getCreateIngredient(Ingredient ing) throws SQLException {
+        int ingredientID = 0;
+        Statement getI = connection.createStatement();
+        final ResultSet ingred = getI.executeQuery("SELECT id FROM ingredients WHERE ingredientName='" + ing.name() + "'");
+        if (ingred.next()) {
+            ingredientID = ingred.getInt(1);
+        } else {
+            String query2 = "insert into ingredients (ingredientName)" + " values (?)";
+            PreparedStatement createI = connection.prepareStatement(query2);
+            createI.setString(1, ing.name());
+            createI.executeUpdate();
+            createI.close();
+        }
+
+        final ResultSet ingred2 = getI.executeQuery("SELECT id FROM ingredients WHERE ingredientName='" + ing.name() + "'");
+        if (ingred2.next()) {
+            ingredientID = ingred2.getInt(1);
+        }
+        ingred.close();
+        ingred2.close();
+        return ingredientID;
     }
 
     @Override

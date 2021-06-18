@@ -1,9 +1,7 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
-import javafx.scene.image.Image;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,16 +30,15 @@ public class MockDataManager implements IDataManager {
             mockRecipe = new Recipe();
             try {
                 setupRecipes();
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return INSTANCE;
     }
 
-    private static void setupRecipes() throws FileNotFoundException {
-        FileInputStream pic = null;
-        pic = new FileInputStream("resources/images/flammkuchen.jpg");
+    private static void setupRecipes() throws IOException {
+        File file = new File("resources/images/flammkuchen.jpg");
 
         ingredientList.add(new Ingredient("Mehl", 200, "g"));
         ingredientList.add(new Ingredient("Wasser", 50, "ml"));
@@ -58,10 +55,9 @@ public class MockDataManager implements IDataManager {
         stepList.add("Crème fraîche auf dem Teig verteilen, dabei ringsum einen Rand von ca. 1 cm frei lassen. Zwiebel schälen, in feine Ringe schneiden, mit den Speckwürfeli auf der Crème fraîche verteilen, würzen.");
 
 
-        Image image = new Image(pic);
         mockRecipe.setId(1)
                 .setDesc("Diese leckere Spezialität aus dem Elsass eignet sich sehr gut auch zum Apéro. Dünn ausgewallter Brotteig mit Sauerrahm, Zwiebeln und Speckwürfeli!")
-                .setImage(image)
+                .setImageRaw(file)
                 .setIngredients(ingredientList)
                 .setRating(3)
                 .setTime(15.0f)
@@ -81,7 +77,7 @@ public class MockDataManager implements IDataManager {
                     .setTime(15.0f)
                     .setSteps(stepList.toString())
                     .setName("Flammkuchen")
-                    .setImage(image);
+                    .setImageRaw(file);
             fakeRecipeList.add(r);
         }
 

@@ -2,6 +2,8 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import javafx.scene.image.Image;
 
+import java.io.*;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +15,7 @@ public class Recipe {
     private String desc = "";
     private Image image = null;
     private List<Ingredient> ingredients = new LinkedList<>();
+    private byte[] imageRaw;
     private String steps;
     private int rating = 0;
     private float time = 0;
@@ -32,8 +35,14 @@ public class Recipe {
         return this;
     }
 
-    public Recipe setImage(Image image) {
-        this.image = image;
+
+    public Recipe setImageRaw(File file) throws IOException {
+        imageRaw = Files.readAllBytes(file.toPath());
+        return this;
+    }
+
+    public Recipe setImageRaw(byte[] bytes) throws IOException {
+        imageRaw = bytes;
         return this;
     }
 
@@ -70,7 +79,14 @@ public class Recipe {
     }
 
     public Image getImage() {
+        if(image == null){
+            image = new Image(new ByteArrayInputStream(imageRaw));
+        }
         return image;
+    }
+
+    public byte[] getImageRaw() {
+        return imageRaw;
     }
 
     public List<Ingredient> getIngredients() {

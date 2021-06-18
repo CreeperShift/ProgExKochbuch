@@ -8,14 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -33,21 +31,21 @@ public class ControllerNewRecipeLayout implements Initializable {
     public TextField picName;
     public TextField picPath;
     private List<Ingredient> ingredientList = new LinkedList<>();
-    private Image currentImage;
+    private File currentImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void onSave(ActionEvent actionEvent) throws SQLException {
+    public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
 
         if (isReadySave()) {
             System.out.println("new rec");
             Recipe r = new Recipe();
             r.setName(recipeName.getText())
                     .setDesc(recipeDesc.getText())
-                    .setImage(currentImage)
+                    .setImageRaw(currentImage)
                     .setIngredients(ingredientList)
                     .setRating(0)
                     .setTime(15.0f)
@@ -118,13 +116,7 @@ public class ControllerNewRecipeLayout implements Initializable {
         fileChooser.setTitle("Bild auswählen");
         File file = fileChooser.showOpenDialog(Main.stage);
         if (file != null) {
-            picName.setText(file.getName());
-            picPath.setText(file.getAbsolutePath());
-            try {
-                currentImage = new Image(new FileInputStream(file.getAbsolutePath()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            currentImage = file;
 
         }
     }

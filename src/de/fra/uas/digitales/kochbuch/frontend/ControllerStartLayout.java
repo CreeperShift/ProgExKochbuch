@@ -39,25 +39,26 @@ public class ControllerStartLayout implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        if( startRecipes != null && !startRecipes.isEmpty()) {
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Pane pane = new Pane();
-                pane.prefWidthProperty().bind(column1.prefWidthProperty());
-                pane.prefHeightProperty().bind(row1.prefHeightProperty());
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Pane pane = new Pane();
+                    pane.prefWidthProperty().bind(column1.prefWidthProperty());
+                    pane.prefHeightProperty().bind(row1.prefHeightProperty());
 
                     ImageView imageView = new ImageView(startRecipes.get(i).getImage());
                     imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                     imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                     imageView.getStyleClass().add("startPicture");
-                    
+
                     setupImageListeners(pane, imageView, startRecipes.get(i).getName());
 
-                gridPane.add(pane, i, j);
+                    gridPane.add(pane, i, j);
+                }
             }
+
         }
-
-
     }
 
     private void setupImageListeners(Pane pane, ImageView imageView, String name) {
@@ -145,7 +146,7 @@ public class ControllerStartLayout implements Initializable {
                 pane.prefWidthProperty().bind(column1.prefWidthProperty());
                 pane.prefHeightProperty().bind(row1.prefHeightProperty());
 
-                ImageView imageView = new ImageView(startRecipes.get(i).getImage());
+                ImageView imageView = new ImageView(startRecipes.get(0).getImage());
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                 imageView.getStyleClass().add("startPicture");
