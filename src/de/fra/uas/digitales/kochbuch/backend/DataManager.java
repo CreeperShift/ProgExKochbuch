@@ -5,13 +5,13 @@ import java.util.List;
 
 public class DataManager implements IDataManager {
 
-    private Connection connection;
-    private Statement statement;
+    private final Connection connection;
+    private final Statement statement;
 
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch","root", "toor");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
 
     }
@@ -21,26 +21,29 @@ public class DataManager implements IDataManager {
 
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE recipeName='" + name + "'");
 
-        Recipe recipe = new Recipe();
+        return getFullRecipeFromResultSet(new Recipe(), resultSet);
+    }
 
-        while(resultSet.next()){
-            recipe.recipeName = resultSet.getString("recipeName");
-            recipe.rating = resultSet.getInt("rating");
-            recipe.recipeDescription = resultSet.getString("recipeDescription");
-            recipe.instructions = resultSet.getString("instructions");
-            recipe.recipeTime = resultSet.getInt("recipeTime");
-            //to do picture
+
+    private Recipe getFullRecipeFromResultSet(Recipe recipe, ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            recipe.setName(resultSet.getString("recipeName"));
+            recipe.setRating(resultSet.getInt("rating"));
+            recipe.setDesc(resultSet.getString("recipeDescription"));
+            recipe.setSteps(resultSet.getString("instructions"));
+            recipe.setTime(resultSet.getFloat("recipeTime"));
+            //TODO: picture
+            //TODO: Ingredients
         }
         return recipe;
     }
 
     @Override
-    public IRecipe deleteRecipe(IRecipe recipe) {
-        return null;
+    public void deleteRecipe(Recipe recipe) {
     }
 
     @Override
-    public void editRecipe(IRecipe recipe) {
+    public void editRecipe(Recipe recipe) {
 
     }
 
@@ -48,37 +51,27 @@ public class DataManager implements IDataManager {
     public Recipe getRecipeByID(int id) throws SQLException {
 
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE id='" + id + "'");
-        Recipe recipe = new Recipe();
 
-        while(resultSet.next()){
-            recipe.recipeName = resultSet.getString("recipeName");
-            recipe.rating = resultSet.getInt("rating");
-            recipe.recipeDescription = resultSet.getString("recipeDescription");
-            recipe.instructions = resultSet.getString("instructions");
-            recipe.recipeTime = resultSet.getInt("recipeTime");
-            //to do picture
-        }
-
-        return recipe;
+        return getFullRecipeFromResultSet(new Recipe(), resultSet);
     }
 
     @Override
-    public void addNewRecipe(IRecipe iRecipe) {
+    public void addNewRecipe(Recipe iRecipe) {
 
     }
 
     @Override
-    public List<IRecipe> getStartRecipes(int page) {
+    public List<Recipe> getStartRecipes(int page) {
         return null;
     }
 
     @Override
-    public List<IRecipe> getRecipeByTag(List<String> tags, int page) {
+    public List<Recipe> getRecipeByTag(List<String> tags, int page) {
         return null;
     }
 
     @Override
-    public List<IRecipe> getRecipeByIngredient(List<String> ingredients, int page) {
+    public List<Recipe> getRecipeByIngredient(List<String> ingredients, int page) {
         return null;
     }
 }

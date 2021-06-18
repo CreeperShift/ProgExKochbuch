@@ -1,7 +1,5 @@
 package de.fra.uas.digitales.kochbuch;
 
-import de.fra.uas.digitales.kochbuch.backend.DataManager;
-import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
 import javafx.application.Application;
@@ -13,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.sql.*;
 import java.util.Objects;
 
 

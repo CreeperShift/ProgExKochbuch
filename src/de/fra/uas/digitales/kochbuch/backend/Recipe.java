@@ -13,7 +13,7 @@ public class Recipe {
     private String desc = "";
     private Image image = null;
     private List<Ingredient> ingredients = new LinkedList<>();
-    private List<String> steps = new LinkedList<>();
+    private String steps;
     private int rating = 0;
     private float time = 0;
 
@@ -42,7 +42,7 @@ public class Recipe {
         return this;
     }
 
-    public Recipe setSteps(List<String> steps) {
+    public Recipe setSteps(String steps) {
         this.steps = steps;
         return this;
     }
@@ -81,7 +81,7 @@ public class Recipe {
         return ingredients.stream().map(Ingredient::name).collect(Collectors.toList());
     }
 
-    public List<String> getSteps() {
+    public String getSteps() {
         return steps;
     }
 
