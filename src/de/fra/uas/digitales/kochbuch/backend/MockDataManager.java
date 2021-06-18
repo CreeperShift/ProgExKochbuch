@@ -65,7 +65,7 @@ public class MockDataManager implements IDataManager {
                 .setIngredients(ingredientList)
                 .setRating(3)
                 .setTime(15.0f)
-                .setSteps(stepList)
+                .setSteps(stepList.toString())
                 .setName("Flammkuchen");
 
 
@@ -79,7 +79,7 @@ public class MockDataManager implements IDataManager {
                     .setIngredients(ingredientList)
                     .setRating(3)
                     .setTime(15.0f)
-                    .setSteps(stepList)
+                    .setSteps(stepList.toString())
                     .setName("Flammkuchen")
                     .setImage(image);
             fakeRecipeList.add(r);

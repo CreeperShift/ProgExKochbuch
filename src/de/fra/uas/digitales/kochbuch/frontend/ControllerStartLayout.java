@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,7 +33,12 @@ public class ControllerStartLayout implements Initializable {
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
 
-        List<Recipe> startRecipes = Main.dataManager.getStartRecipes(0);
+        List<Recipe> startRecipes = null;
+        try {
+            startRecipes = Main.dataManager.getStartRecipes(0);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -121,7 +127,7 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onPageClick(MouseEvent mouseEvent) {
+    public void onPageClick(MouseEvent mouseEvent) throws SQLException {
 
         System.out.println("ref");
         gridPane = new GridPane();

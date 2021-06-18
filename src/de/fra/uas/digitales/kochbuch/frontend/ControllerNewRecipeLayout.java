@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,7 +40,7 @@ public class ControllerNewRecipeLayout implements Initializable {
 
     }
 
-    public void onSave(ActionEvent actionEvent) {
+    public void onSave(ActionEvent actionEvent) throws SQLException {
 
         if (isReadySave()) {
             System.out.println("new rec");
@@ -51,7 +51,7 @@ public class ControllerNewRecipeLayout implements Initializable {
                     .setIngredients(ingredientList)
                     .setRating(0)
                     .setTime(15.0f)
-                    .setSteps(Arrays.stream(recipeSteps.getText().split("\n")).toList());
+                    .setSteps(recipeSteps.getText());
             Main.dataManager.addNewRecipe(r);
         }
     }
