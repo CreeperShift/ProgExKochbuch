@@ -55,7 +55,7 @@ public class Main extends Application {
         newRecipePage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
 
         primaryStage.setTitle("Digitales Kochbuch");
-        primaryStage.setScene(new Scene(mainPanel, 1280, 800));
+        primaryStage.setScene(new Scene(mainPanel, 1080, 700));
         primaryStage.show();
         stage = primaryStage;
     }

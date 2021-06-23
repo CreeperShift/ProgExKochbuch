@@ -2,50 +2,63 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" pickOnBounds="false" prefWidth="586.0" style="-fx-border-radius: 0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe">
+<ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" pickOnBounds="false" prefHeight="804.0" prefWidth="934.0" style="-fx-border-radius: 0; -fx-background-color: silver;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe">
    <content>
-      <VBox prefHeight="799.0" prefWidth="649.0">
+      <VBox prefHeight="1015.0" prefWidth="2708.0" style="-fx-background-color: silver;">
          <children>
-            <Label fx:id="textName" alignment="CENTER" prefHeight="17.0" prefWidth="683.0" style="-fx-background-color: gold;" text="Rezeptname">
-               <padding>
-                  <Insets top="15.0" />
-               </padding>
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <AnchorPane fx:id="imageAnchor" prefHeight="200.0" prefWidth="200.0">
+            <HBox prefHeight="37.0" prefWidth="703.0">
                <children>
-                  <ImageView fx:id="imageRezept" fitHeight="228.0" fitWidth="581.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                  <Label fx:id="textName" alignment="CENTER" prefHeight="71.0" prefWidth="793.0" style="-fx-padding: 20;" text="Rezeptname">
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Edit">
+                     <effect>
+                        <DropShadow />
+                     </effect></Button>
+               </children>
+            </HBox>
+            <AnchorPane fx:id="imageAnchor" prefHeight="268.0" prefWidth="2602.0" style="-fx-padding: 20;">
+               <children>
+                  <ImageView fx:id="imageRezept" fitHeight="228.0" fitWidth="384.0" layoutX="63.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="2223.0">
                      <viewport>
                         <Rectangle2D />
                      </viewport>
                   </ImageView>
+                  <ListView fx:id="textZutaten" layoutX="516.0" layoutY="14.0" prefHeight="177.0" prefWidth="294.0" style="-fx-padding: 20;">
+                     <padding>
+                        <Insets bottom="15.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ListView>
                </children>
+               <effect>
+                  <DropShadow />
+               </effect>
             </AnchorPane>
-            <TextFlow fx:id="textBeschreibung" prefHeight="127.0" prefWidth="584.0">
+            <TextFlow fx:id="textBeschreibung" lineSpacing="1.0" prefHeight="298.0" prefWidth="2709.0" style="-fx-padding: 20; -fx-background-color: white;">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
                <padding>
                   <Insets bottom="15.0" />
                </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
             </TextFlow>
-            <HBox prefHeight="289.0" prefWidth="584.0">
-               <children>
-                  <ListView fx:id="textZutaten" prefHeight="312.0" prefWidth="245.0">
-                     <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="15.0" />
-                     </padding>
-                  </ListView>
-               </children>
+            <HBox prefHeight="127.0" prefWidth="2640.0" style="-fx-padding: 20;">
                <padding>
                   <Insets bottom="15.0" top="30.0" />
                </padding>
@@ -53,7 +66,10 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <TextFlow fx:id="textAnleitung" prefHeight="200.0" prefWidth="200.0" />
+            <TextFlow fx:id="textAnleitung" lineSpacing="1.0" prefHeight="275.0" prefWidth="2652.0" style="-fx-background-color: white; -fx-padding: 20;">
+               <effect>
+                  <DropShadow />
+               </effect></TextFlow>
          </children>
       </VBox>
    </content>
