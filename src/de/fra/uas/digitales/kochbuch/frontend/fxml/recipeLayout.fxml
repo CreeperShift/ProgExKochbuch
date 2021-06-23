@@ -6,73 +6,55 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe">
-   <children>
-      <VBox>
+<ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" pickOnBounds="false" prefWidth="586.0" style="-fx-border-radius: 0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe">
+   <content>
+      <VBox prefHeight="799.0" prefWidth="649.0">
          <children>
-            <HBox prefHeight="55.0" prefWidth="600.0">
+            <Label fx:id="textName" alignment="CENTER" prefHeight="17.0" prefWidth="683.0" style="-fx-background-color: gold;" text="Rezeptname">
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <AnchorPane fx:id="imageAnchor" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="suchFeld">
-                     <HBox.margin>
-                        <Insets left="15.0" top="15.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button mnemonicParsing="false" onAction="#suchMethode" text="find">
-                     <HBox.margin>
-                        <Insets left="15.0" top="15.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox prefHeight="150.0" prefWidth="600.0">
-               <children>
-                  <ImageView fx:id="bildRezept" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="15.0" top="15.0" />
-                     </HBox.margin>
+                  <ImageView fx:id="imageRezept" fitHeight="228.0" fitWidth="581.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
                   </ImageView>
-                  <Label fx:id="NameAusgabeRezept" alignment="BOTTOM_LEFT" prefHeight="150.0">
+               </children>
+            </AnchorPane>
+            <TextFlow fx:id="textBeschreibung" prefHeight="127.0" prefWidth="584.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="15.0" />
+               </padding>
+            </TextFlow>
+            <HBox prefHeight="289.0" prefWidth="584.0">
+               <children>
+                  <ListView fx:id="textZutaten" prefHeight="312.0" prefWidth="245.0">
                      <HBox.margin>
-                        <Insets left="15.0" top="15.0" />
+                        <Insets left="15.0" right="15.0" />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="15.0" left="15.0" />
+                        <Insets bottom="15.0" />
                      </padding>
-                     <font>
-                        <Font name="Monospaced Italic" size="48.0" />
-                     </font>
-                  </Label>
+                  </ListView>
                </children>
-            </HBox>
-            <Label fx:id="AusgabeBeschreibungRezept" maxWidth="1000.0" wrapText="true">
                <padding>
-                  <Insets left="15.0" />
+                  <Insets bottom="15.0" top="30.0" />
                </padding>
-               <font>
-                  <Font name="Monospaced Regular" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="AusgabeInstructionsRezept" maxWidth="1000.0" wrapText="true">
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-               <font>
-                  <Font name="Monospaced Italic" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="AusgabeDauerRezept" prefHeight="50.0">
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-               <font>
-                  <Font name="Monospaced Italic" size="24.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="ratingBild" fitHeight="50.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin></ImageView>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <TextFlow fx:id="textAnleitung" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
-   </children>
-</Pane>
+   </content>
+</ScrollPane>
