@@ -11,9 +11,13 @@
    <content>
       <VBox prefHeight="1015.0" prefWidth="2708.0" style="-fx-background-color: silver;">
          <children>
-            <HBox prefHeight="37.0" prefWidth="703.0">
+            <HBox prefHeight="20.0" prefWidth="2581.0" style="-fx-spacing: 3;">
                <children>
-                  <Label fx:id="textName" alignment="CENTER" prefHeight="71.0" prefWidth="793.0" style="-fx-padding: 20;" text="Rezeptname">
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: ffbc00;" text="Edit">
+                     <effect>
+                        <DropShadow />
+                     </effect></Button>
+                  <Label fx:id="textName" alignment="CENTER" prefHeight="71.0" prefWidth="622.0" style="-fx-padding: 20;" text="Rezeptname">
                      <padding>
                         <Insets top="15.0" />
                      </padding>
@@ -21,10 +25,11 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Edit">
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: ffbc00;" text="Delet">
                      <effect>
                         <DropShadow />
-                     </effect></Button>
+                     </effect>
+                  </Button>
                </children>
             </HBox>
             <AnchorPane fx:id="imageAnchor" prefHeight="268.0" prefWidth="2602.0" style="-fx-padding: 20;">
