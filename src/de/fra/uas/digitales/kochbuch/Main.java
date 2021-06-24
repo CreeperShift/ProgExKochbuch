@@ -4,6 +4,7 @@ import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.IDataManager;
 import de.fra.uas.digitales.kochbuch.backend.MockDataManager;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
+import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipeLayout;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,7 @@ public class Main extends Application {
     /*
     True means we use the MockDataManger.
      */
-    public static final boolean isLocal = true;
+    public static final boolean isLocal = false;
 
     public static IDataManager dataManager;
     public static BorderPane mainPanel;
@@ -32,6 +33,7 @@ public class Main extends Application {
     public static ControllerRecipe controllerRecipe;
     public static ControllerBase controllerBase;
     public static Stage stage;
+    public static ControllerNewRecipeLayout controllerNewRecipe;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -53,7 +55,9 @@ public class Main extends Application {
         recipePage = loader.load();
         controllerRecipe = loader.getController();
 
-        newRecipePage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
+        FXMLLoader loaderNewRecipe = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
+        newRecipePage = loaderNewRecipe.load();
+
 
         primaryStage.setTitle("Digitales Kochbuch");
         primaryStage.setScene(new Scene(mainPanel, 1280, 800));

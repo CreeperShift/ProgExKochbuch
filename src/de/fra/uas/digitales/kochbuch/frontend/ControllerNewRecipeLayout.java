@@ -30,11 +30,23 @@ public class ControllerNewRecipeLayout implements Initializable {
     public VBox ingredientBox;
     public TextField picName;
     public TextField picPath;
-    private List<Ingredient> ingredientList = new LinkedList<>();
+    private final List<Ingredient> ingredientList = new LinkedList<>();
     private File currentImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    private void clearRecipe() {
+        recipeSteps.setText("");
+        recipeDesc.setText("");
+        recipeName.setText("");
+        ingredientList.clear();
+        currentImage = null;
+        ingredientBox.getChildren().clear();
+        picName.setText("");
+        picPath.setText("");
 
     }
 
@@ -51,6 +63,9 @@ public class ControllerNewRecipeLayout implements Initializable {
                     .setTime(15.0f)
                     .setSteps(recipeSteps.getText());
             Main.dataManager.addNewRecipe(r);
+            clearRecipe();
+            Main.controllerBase.btnStart.fire();
+
         }
     }
 
@@ -117,7 +132,8 @@ public class ControllerNewRecipeLayout implements Initializable {
         File file = fileChooser.showOpenDialog(Main.stage);
         if (file != null) {
             currentImage = file;
-
+            picPath.setText(file.getAbsolutePath());
+            picName.setText(file.getName());
         }
     }
 }
