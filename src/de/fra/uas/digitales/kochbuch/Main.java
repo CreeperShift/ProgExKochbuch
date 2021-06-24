@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -27,7 +28,7 @@ public class Main extends Application {
     public static IDataManager dataManager;
     public static BorderPane mainPanel;
     public static AnchorPane startPane;
-    public static ScrollPane recipePage;
+    public static Pane recipePage;
     public static VBox newRecipePage;
     public static ControllerRecipe controllerRecipe;
     public static ControllerBase controllerBase;
@@ -36,11 +37,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        if (isLocal) {
-            dataManager = MockDataManager.getInstance();
-        } else {
-            dataManager = new DataManager();
-        }
+
+        dataManager = new DataManager();
+
 
         FXMLLoader loaderBase = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/baseLayout.fxml")));
         mainPanel = loaderBase.load();

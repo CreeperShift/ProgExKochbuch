@@ -46,6 +46,9 @@ public class ControllerBase implements Initializable {
 
     public void onBtnSuche(ActionEvent actionEvent) {
         clearButtons();
+        Main.mainPanel.setCenter((Main.recipePage));
+        Main.recipePage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
+        Main.recipePage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
         setButtonActive(btnSuche);
     }
 

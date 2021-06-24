@@ -93,7 +93,7 @@ public class ControllerStartLayout implements Initializable {
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
             Main.mainPanel.setCenter(Main.recipePage);
-            Main.controllerRecipe.setRecipe();
+            //Main.controllerRecipe.setRecipe();
         });
 
         pane.getChildren().add(imageView);

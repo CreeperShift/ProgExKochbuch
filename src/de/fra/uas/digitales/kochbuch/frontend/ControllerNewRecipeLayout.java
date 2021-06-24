@@ -45,11 +45,11 @@ public class ControllerNewRecipeLayout implements Initializable {
             Recipe r = new Recipe();
             r.setName(recipeName.getText())
                     .setDesc(recipeDesc.getText())
-                    .setImageRaw(currentImage)
+                    //.setImageRaw(currentImage)
                     .setIngredients(ingredientList)
                     .setRating(0)
-                    .setTime(15.0f)
-                    .setSteps(recipeSteps.getText());
+                    .setTime(15.0f);
+                    //.setSteps(recipeSteps.getText());
             Main.dataManager.addNewRecipe(r);
         }
     }

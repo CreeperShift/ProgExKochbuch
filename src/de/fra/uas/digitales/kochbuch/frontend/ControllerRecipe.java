@@ -1,8 +1,13 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
+import de.fra.uas.digitales.kochbuch.backend.Recipe;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,54 +17,57 @@ import javafx.scene.text.TextFlow;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ControllerRecipe implements Initializable {
-    public Label textName;
-    public ImageView imageRezept;
-    public TextFlow textBeschreibung;
-    public ListView<String> textZutaten;
-    public TextFlow textAnleitung;
-    public AnchorPane imageAnchor;
 
-    private boolean done = false;
+    @FXML public Label NameAusgabeRezept;
+    @FXML public Label AusgabeBeschreibungRezept;
+    @FXML public Label AusgabeInstructionsRezept;
+    @FXML public Label AusgabeDauerRezept;
+    @FXML public TextField suchFeld;
+    @FXML public ImageView ratingBild;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void setRecipe() {
-        if(!done) {
-            textName.setText("Flammkuchen");
-            try {
-                FileInputStream pic = new FileInputStream("resources/images/flammkuchen.jpg");
-                Image image = new Image(pic);
-                imageRezept.setImage(image);
-                imageRezept.setLayoutY(imageAnchor.getWidth()/2);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            Text textbesch = new Text("Diese leckere Spezialität aus dem Elsass eignet sich sehr gut auch zum Apéro. Dünn ausgewallter Brotteig mit Sauerrahm, Zwiebeln und Speckwürfeli!");
-            textBeschreibung.getChildren().add(textbesch);
+    @FXML
+    public void output(Recipe recipe){
 
-            textZutaten.getItems().add("200g Mehl");
-            textZutaten.getItems().add("50ml Wasser");
-            textZutaten.getItems().add("1g Salz");
-            textZutaten.getItems().add("2g Hefe");
-            textZutaten.getItems().add("1 Becher Creme Fraiche");
-            textZutaten.getItems().add("1 Zwiebel");
-            textZutaten.getItems().add("1 Packung Speck");
+        this.NameAusgabeRezept.setText(recipe.getName());
+        this.AusgabeBeschreibungRezept.setText(recipe.getDesc());
+        this.AusgabeInstructionsRezept.setText(recipe.getSteps());
+        this.AusgabeDauerRezept.setText(recipe.getTime()+" Minuten");
+        this.ratingBild.setImage(this.getRatingBild(recipe.getRating()));
 
-            Text anl1 = new Text("Mehl, Salz und Zucker in einer Schüssel mischen\n\n");
-            Text anl2 = new Text("Hefe zerbröckeln, daruntermischen. Wasser dazugiessen, zu einem weichen, glatten Teig kneten. Zugedeckt bei Raumtemperatur ca. 1 Std. aufs Doppelte aufgehen lassen.\n\n");
-            Text anl3 = new Text("Teig auf wenig Mehl oval, ca. 3 mm dick auswallen, in ein mit Backpapier belegtes Blech legen.\n\n");
-            Text anl4 = new Text("Ofen auf 240 Grad vorheizen.\n\n");
-            Text anl5 = new Text("Crème fraîche auf dem Teig verteilen, dabei ringsum einen Rand von ca. 1 cm frei lassen. Zwiebel schälen, in feine Ringe schneiden, mit den Speckwürfeli auf der Crème fraîche verteilen, würzen.\n\n");
-            textAnleitung.getChildren().addAll(anl1, anl2, anl3, anl4, anl5);
-        done = true;
-        }
     }
 
+    @FXML
+    public void suchMethode(ActionEvent actionEvent) throws SQLException {
+
+        String temp = suchFeld.getText();
+        suchFeld.setText("");
+        DataManager dataManager = new DataManager();
+        this.output(dataManager.getRecipeByName(temp));
+
+    }
+
+    public Image getRatingBild(int r){
+
+        Image bild = null;
+        switch(r){
+            case 1: bild = new Image(getClass().getResourceAsStream("1Stern.jpg"));break;
+            case 2: bild = new Image(getClass().getResourceAsStream("2Stern.jpg"));break;
+            case 3: bild = new Image(getClass().getResourceAsStream("3Stern.jpg"));break;
+            case 4: bild = new Image(getClass().getResourceAsStream("4Stern.jpg"));break;
+            case 5: bild = new Image(getClass().getResourceAsStream("5Stern.jpg"));break;
+            default: bild = new Image(getClass().getResourceAsStream("0Stern.jpg"));
+        }
+        return bild;
+    }
 
 }

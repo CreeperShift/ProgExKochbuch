@@ -13,7 +13,7 @@ public class DataManager implements IDataManager {
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "progex");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
 
     }
@@ -37,10 +37,10 @@ public class DataManager implements IDataManager {
             recipe.setName(resultSet.getString("recipeName"));
             recipe.setRating(resultSet.getInt("rating"));
             recipe.setDesc(resultSet.getString("recipeDescription"));
-            recipe.setSteps(resultSet.getString("instructions"));
+            //recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
             Blob picture = resultSet.getBlob("picture");
-            recipe.setImageRaw(picture.getBytes(0, 0));
+            //recipe.setImageRaw(picture.getBytes(0, 0));
             //TODO: Ingredients
         }
         return recipe;
@@ -77,8 +77,8 @@ public class DataManager implements IDataManager {
         pState.setString(1, recipe.getName());
         pState.setInt(2, recipe.getRating());
         pState.setString(3, recipe.getDesc());
-        pState.setString(4, recipe.getSteps());
-        pState.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
+        //pState.setString(4, recipe.getSteps());
+        //pState.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
         pState.setFloat(6, recipe.getTime());
         pState.executeUpdate();
         pState.close();
