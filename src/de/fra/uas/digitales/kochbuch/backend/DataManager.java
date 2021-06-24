@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DataManager implements IDataManager {
@@ -85,7 +86,7 @@ public class DataManager implements IDataManager {
 
         Statement getId = connection.createStatement();
         ResultSet resultSet = getId.executeQuery("SELECT id FROM recipe WHERE recipeName='" + recipe.getName() + "'");
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             int id = resultSet.getInt("id");
 
 
@@ -127,8 +128,29 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public List<Recipe> getStartRecipes(int page) {
-        return null;
+    public List<Recipe> getStartRecipes(int page) throws SQLException {
+        List<Recipe> rList = new LinkedList<>();
+        try {
+            String select9 = "SELECT * from recipe ORDER BY id LIMIT 9";
+            if (page == 0) {
+                PreparedStatement statement = connection.prepareStatement(select9);
+                ResultSet result = statement.executeQuery();
+                while (result.next()) {
+                    Recipe r = new Recipe();
+
+                    r.setName(result.getString("recipeName"))
+                            .setDesc(result.getString("recipeDescription"))
+                            .setImageRaw(result.getBytes("picture"))
+                            .setRating(result.getInt("rating"))
+                            .setSteps(result.getString("instructions"))
+                            .setTime(result.getFloat("recipeTime"));
+                    rList.add(r);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rList;
     }
 
     @Override

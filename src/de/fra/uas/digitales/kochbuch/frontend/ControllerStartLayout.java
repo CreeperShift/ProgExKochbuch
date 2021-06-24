@@ -39,26 +39,28 @@ public class ControllerStartLayout implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if( startRecipes != null && !startRecipes.isEmpty()) {
+        if (startRecipes != null && !startRecipes.isEmpty()) {
 
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    Pane pane = new Pane();
-                    pane.prefWidthProperty().bind(column1.prefWidthProperty());
-                    pane.prefHeightProperty().bind(row1.prefHeightProperty());
+            for (int i = 0; i < startRecipes.size(); i++) {
+                Pane pane = new Pane();
+                pane.prefWidthProperty().bind(column1.prefWidthProperty());
+                pane.prefHeightProperty().bind(row1.prefHeightProperty());
 
-                    ImageView imageView = new ImageView(startRecipes.get(i).getImage());
-                    imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
-                    imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
-                    imageView.getStyleClass().add("startPicture");
+                ImageView imageView = new ImageView(startRecipes.get(i).getImage());
+                imageView.setPreserveRatio(true);
+                imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
+                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
+                imageView.getStyleClass().add("startPicture");
 
-                    setupImageListeners(pane, imageView, startRecipes.get(i).getName());
+                setupImageListeners(pane, imageView, startRecipes.get(i).getName());
 
-                    gridPane.add(pane, i, j);
-                }
+                int gridX = i % 3;
+                int gridY = i / 3;
+
+                gridPane.add(pane, gridX, gridY);
             }
-
         }
+
     }
 
     private void setupImageListeners(Pane pane, ImageView imageView, String name) {
@@ -66,8 +68,8 @@ public class ControllerStartLayout implements Initializable {
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
                     label.setFont(Font.font("Segeo UI", 20));
-                    label.setLayoutY(pane.getHeight()-50);
-                    label.setTextFill(Color.WHITE);
+                    label.setLayoutY(pane.getHeight() -10);
+                    label.setTextFill(Color.BLACK);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
                     scale.setToX(1.07);
                     scale.setToY(1.07);
@@ -78,7 +80,7 @@ public class ControllerStartLayout implements Initializable {
         imageView.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, event -> {
                     final Label[] l = {null};
                     pane.getChildren().forEach(c -> {
-                        if (c instanceof Label){
+                        if (c instanceof Label) {
                             l[0] = (Label) c;
                         }
                     });
@@ -125,39 +127,6 @@ public class ControllerStartLayout implements Initializable {
         RowConstraints row3 = new RowConstraints();
         row3.setPercentHeight(33.3);
         gridPane.getRowConstraints().add(row3);
-
-    }
-
-    public void onPageClick(MouseEvent mouseEvent) throws SQLException {
-
-        System.out.println("ref");
-        gridPane = new GridPane();
-        gridPane.setPrefHeight(5000);
-        gridPane.getStyleClass().add("grid");
-        setupGrid(gridPane);
-        vBox.getChildren().remove(1);
-        vBox.getChildren().add(1, gridPane);
-
-        List<Recipe> startRecipes = Main.dataManager.getStartRecipes(0);
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Pane pane = new Pane();
-                pane.prefWidthProperty().bind(column1.prefWidthProperty());
-                pane.prefHeightProperty().bind(row1.prefHeightProperty());
-
-                ImageView imageView = new ImageView(startRecipes.get(0).getImage());
-                imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
-                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
-                imageView.getStyleClass().add("startPicture");
-
-                setupImageListeners(pane, imageView, "wew");
-
-                gridPane.add(pane, i, j);
-            }
-        }
-
-
 
     }
 }
