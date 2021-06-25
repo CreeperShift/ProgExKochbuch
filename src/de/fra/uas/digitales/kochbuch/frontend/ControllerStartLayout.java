@@ -18,12 +18,15 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ControllerStartLayout implements Initializable {
     public GridPane gridPane;
     public VBox vBox;
     public Label page;
     public Button btnBack;
+    public Button btnFront;
     private ColumnConstraints column1;
     private RowConstraints row1;
 
@@ -149,9 +152,11 @@ public class ControllerStartLayout implements Initializable {
             addChildren(i);
             page.setText("" + i);
         }
-        if (i == 0) {
+
+        if(i == 0){
             btnBack.setDisable(true);
         }
+
     }
 
 
@@ -163,8 +168,19 @@ public class ControllerStartLayout implements Initializable {
         gridPane.getChildren().clear();
         addChildren(i);
         page.setText("" + i);
-        btnBack.setDisable(false);
+        btnBack.setDisable(true);
+        btnFront.setDisable(true);
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            public void run()
+            {
+                btnFront.setDisable(false);
+                btnBack.setDisable(false);
+            }
 
+        };
+        timer.schedule(task, 800);
     }
 
 
