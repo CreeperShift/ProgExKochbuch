@@ -3,7 +3,9 @@ package de.fra.uas.digitales.kochbuch.frontend;
 import de.fra.uas.digitales.kochbuch.Main;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +22,8 @@ import java.util.ResourceBundle;
 public class ControllerStartLayout implements Initializable {
     public GridPane gridPane;
     public VBox vBox;
+    public Label page;
+    public Button btnBack;
     private ColumnConstraints column1;
     private RowConstraints row1;
 
@@ -32,10 +36,15 @@ public class ControllerStartLayout implements Initializable {
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
+        addChildren(0);
 
+
+    }
+
+    private void addChildren(int p) {
         List<Recipe> startRecipes = null;
         try {
-            startRecipes = Main.dataManager.getStartRecipes(0);
+            startRecipes = Main.dataManager.getStartRecipes(p);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -63,12 +72,13 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
+
     private void setupImageListeners(Pane pane, ImageView imageView, String name) {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
                     label.setFont(Font.font("Segeo UI", 20));
-                    label.setLayoutY(pane.getHeight() -10);
+                    label.setLayoutY(pane.getHeight() - 10);
                     label.setTextFill(Color.BLACK);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
                     scale.setToX(1.07);
@@ -129,4 +139,33 @@ public class ControllerStartLayout implements Initializable {
         gridPane.getRowConstraints().add(row3);
 
     }
+
+    public void onBack(ActionEvent actionEvent) {
+        int i = Integer.parseInt(page.getText());
+        if (i > 0) {
+            i--;
+
+            gridPane.getChildren().clear();
+            addChildren(i);
+            page.setText("" + i);
+        }
+        if (i == 0) {
+            btnBack.setDisable(true);
+        }
+    }
+
+
+    public void onFront(ActionEvent actionEvent) {
+
+        int i = Integer.parseInt(page.getText());
+        i++;
+
+        gridPane.getChildren().clear();
+        addChildren(i);
+        page.setText("" + i);
+        btnBack.setDisable(false);
+
+    }
+
+
 }

@@ -131,21 +131,19 @@ public class DataManager implements IDataManager {
     public List<Recipe> getStartRecipes(int page) throws SQLException {
         List<Recipe> rList = new LinkedList<>();
         try {
-            String select9 = "SELECT * from recipe ORDER BY id LIMIT 9";
-            if (page == 0) {
-                PreparedStatement statement = connection.prepareStatement(select9);
-                ResultSet result = statement.executeQuery();
-                while (result.next()) {
-                    Recipe r = new Recipe();
+            String select9 = "SELECT * from recipe ORDER BY id LIMIT " + page * 9 + ",9";
+            PreparedStatement statement = connection.prepareStatement(select9);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Recipe r = new Recipe();
 
-                    r.setName(result.getString("recipeName"))
-                            .setDesc(result.getString("recipeDescription"))
-                            .setImageRaw(result.getBytes("picture"))
-                            .setRating(result.getInt("rating"))
-                            .setSteps(result.getString("instructions"))
-                            .setTime(result.getFloat("recipeTime"));
-                    rList.add(r);
-                }
+                r.setName(result.getString("recipeName"))
+                        .setDesc(result.getString("recipeDescription"))
+                        .setImageRaw(result.getBytes("picture"))
+                        .setRating(result.getInt("rating"))
+                        .setSteps(result.getString("instructions"))
+                        .setTime(result.getFloat("recipeTime"));
+                rList.add(r);
             }
         } catch (IOException e) {
             e.printStackTrace();
