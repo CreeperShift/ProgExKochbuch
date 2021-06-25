@@ -85,6 +85,7 @@ public class ControllerNewRecipeLayout implements Initializable {
                 }
                 HBox box = new HBox();
                 TextField text = new TextField(ingredient.toString());
+                text.setEditable(false);
                 Button button = new Button("X");
                 box.getChildren().add(text);
                 box.getChildren().add(button);
