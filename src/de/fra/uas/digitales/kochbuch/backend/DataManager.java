@@ -2,6 +2,7 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.List;
 
@@ -12,7 +13,6 @@ public class DataManager implements IDataManager {
 
     public DataManager() throws SQLException {
 
-        //Change user and password if necessary!
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
 
@@ -37,7 +37,7 @@ public class DataManager implements IDataManager {
             recipe.setName(resultSet.getString("recipeName"));
             recipe.setRating(resultSet.getInt("rating"));
             recipe.setDesc(resultSet.getString("recipeDescription"));
-            //recipe.setSteps(resultSet.getString("instructions"));
+            recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
             Blob picture = resultSet.getBlob("picture");
             //recipe.setImageRaw(picture.getBytes(0, 0));

@@ -28,6 +28,7 @@ public class ControllerRecipe implements Initializable {
     @FXML public Label AusgabeDauerRezept;
     @FXML public TextField suchFeld;
     @FXML public ImageView ratingBild;
+    @FXML public ImageView bildRezept;
 
 
     @Override
@@ -43,6 +44,7 @@ public class ControllerRecipe implements Initializable {
         this.AusgabeInstructionsRezept.setText(recipe.getSteps());
         this.AusgabeDauerRezept.setText(recipe.getTime()+" Minuten");
         this.ratingBild.setImage(this.getRatingBild(recipe.getRating()));
+
 
     }
 
