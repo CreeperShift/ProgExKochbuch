@@ -24,7 +24,7 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onFront" text="--&gt;" />
+                  <Button fx:id="btnFront" mnemonicParsing="false" onAction="#onFront" text="--&gt;" />
                </children>
             </HBox>
             </children>
