@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -29,7 +28,8 @@ public class Main extends Application {
     public static IDataManager dataManager;
     public static BorderPane mainPanel;
     public static AnchorPane startPane;
-    public static Pane recipePage;
+    public static ScrollPane recipePage;
+    public static VBox filterPage;
     public static VBox newRecipePage;
     public static ControllerRecipe controllerRecipe;
     public static ControllerBase controllerBase;
@@ -39,9 +39,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
-        dataManager = new DataManager();
-
+        if (isLocal) {
+            dataManager = MockDataManager.getInstance();
+        } else {
+            dataManager = new DataManager();
+        }
 
         FXMLLoader loaderBase = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/baseLayout.fxml")));
         mainPanel = loaderBase.load();
@@ -57,15 +59,18 @@ public class Main extends Application {
         FXMLLoader loaderNewRecipe = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
         newRecipePage = loaderNewRecipe.load();
 
+        FXMLLoader loaderFilter = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/filterLayout.fxml")));
+        filterPage = loaderFilter.load();
+
 
         primaryStage.setTitle("Digitales Kochbuch");
-        primaryStage.setScene(new Scene(mainPanel, 1080, 700));
+        primaryStage.setScene(new Scene(mainPanel, 1280, 700));
         primaryStage.show();
         stage = primaryStage;
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         launch(args);
 
