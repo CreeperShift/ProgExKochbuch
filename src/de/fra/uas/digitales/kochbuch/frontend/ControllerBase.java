@@ -20,7 +20,7 @@ public class ControllerBase implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnStart.setStyle("-fx-background-color: gray");
+        btnStart.setStyle("-fx-background-color: gold");
         navButtons = new Button[]{btnStart, btnRezept, btnFilter};
     }
 
@@ -51,7 +51,7 @@ public class ControllerBase implements Initializable {
     }
 
     private void setButtonActive(Button button) {
-        button.setStyle("-fx-background-color: gray");
+        button.setStyle("-fx-background-color: gold");
     }
 
     public void onBtnSettings(ActionEvent actionEvent) {
