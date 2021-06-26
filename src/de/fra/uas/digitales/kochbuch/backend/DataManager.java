@@ -2,7 +2,6 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,8 @@ public class DataManager implements IDataManager {
 
     public DataManager() throws SQLException {
 
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
+        //Change user and password if necessary!
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/kochbuch", "root", "ahnwsf");
         statement = connection.createStatement();
 
     }
@@ -41,7 +41,7 @@ public class DataManager implements IDataManager {
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
             Blob picture = resultSet.getBlob("picture");
-            //recipe.setImageRaw(picture.getBytes(0, 0));
+            recipe.setImageRaw(picture.getBytes(0, 0));
             //TODO: Ingredients
         }
         return recipe;
@@ -78,8 +78,8 @@ public class DataManager implements IDataManager {
         pState.setString(1, recipe.getName());
         pState.setInt(2, recipe.getRating());
         pState.setString(3, recipe.getDesc());
-        //pState.setString(4, recipe.getSteps());
-        //pState.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
+        pState.setString(4, recipe.getSteps());
+        pState.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
         pState.setFloat(6, recipe.getTime());
         pState.executeUpdate();
         pState.close();
