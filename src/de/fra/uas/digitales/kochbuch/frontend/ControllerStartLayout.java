@@ -6,12 +6,16 @@ import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -39,15 +43,10 @@ public class ControllerStartLayout implements Initializable {
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
-        addChildren(0);
 
-
-    }
-
-    private void addChildren(int p) {
         List<Recipe> startRecipes = null;
         try {
-            startRecipes = Main.dataManager.getStartRecipes(p);
+            startRecipes = Main.dataManager.getStartRecipes(0);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -59,7 +58,7 @@ public class ControllerStartLayout implements Initializable {
                 pane.prefHeightProperty().bind(row1.prefHeightProperty());
 
                 ImageView imageView = new ImageView(startRecipes.get(i).getImage());
-                imageView.setPreserveRatio(true);
+                // imageView.setPreserveRatio(true);
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                 imageView.getStyleClass().add("startPicture");
@@ -75,18 +74,45 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-
     private void setupImageListeners(Pane pane, ImageView imageView, String name) {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
-                    label.setFont(Font.font("Segeo UI", 20));
-                    label.setLayoutY(pane.getHeight() - 10);
-                    label.setTextFill(Color.BLACK);
+                    label.setFont(Font.font("Segeo UI", 27));
+                    label.setAlignment(Pos.TOP_CENTER);
+                    label.setTextOverrun(OverrunStyle.WORD_ELLIPSIS);
+                    label.setTextAlignment(TextAlignment.CENTER);
+                    AnchorPane background = new AnchorPane();
+                    background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
+                    background.setLayoutY(pane.getHeight() - 80);
+                    background.setLayoutX(0);
+                    background.setMinWidth(pane.getWidth() - 15);
+                    background.setMaxWidth(pane.getWidth() - 15);
+                    background.setMinHeight(45);
+
+                    label.setMouseTransparent(true);
+                    background.setMouseTransparent(true);
+                    label.setMinWidth(pane.getWidth() - 15);
+                    label.setMaxWidth(pane.getWidth() - 15);
+
+                    pane.getChildren().add(background);
+                    label.setPadding(new Insets(0, 15, 0, 15));
+
+
+                    label.setLayoutY(pane.getHeight() - 80);
+                    label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
+                    ScaleTransition scale2 = new ScaleTransition(Duration.millis(50), label);
+                    ScaleTransition scale3 = new ScaleTransition(Duration.millis(50), background);
                     scale.setToX(1.07);
+                    scale2.setToX(1.07);
+                    scale3.setToX(1.07);
                     scale.setToY(1.07);
+                    scale2.setToY(1.07);
+                    scale3.setToY(1.07);
                     scale.play();
+                    scale2.play();
+                    scale3.play();
                     pane.getChildren().add(label);
                 }
         );
@@ -97,7 +123,14 @@ public class ControllerStartLayout implements Initializable {
                             l[0] = (Label) c;
                         }
                     });
+                    final AnchorPane[] a = {null};
+                    pane.getChildren().forEach(c -> {
+                        if (c instanceof AnchorPane) {
+                            a[0] = (AnchorPane) c;
+                        }
+                    });
                     pane.getChildren().removeAll(l);
+                    pane.getChildren().removeAll(a);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
                     scale.setToX(1f);
                     scale.setToY(1f);
