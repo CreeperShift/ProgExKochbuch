@@ -38,15 +38,21 @@ public class ControllerStartLayout implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
+        addChildren(0);
 
+    }
+
+
+    private void addChildren(int p) {
         List<Recipe> startRecipes = null;
         try {
-            startRecipes = Main.dataManager.getStartRecipes(0);
+            startRecipes = Main.dataManager.getStartRecipes(p);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -58,7 +64,7 @@ public class ControllerStartLayout implements Initializable {
                 pane.prefHeightProperty().bind(row1.prefHeightProperty());
 
                 ImageView imageView = new ImageView(startRecipes.get(i).getImage());
-                // imageView.setPreserveRatio(true);
+                //imageView.setPreserveRatio(true);
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                 imageView.getStyleClass().add("startPicture");
@@ -78,9 +84,9 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
-                    label.setFont(Font.font("Segeo UI", 27));
+                    label.setFont(Font.font("Segeo UI", 21));
                     label.setAlignment(Pos.TOP_CENTER);
-                    label.setTextOverrun(OverrunStyle.WORD_ELLIPSIS);
+                    label.setTextOverrun(OverrunStyle.ELLIPSIS);
                     label.setTextAlignment(TextAlignment.CENTER);
                     AnchorPane background = new AnchorPane();
                     background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
@@ -99,7 +105,7 @@ public class ControllerStartLayout implements Initializable {
                     label.setPadding(new Insets(0, 15, 0, 15));
 
 
-                    label.setLayoutY(pane.getHeight() - 80);
+                    label.setLayoutY(pane.getHeight() - 75);
                     label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
                     ScaleTransition scale2 = new ScaleTransition(Duration.millis(50), label);
@@ -176,7 +182,7 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onBack(ActionEvent actionEvent) {
+    public void onBtnBack(ActionEvent actionEvent) {
         int i = Integer.parseInt(page.getText());
         if (i > 0) {
             i--;
@@ -186,14 +192,14 @@ public class ControllerStartLayout implements Initializable {
             page.setText("" + i);
         }
 
-        if(i == 0){
+        if (i == 0) {
             btnBack.setDisable(true);
         }
 
     }
 
 
-    public void onFront(ActionEvent actionEvent) {
+    public void onBtnFront(ActionEvent actionEvent) {
 
         int i = Integer.parseInt(page.getText());
         i++;
@@ -204,10 +210,8 @@ public class ControllerStartLayout implements Initializable {
         btnBack.setDisable(true);
         btnFront.setDisable(true);
         Timer timer = new Timer();
-        TimerTask task = new TimerTask()
-        {
-            public void run()
-            {
+        TimerTask task = new TimerTask() {
+            public void run() {
                 btnFront.setDisable(false);
                 btnBack.setDisable(false);
             }
