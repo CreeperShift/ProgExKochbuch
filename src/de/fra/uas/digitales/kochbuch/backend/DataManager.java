@@ -14,7 +14,7 @@ public class DataManager implements IDataManager {
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "progex");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
 
     }
