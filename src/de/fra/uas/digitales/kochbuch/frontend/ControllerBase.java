@@ -23,6 +23,7 @@ public class ControllerBase implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnStart.setStyle("-fx-background-color: gray");
         navButtons = new Button[]{btnStart, btnRezept, btnFilter};
+
     }
 
     public void onBtnStart(ActionEvent actionEvent) {
@@ -47,7 +48,7 @@ public class ControllerBase implements Initializable {
         setButtonActive(btnFilter);
     }
 
-    private void clearButtons() {
+    public void clearButtons() {
         Arrays.stream(navButtons).forEach(b -> b.setStyle(null));
     }
 
