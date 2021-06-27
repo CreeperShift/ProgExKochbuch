@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,12 +21,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ControllerStartLayout implements Initializable {
     public GridPane gridPane;
@@ -38,13 +38,11 @@ public class ControllerStartLayout implements Initializable {
     public DataManager dataManager;
     public Recipe welches;
 
-    //public Label rezepteSuchen;
-    //public Button btnSuche;
+    public TextField rezepteSuchen;
+    public Button btnSuche;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
 
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
@@ -60,17 +58,27 @@ public class ControllerStartLayout implements Initializable {
 
 
 
+    public void suchMethode(ActionEvent actionEvent) throws SQLException, IOException {
+
+        DataManager dm = new DataManager();
+        String tempString = rezepteSuchen.getText();
+        rezepteSuchen.setText("");
+        dm.getRecipeList(tempString);
+
+    }
 
 
 
 
     private void addChildren(int p) throws SQLException {
-        List<Recipe> startRecipes = null;
+
+        List<Recipe> startRecipes = Main.dataManager.getStartRecipes(0);
         try {
             startRecipes = Main.dataManager.getStartRecipes(p);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         if (startRecipes != null && !startRecipes.isEmpty()) {
 
             for (int i = 0; i < startRecipes.size(); i++) {
