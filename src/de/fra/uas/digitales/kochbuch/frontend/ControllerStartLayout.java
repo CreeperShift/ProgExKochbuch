@@ -81,33 +81,10 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-
     private void addChildrenNeu(List<Recipe> list) throws SQLException {
 
 
 
-        if (list != null && !list.isEmpty()) {
-
-            for (int i = 0; i < list.size(); i++) {
-                Pane pane = new Pane();
-                pane.prefWidthProperty().bind(column1.prefWidthProperty());
-                pane.prefHeightProperty().bind(row1.prefHeightProperty());
-
-                ImageView imageView = new ImageView();
-                imageView.setImage(list.get(i).getImage());
-                imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
-                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
-                imageView.getStyleClass().add("startPicture");
-
-                setupImageListeners(pane, imageView, list.get(i).getName());
-
-                int gridX = i % 3;
-                int gridY = i / 3;
-
-                gridPane.add(pane, gridX, gridY);
-
-            }
-        }
 
 
 
