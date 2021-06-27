@@ -1,5 +1,11 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -41,6 +47,14 @@ public class DataManager implements IDataManager {
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
             Blob picture = resultSet.getBlob("picture");
+            if(picture!=null){
+                BufferedInputStream bis = new BufferedInputStream(picture.getBinaryStream());
+                BufferedImage bi = ImageIO.read(bis);
+                Image im = SwingFXUtils.toFXImage(bi, null);
+                recipe.setBild(im);
+            }
+
+
             //recipe.setImageRaw(picture.getBytes(0, 0));
             //TODO: Ingredients
         }

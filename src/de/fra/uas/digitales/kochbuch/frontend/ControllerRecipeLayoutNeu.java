@@ -32,7 +32,7 @@ public class ControllerRecipeLayoutNeu implements Initializable {
         this.LabelBeschreibung.setText(recipe.getDesc());
         //TODO:Zutaten labelZutaten
         this.labelSteps.setText(recipe.getSteps());
-
+        this.BildRezeptNeu.setImage(recipe.getBild());
 
     }
 
