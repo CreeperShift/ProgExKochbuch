@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="124.0" prefWidth="624.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
+<AnchorPane prefHeight="124.0" prefWidth="624.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
     <children>
         <VBox fx:id="vBox" layoutX="-8.0" layoutY="10.0" prefHeight="526.0" prefWidth="839.0" style="-fx-background-color: silver;" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>

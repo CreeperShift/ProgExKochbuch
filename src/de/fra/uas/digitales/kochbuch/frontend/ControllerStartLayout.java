@@ -75,8 +75,15 @@ public class ControllerStartLayout implements Initializable {
                 int gridY = i / 3;
 
                 gridPane.add(pane, gridX, gridY);
+
+
+
             }
         }
+
+    }
+
+    private void showRecipe(){
 
     }
 
@@ -146,7 +153,8 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
-            Main.mainPanel.setCenter(Main.recipePage);
+            //vorher Main.recipePage
+            Main.mainPanel.setCenter(Main.recipePageNeu);
             Main.controllerRecipe.setRecipe();
         });
 
@@ -198,7 +206,6 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-
     public void onBtnFront(ActionEvent actionEvent) {
 
         int i = Integer.parseInt(page.getText());
@@ -219,6 +226,5 @@ public class ControllerStartLayout implements Initializable {
         };
         timer.schedule(task, 800);
     }
-
 
 }
