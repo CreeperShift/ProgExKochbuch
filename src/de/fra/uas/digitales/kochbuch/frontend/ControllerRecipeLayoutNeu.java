@@ -30,18 +30,11 @@ public class ControllerRecipeLayoutNeu implements Initializable {
 
         this.NameLabelNeu.setText(recipe.getName());
         this.LabelBeschreibung.setText(recipe.getDesc());
-        //TODO:Zutaten labelZutaten
-
         String tmp="\n";
         for(int i=0; i<recipe.getIngredients().size(); i++){
-
             tmp+=" - " + recipe.getIngredients().get(i).toString()+"\n";
-
         }
-
-
         this.labelZutaten.setText(tmp);
-
         this.labelSteps.setText(recipe.getSteps());
         this.BildRezeptNeu.setImage(recipe.getBild());
 
