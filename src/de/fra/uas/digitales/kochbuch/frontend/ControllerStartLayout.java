@@ -114,9 +114,6 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
-
-                    //...
-
                     label.setFont(Font.font("Segeo UI", 21));
                     label.setAlignment(Pos.TOP_CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
@@ -180,8 +177,11 @@ public class ControllerStartLayout implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+
+            Main.controllerBase.clearButtons();
             Main.mainPanel.setCenter(Main.recipePageNeu);
             Main.controllerRecpieLayoutNeu.output(welches);
+
         });
         pane.getChildren().add(imageView);
     }
