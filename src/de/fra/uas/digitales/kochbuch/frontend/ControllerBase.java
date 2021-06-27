@@ -24,11 +24,18 @@ public class ControllerBase implements Initializable {
         navButtons = new Button[]{btnStart, btnRezept, btnFilter};
     }
 
+
+
+
     public void onBtnStart(ActionEvent actionEvent) {
         clearButtons();
         Main.mainPanel.setCenter(Main.startPane);
         setButtonActive(btnStart);
     }
+
+
+
+
 
     public void onBtnRezept(ActionEvent actionEvent) {
         clearButtons();
