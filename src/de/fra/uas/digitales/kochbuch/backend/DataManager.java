@@ -65,7 +65,6 @@ public class DataManager implements IDataManager {
             }
             //TODO: Ingredients
             int idIng = resultSet.getInt("id");
-            System.out.println(idIng);
             recipe.setIngredients(getAllIngredients(idIng));
 
         }
