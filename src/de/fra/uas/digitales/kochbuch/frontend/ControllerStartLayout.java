@@ -1,9 +1,11 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.geometry.Insets;
@@ -33,6 +35,8 @@ public class ControllerStartLayout implements Initializable {
     public Button btnFront;
     private ColumnConstraints column1;
     private RowConstraints row1;
+    public DataManager dataManager;
+    public Recipe welches;
 
 
     @Override
@@ -44,12 +48,16 @@ public class ControllerStartLayout implements Initializable {
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
-        addChildren(0);
+        try {
+            addChildren(0);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
 
-    private void addChildren(int p) {
+    private void addChildren(int p) throws SQLException {
         List<Recipe> startRecipes = null;
         try {
             startRecipes = Main.dataManager.getStartRecipes(p);
@@ -83,14 +91,22 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    private void showRecipe(){
 
-    }
+    @FXML
+    private void setupImageListeners(Pane pane, ImageView imageView, String name) throws SQLException {
 
-    private void setupImageListeners(Pane pane, ImageView imageView, String name) {
+        dataManager = new DataManager();
+
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
+
+                    try {
+                        welches= dataManager.getRecipeByName(name);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+
                     label.setFont(Font.font("Segeo UI", 21));
                     label.setAlignment(Pos.TOP_CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
@@ -151,15 +167,19 @@ public class ControllerStartLayout implements Initializable {
                 }
         );
 
+
+
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
-            //vorher Main.recipePage
+
             Main.mainPanel.setCenter(Main.recipePageNeu);
-            Main.controllerRecipe.setRecipe();
+            Main.controllerRecpieLayoutNeu.output(welches);
+
+
+
         });
 
         pane.getChildren().add(imageView);
-
 
     }
 
@@ -190,7 +210,7 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onBtnBack(ActionEvent actionEvent) {
+    public void onBtnBack(ActionEvent actionEvent) throws SQLException {
         int i = Integer.parseInt(page.getText());
         if (i > 0) {
             i--;
@@ -206,7 +226,7 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onBtnFront(ActionEvent actionEvent) {
+    public void onBtnFront(ActionEvent actionEvent) throws SQLException {
 
         int i = Integer.parseInt(page.getText());
         i++;

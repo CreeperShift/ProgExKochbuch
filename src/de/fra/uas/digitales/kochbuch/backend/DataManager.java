@@ -41,7 +41,7 @@ public class DataManager implements IDataManager {
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
             Blob picture = resultSet.getBlob("picture");
-            recipe.setImageRaw(picture.getBytes(0, 0));
+            //recipe.setImageRaw(picture.getBytes(0, 0));
             //TODO: Ingredients
         }
         return recipe;
