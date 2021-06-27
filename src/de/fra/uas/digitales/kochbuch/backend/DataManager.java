@@ -20,19 +20,45 @@ public class DataManager implements IDataManager {
     private final Statement statement2;
     private final Connection connection3;
     private final Statement statement3;
+    private final Connection connection4;
+    private final Statement statement4;
 
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
-
         connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement2 = connection.createStatement();
-
         connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement3 = connection.createStatement();
+        connection4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
+        statement4 = connection.createStatement();
 
+    }
+
+    public List<Recipe> getRecipeList(String name) throws SQLException, IOException {
+        List<Recipe> recipeList = new LinkedList<>();
+        ResultSet rs = statement4.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%';");
+        while(rs.next()){
+            Recipe recipe = new Recipe();
+            recipe.setName(rs.getString("recipeName"));
+            recipe.setRating(rs.getInt("rating"));
+            recipe.setDesc(rs.getString("recipeDescription"));
+            recipe.setSteps(rs.getString("instructions"));
+            recipe.setTime(rs.getFloat("recipeTime"));
+            Blob picture = rs.getBlob("picture");
+            if(picture!=null){
+                BufferedInputStream bis = new BufferedInputStream(picture.getBinaryStream());
+                BufferedImage bi = ImageIO.read(bis);
+                Image im = SwingFXUtils.toFXImage(bi, null);
+                recipe.setBild(im);
+            }
+            int idIng = rs.getInt("id");
+            recipe.setIngredients(getAllIngredients(idIng));
+            recipeList.add(recipe);
+        }
+        return recipeList;
     }
 
     @Override
@@ -63,7 +89,6 @@ public class DataManager implements IDataManager {
                 Image im = SwingFXUtils.toFXImage(bi, null);
                 recipe.setBild(im);
             }
-            //TODO: Ingredients
             int idIng = resultSet.getInt("id");
             recipe.setIngredients(getAllIngredients(idIng));
 

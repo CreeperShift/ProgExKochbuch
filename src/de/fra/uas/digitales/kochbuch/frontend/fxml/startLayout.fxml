@@ -24,7 +24,7 @@
                         <DropShadow />
                      </effect>
                   </TextField>
-                  <Button fx:id="btnSuche" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: gold;" text="Suche">
+                  <Button fx:id="btnSuche" mnemonicParsing="false" onAction="#suchMethode" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: gold;" text="Suche">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
