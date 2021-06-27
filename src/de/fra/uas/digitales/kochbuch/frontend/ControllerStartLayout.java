@@ -97,7 +97,6 @@ public class ControllerStartLayout implements Initializable {
 
         dataManager = new DataManager();
 
-
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
 
@@ -118,16 +117,12 @@ public class ControllerStartLayout implements Initializable {
                     background.setMinWidth(pane.getWidth() - 15);
                     background.setMaxWidth(pane.getWidth() - 15);
                     background.setMinHeight(45);
-
                     label.setMouseTransparent(true);
                     background.setMouseTransparent(true);
                     label.setMinWidth(pane.getWidth() - 15);
                     label.setMaxWidth(pane.getWidth() - 15);
-
                     pane.getChildren().add(background);
                     label.setPadding(new Insets(0, 15, 0, 15));
-
-
                     label.setLayoutY(pane.getHeight() - 75);
                     label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
@@ -167,20 +162,12 @@ public class ControllerStartLayout implements Initializable {
                 }
         );
 
-
-
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
-
             Main.mainPanel.setCenter(Main.recipePageNeu);
             Main.controllerRecpieLayoutNeu.output(welches);
-
-
-
         });
-
         pane.getChildren().add(imageView);
-
     }
 
     private void setupGrid(GridPane gridPane) {
@@ -214,23 +201,19 @@ public class ControllerStartLayout implements Initializable {
         int i = Integer.parseInt(page.getText());
         if (i > 0) {
             i--;
-
             gridPane.getChildren().clear();
             addChildren(i);
             page.setText("" + i);
         }
-
         if (i == 0) {
             btnBack.setDisable(true);
         }
-
     }
 
     public void onBtnFront(ActionEvent actionEvent) throws SQLException {
 
         int i = Integer.parseInt(page.getText());
         i++;
-
         gridPane.getChildren().clear();
         addChildren(i);
         page.setText("" + i);
