@@ -40,12 +40,4 @@ public class ControllerRecipeLayoutNeu implements Initializable {
 
     }
 
-
-
-
-
-
-
-
-
 }

@@ -38,10 +38,15 @@ public class ControllerStartLayout implements Initializable {
     public DataManager dataManager;
     public Recipe welches;
 
+    public Label rezepteSuchen;
+    public Button btnSuche;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        rezepteSuchen = new Label();
+        btnSuche = new Button();
+        boolean suchen=false;
 
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
@@ -53,8 +58,12 @@ public class ControllerStartLayout implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
+
+
+
+
+
 
 
     private void addChildren(int p) throws SQLException {
