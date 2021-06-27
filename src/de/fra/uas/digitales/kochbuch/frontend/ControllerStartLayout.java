@@ -100,11 +100,7 @@ public class ControllerStartLayout implements Initializable {
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
 
-                    try {
-                        welches= dataManager.getRecipeByName(name);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
+                    //...
 
                     label.setFont(Font.font("Segeo UI", 21));
                     label.setAlignment(Pos.TOP_CENTER);
@@ -164,6 +160,11 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
+            try {
+                welches= dataManager.getRecipeByName(name);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             Main.mainPanel.setCenter(Main.recipePageNeu);
             Main.controllerRecpieLayoutNeu.output(welches);
         });

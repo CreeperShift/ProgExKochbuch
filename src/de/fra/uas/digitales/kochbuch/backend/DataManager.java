@@ -16,12 +16,22 @@ public class DataManager implements IDataManager {
 
     private final Connection connection;
     private final Statement statement;
+    private final Connection connection2;
+    private final Statement statement2;
+    private final Connection connection3;
+    private final Statement statement3;
 
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
+
+        connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
+        statement2 = connection.createStatement();
+
+        connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
+        statement3 = connection.createStatement();
 
     }
 
@@ -53,13 +63,36 @@ public class DataManager implements IDataManager {
                 Image im = SwingFXUtils.toFXImage(bi, null);
                 recipe.setBild(im);
             }
-
-
-            //recipe.setImageRaw(picture.getBytes(0, 0));
             //TODO: Ingredients
+            int idIng = resultSet.getInt("id");
+            System.out.println(idIng);
+            recipe.setIngredients(getAllIngredients(idIng));
+
         }
         return recipe;
     }
+
+    private List<Ingredient> getAllIngredients(int id) throws SQLException {
+
+
+        List<Ingredient> temp = new LinkedList<>();
+
+        ResultSet resultSetIng = statement2.executeQuery("SELECT * FROM recipeingredients WHERE recipe='" + id + "'");
+        while(resultSetIng.next()){
+
+            ResultSet rsName = statement3.executeQuery("SELECT * FROM ingredients WHERE id='" + resultSetIng.getInt("ingredient") + "'");
+            while (rsName.next()){
+                Ingredient tmp = new Ingredient(rsName.getString("ingredientName"), resultSetIng.getInt("amount"), resultSetIng.getString("unit"));
+                temp.add(tmp);
+            }
+
+        }
+
+        return temp;
+
+    }
+
+
 
     @Override
     public void deleteRecipe(Recipe recipe) {
