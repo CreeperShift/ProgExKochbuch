@@ -2,6 +2,7 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import javafx.scene.image.Image;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ public class Recipe {
     private String steps;
     private int rating = 0;
     private float time = 0;
+    public Image bild;
 
     public Recipe setId(int id) {
         this.id = id;
@@ -117,5 +119,10 @@ public class Recipe {
     public Recipe() {
     }
 
-
+    public void setBild(Image im) {
+        bild=im;
+    }
+    public Image getBild(){
+        return bild;
+    }
 }
