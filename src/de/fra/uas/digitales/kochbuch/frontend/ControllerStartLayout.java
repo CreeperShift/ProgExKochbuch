@@ -44,6 +44,7 @@ public class ControllerStartLayout implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
         gridPane.getStyleClass().add("grid");
@@ -54,7 +55,9 @@ public class ControllerStartLayout implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
+
 
 
 
@@ -63,11 +66,52 @@ public class ControllerStartLayout implements Initializable {
         DataManager dm = new DataManager();
         String tempString = rezepteSuchen.getText();
         rezepteSuchen.setText("");
-        dm.getRecipeList(tempString);
+        List<Recipe> liste = dm.getRecipeList(tempString);
+
+        for(int i=0; i<liste.size();i++){
+
+            System.out.println(liste.get(i).getName());
+            System.out.println(liste.get(i).getID());
+            System.out.println(liste.get(i).getIngredients());
+            System.out.println(liste.get(i).getDesc());
+            System.out.println(liste.get(i).getRating());
+            System.out.println();
+
+        }
 
     }
 
 
+    private void addChildrenNeu(List<Recipe> list) throws SQLException {
+
+
+
+        if (list != null && !list.isEmpty()) {
+
+            for (int i = 0; i < list.size(); i++) {
+                Pane pane = new Pane();
+                pane.prefWidthProperty().bind(column1.prefWidthProperty());
+                pane.prefHeightProperty().bind(row1.prefHeightProperty());
+
+                ImageView imageView = new ImageView();
+                imageView.setImage(list.get(i).getImage());
+                imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
+                imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
+                imageView.getStyleClass().add("startPicture");
+
+                setupImageListeners(pane, imageView, list.get(i).getName());
+
+                int gridX = i % 3;
+                int gridY = i / 3;
+
+                gridPane.add(pane, gridX, gridY);
+
+            }
+        }
+
+
+
+    }
 
 
     private void addChildren(int p) throws SQLException {

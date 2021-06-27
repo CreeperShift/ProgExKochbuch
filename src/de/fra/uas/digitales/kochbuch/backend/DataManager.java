@@ -47,6 +47,7 @@ public class DataManager implements IDataManager {
             recipe.setDesc(rs.getString("recipeDescription"));
             recipe.setSteps(rs.getString("instructions"));
             recipe.setTime(rs.getFloat("recipeTime"));
+            recipe.setId(rs.getInt("id"));
             Blob picture = rs.getBlob("picture");
             if(picture!=null){
                 BufferedInputStream bis = new BufferedInputStream(picture.getBinaryStream());
