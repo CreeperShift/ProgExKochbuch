@@ -22,6 +22,8 @@ public class ControllerRecipeLayoutNeu implements Initializable {
     public ImageView bildRating;
 
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
