@@ -35,7 +35,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button fx:id="btnSetting" mnemonicParsing="false" onAction="#onBtnSettings" prefHeight="44.0" prefWidth="100.0" text="Setting">
+            <Button fx:id="btnSettings" mnemonicParsing="false" onAction="#onBtnSettings" prefHeight="44.0" prefWidth="100.0" text="Setting">
                <font>
                   <Font size="14.0" />
                </font>
