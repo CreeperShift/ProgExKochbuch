@@ -8,7 +8,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextFlow;
 
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 public class ControllerRecipeLayoutNeu implements Initializable {
@@ -21,16 +26,13 @@ public class ControllerRecipeLayoutNeu implements Initializable {
     public Label labelSteps;
     public ImageView bildRating;
 
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
     @FXML
-    public void output(Recipe recipe){
+    public void output(Recipe recipe) throws IOException {
 
         this.NameLabelNeu.setText(recipe.getName());
         this.LabelBeschreibung.setText(recipe.getDesc());
@@ -40,24 +42,43 @@ public class ControllerRecipeLayoutNeu implements Initializable {
         }
         this.labelZutaten.setText(tmp);
         this.labelSteps.setText(recipe.getSteps());
-        this.BildRezeptNeu.setImage(recipe.getBild());
-        this.bildRating.setImage(this.getRatingBild(recipe.getRating()));
+        this.BildRezeptNeu.setImage(recipe.getImage());
+        this.bildRating.setImage(getRatingBild(recipe.getRating(), recipe));
 
     }
 
-    public Image getRatingBild(int r){
+    public Image getRatingBild(int rat, Recipe rec) throws IOException {
 
-        Image bild = null;
-        switch(r){
-            case 1: bild = new Image(getClass().getResourceAsStream("1Stern.jpg")); break;
-            case 2: bild = new Image(getClass().getResourceAsStream("2Stern.jpg")); break;
-            case 3: bild = new Image(getClass().getResourceAsStream("3Stern.jpg")); break;
-            case 4: bild = new Image(getClass().getResourceAsStream("4Stern.jpg")); break;
-            case 5: bild = new Image(getClass().getResourceAsStream("5Stern.jpg")); break;
-            default: bild = new Image(getClass().getResourceAsStream("0Stern.jpg"));
-
+        File file;
+        switch(rat){
+            case 1:
+                file = new File("resources/images/1Stern.jpg");
+                rec.setImageRawRating(file);
+                break;
+            case 2:
+                file = new File("resources/images/2Stern.jpg");
+                rec.setImageRawRating(file);
+                break;
+            case 3:
+                file = new File("resources/images/3Stern.jpg");
+                rec.setImageRawRating(file);
+                break;
+            case 4:
+                file = new File("resources/images/4Stern.jpg");
+                rec.setImageRawRating(file);
+                break;
+            case 5:
+                file = new File("resources/images/5Stern.jpg");
+                rec.setImageRawRating(file);
+                break;
+            default:
+                file = new File("resources/images/0Stern.jpg");
+                rec.setImageRawRating(file);
+                break;
         }
-        return bild;
+
+        return rec.getImageRating();
+
     }
 
 }

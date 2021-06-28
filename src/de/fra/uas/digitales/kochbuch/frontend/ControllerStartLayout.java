@@ -195,7 +195,11 @@ public class ControllerStartLayout implements Initializable {
 
             Main.controllerBase.clearButtons();
             Main.mainPanel.setCenter(Main.recipePageNeu);
-            Main.controllerRecpieLayoutNeu.output(welches);
+            try {
+                Main.controllerRecpieLayoutNeu.output(welches);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         });
         pane.getChildren().add(imageView);
