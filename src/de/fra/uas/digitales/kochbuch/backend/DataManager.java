@@ -8,21 +8,41 @@ import java.util.List;
 
 public class DataManager implements IDataManager {
 
-    private final Connection connection;
-    private final Statement statement;
-    private final Statement statement2;
-    private final Statement statement3;
-    private final Statement statement4;
+    private Connection connection;
+    private Statement statement;
+    private Statement statement2;
+    private Statement statement3;
+    private Statement statement4;
+    private static DataManager INSTANCE;
 
-    public DataManager() throws SQLException {
+    private static String url, user, password;
 
-        //Change user and password if necessary!
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "progex");
-        statement = connection.createStatement();
-        statement2 = connection.createStatement();
-        statement3 = connection.createStatement();
-        statement4 = connection.createStatement();
+    private DataManager() {
 
+        try {
+
+            //Change user and password if necessary!
+            connection = DriverManager.getConnection(url, user, password);
+            statement2 = connection.createStatement();
+            statement = connection.createStatement();
+            statement3 = connection.createStatement();
+            statement4 = connection.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static DataManager get() {
+        if (INSTANCE == null) {
+            INSTANCE = new DataManager();
+        }
+        return INSTANCE;
+    }
+
+    public static void setDatabase(String surl, String suser, String spassword) {
+        url = surl;
+        user = suser;
+        password = spassword;
     }
 
     public List<Recipe> getRecipeList(String name) throws SQLException, IOException {

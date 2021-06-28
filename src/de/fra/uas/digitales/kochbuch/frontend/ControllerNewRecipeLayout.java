@@ -1,6 +1,7 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.event.ActionEvent;
@@ -62,7 +63,7 @@ public class ControllerNewRecipeLayout implements Initializable {
                     .setRating(0)
                     .setTime(15.0f)
                     .setSteps(recipeSteps.getText());
-            Main.dataManager.addNewRecipe(r);
+            DataManager.get().addNewRecipe(r);
             clearRecipe();
             Main.controllerBase.btnStart.fire();
 
