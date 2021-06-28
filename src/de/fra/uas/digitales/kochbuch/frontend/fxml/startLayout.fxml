@@ -15,20 +15,19 @@
     <children>
         <VBox fx:id="vBox" layoutX="-8.0" layoutY="10.0" prefHeight="526.0" prefWidth="839.0" style="-fx-background-color: silver;" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="296.0" style="-fx-padding: 10; -fx-spacing: 2;" VBox.vgrow="ALWAYS">
+            <AnchorPane>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="220.0" />
-                  <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="58.0" prefWidth="403.0" style="-fx-padding: 10;" text="Alle Rezepte">
+                  <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="9.0" prefHeight="58.0" prefWidth="403.0" style="-fx-padding: 10;" text="Alle Rezepte" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="176.0" promptText="Rezept suchen">
+                  <TextField layoutX="9.0" layoutY="58.0" prefHeight="25.0" prefWidth="176.0" promptText="Rezept suchen" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0">
                      <effect>
                         <DropShadow />
                      </effect>
                   </TextField>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: gold;" text="Suche">
+                  <Button layoutX="9.0" layoutY="83.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: gold;" text="Suche" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -36,8 +35,13 @@
                         <DropShadow />
                      </effect>
                   </Button>
+                  <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: gold;" text="&lt;-- Zurück" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
                </children>
-            </HBox>
+            </AnchorPane>
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="815.0">
                <children>
                   <Button fx:id="btnBack" mnemonicParsing="false" onAction="#onBtnBack" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: gold;" text="Zurück" HBox.hgrow="ALWAYS">
@@ -50,7 +54,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnFront" mnemonicParsing="false" onAction="#onBtnFront" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: gold;" text="Nächste" HBox.hgrow="ALWAYS">
+                  <Button fx:id="btnFront" mnemonicParsing="false" onAction="#onBtnFront" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: gold;" text="Vor" HBox.hgrow="ALWAYS">
                      <effect>
                         <DropShadow />
                      </effect>

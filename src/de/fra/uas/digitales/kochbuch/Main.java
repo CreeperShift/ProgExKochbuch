@@ -31,6 +31,7 @@ public class Main extends Application {
     public static ScrollPane recipePage;
     public static VBox filterPage;
     public static VBox newRecipePage;
+    public static AnchorPane settingsPage;
     public static ControllerRecipe controllerRecipe;
     public static ControllerBase controllerBase;
     public static Stage stage;
@@ -61,6 +62,9 @@ public class Main extends Application {
 
         FXMLLoader loaderFilter = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/filterLayout.fxml")));
         filterPage = loaderFilter.load();
+
+        FXMLLoader loaderSettings = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/SettingsLayout.fxml")));
+        settingsPage = loaderSettings.load();
 
 
         primaryStage.setTitle("Digitales Kochbuch");

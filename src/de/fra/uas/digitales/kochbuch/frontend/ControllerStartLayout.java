@@ -1,6 +1,7 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.MockDataManager;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
@@ -147,7 +148,11 @@ public class ControllerStartLayout implements Initializable {
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
             Main.mainPanel.setCenter(Main.recipePage);
-            Main.controllerRecipe.setRecipe();
+            try {
+                Main.controllerRecipe.setRecipe(MockDataManager.getInstance().getRecipeByName("sadasd"));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         });
 
         pane.getChildren().add(imageView);

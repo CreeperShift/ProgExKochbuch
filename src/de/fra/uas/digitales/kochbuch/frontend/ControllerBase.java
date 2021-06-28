@@ -21,7 +21,7 @@ public class ControllerBase implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnStart.setStyle("-fx-background-color: gold");
-        navButtons = new Button[]{btnStart, btnRezept, btnFilter};
+        navButtons = new Button[]{btnStart, btnRezept, btnFilter, btnSettings};
     }
 
     public void onBtnStart(ActionEvent actionEvent) {
@@ -55,5 +55,10 @@ public class ControllerBase implements Initializable {
     }
 
     public void onBtnSettings(ActionEvent actionEvent) {
+        clearButtons();
+        Main.mainPanel.setCenter(Main.settingsPage);
+        Main.settingsPage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
+        Main.settingsPage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
+        setButtonActive(btnSettings);
     }
 }

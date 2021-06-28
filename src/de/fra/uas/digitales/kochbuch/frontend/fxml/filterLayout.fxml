@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,22 +16,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerFilterLayout">
+<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerFilterLayout">
    <children>
       <BorderPane prefHeight="155.0" prefWidth="600.0">
          <top>
             <VBox alignment="TOP_CENTER" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Rezepte Filtern">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label prefHeight="45.0" prefWidth="429.0" text="Mit der Zutatenbasierten Filterung können Sie ganz bequem Rezepte nach Ihrem Kühlschrankinhalt filtern." textAlignment="CENTER" wrapText="true" />
+                  <AnchorPane>
+                     <children>
+                        <Label alignment="CENTER" layoutX="152.0" text="Rezepte Filtern" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutY="28.0" prefHeight="45.0" prefWidth="429.0" text="Mit der Zutatenbasierten Filterung können Sie ganz bequem Rezepte nach Ihrem Kühlschrankinhalt filtern." textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="35.0" />
+                        <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: gold;" text="&lt;-- Zurück">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Button>
+                     </children>
+                  </AnchorPane>
                   <Separator prefWidth="200.0">
                      <VBox.margin>
                         <Insets />
