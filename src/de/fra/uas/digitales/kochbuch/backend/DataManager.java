@@ -17,7 +17,7 @@ public class DataManager implements IDataManager {
     public DataManager() throws SQLException {
 
         //Change user and password if necessary!
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "progex");
         statement = connection.createStatement();
         statement2 = connection.createStatement();
         statement3 = connection.createStatement();
@@ -28,7 +28,7 @@ public class DataManager implements IDataManager {
     public List<Recipe> getRecipeList(String name) throws SQLException, IOException {
         List<Recipe> recipeList = new LinkedList<>();
         ResultSet rs = statement4.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%';");
-        while(rs.next()){
+        while (rs.next()) {
             Recipe recipe = new Recipe();
             recipe.setName(rs.getString("recipeName"));
             recipe.setRating(rs.getInt("rating"));
@@ -74,10 +74,10 @@ public class DataManager implements IDataManager {
         List<Ingredient> temp = new LinkedList<>();
 
         ResultSet resultSetIng = statement2.executeQuery("SELECT * FROM recipeingredients WHERE recipe='" + id + "'");
-        while(resultSetIng.next()){
+        while (resultSetIng.next()) {
 
             ResultSet rsName = statement3.executeQuery("SELECT * FROM ingredients WHERE id='" + resultSetIng.getInt("ingredient") + "'");
-            while (rsName.next()){
+            while (rsName.next()) {
                 Ingredient tmp = new Ingredient(rsName.getString("ingredientName"), resultSetIng.getInt("amount"), resultSetIng.getString("unit"));
                 temp.add(tmp);
             }
@@ -87,11 +87,6 @@ public class DataManager implements IDataManager {
         return temp;
 
     }
-
-
-
-
-
 
 
     @Override

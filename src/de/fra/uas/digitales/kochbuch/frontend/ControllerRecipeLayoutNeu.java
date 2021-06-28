@@ -1,11 +1,13 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
+import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,11 +33,11 @@ public class ControllerRecipeLayoutNeu implements Initializable {
 
         this.NameLabelNeu.setText(recipe.getName());
         this.LabelBeschreibung.setText(recipe.getDesc());
-        String tmp="\n";
-        for(int i=0; i<recipe.getIngredients().size(); i++){
-            tmp+=" - " + recipe.getIngredients().get(i).toString()+"\n";
+        StringBuilder tmp = new StringBuilder("\n");
+        for (Ingredient i : recipe.getIngredients()) {
+            tmp.append(" - ").append(i.toString()).append("\n");
         }
-        this.labelZutaten.setText(tmp);
+        this.labelZutaten.setText(tmp.toString());
         this.labelSteps.setText(recipe.getSteps());
         this.BildRezeptNeu.setImage(recipe.getImage());
         this.bildRating.setImage(getRatingBild(recipe.getRating(), recipe));
@@ -45,7 +47,7 @@ public class ControllerRecipeLayoutNeu implements Initializable {
     public Image getRatingBild(int rat, Recipe rec) throws IOException {
 
         File file;
-        switch(rat){
+        switch (rat) {
             case 1:
                 file = new File("resources/images/1Stern.jpg");
                 rec.setImageRawRating(file);
