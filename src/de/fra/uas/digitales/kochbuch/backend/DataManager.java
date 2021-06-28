@@ -16,11 +16,8 @@ public class DataManager implements IDataManager {
 
     private final Connection connection;
     private final Statement statement;
-    private final Connection connection2;
     private final Statement statement2;
-    private final Connection connection3;
     private final Statement statement3;
-    private final Connection connection4;
     private final Statement statement4;
 
     public DataManager() throws SQLException {
@@ -28,11 +25,8 @@ public class DataManager implements IDataManager {
         //Change user and password if necessary!
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement = connection.createStatement();
-        connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement2 = connection.createStatement();
-        connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement3 = connection.createStatement();
-        connection4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/kochbuch", "root", "toor");
         statement4 = connection.createStatement();
 
     }
