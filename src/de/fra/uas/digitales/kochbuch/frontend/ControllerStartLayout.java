@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -37,13 +36,11 @@ public class ControllerStartLayout implements Initializable {
     private RowConstraints row1;
     public DataManager dataManager;
     public Recipe welches;
-
     public TextField rezepteSuchen;
     public Button btnSuche;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
@@ -57,9 +54,6 @@ public class ControllerStartLayout implements Initializable {
         }
 
     }
-
-
-
 
     public void suchMethode(ActionEvent actionEvent) throws SQLException, IOException {
 
