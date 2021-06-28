@@ -237,6 +237,7 @@ public class ControllerStartLayout implements Initializable {
 
         gridPane.getChildren().clear();
         addChildren(DataManager.get().getRecipeList(searchbox.getText(), 0));
+        //TODO: add more pages to search
 
     }
 }
