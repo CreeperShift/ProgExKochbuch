@@ -6,14 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.TextFlow;
-
-import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 public class ControllerRecipeLayoutNeu implements Initializable {

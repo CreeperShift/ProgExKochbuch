@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipeLayoutNeu">
+   <children>
+      <VBox prefHeight="700.0" prefWidth="1150.0">
+         <children>
+            <HBox prefHeight="0.0" prefWidth="800.0">
+               <children>
+                  <ImageView fx:id="BildRezeptNeu" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="25.0" top="25.0" />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <VBox prefHeight="250.0" prefWidth="1000.0">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </HBox.margin>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="1000.0">
+                           <children>
+                              <Label fx:id="NameLabelNeu" alignment="BOTTOM_LEFT" prefHeight="75.0" prefWidth="1000.0" wrapText="true">
+                                 <font>
+                                    <Font size="41.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <ImageView fx:id="bildRating" fitHeight="20.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="LabelBeschreibung" prefHeight="125.0" prefWidth="1000.0" wrapText="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="25.0" />
+                           </padding></Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="1500.0" prefWidth="1000.0">
+               <children>
+                  <VBox prefHeight="250.0" prefWidth="300.0">
+                     <children>
+                        <Label text="Zutaten:">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="labelZutaten" alignment="TOP_LEFT" prefHeight="500.0" prefWidth="250.0" wrapText="true">
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="250.0" prefWidth="400.0">
+                     <children>
+                        <Label text="Vorgehen:">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="labelSteps" alignment="TOP_LEFT" prefHeight="500.0" prefWidth="400.0" wrapText="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="55.0" prefWidth="1150.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0" text="back">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="25.0" top="5.0" />
+                     </HBox.margin></Button>
+                  <Pane prefHeight="100.0" prefWidth="1010.0" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0" text="edit">
+                     <HBox.margin>
+                        <Insets bottom="25.0" right="25.0" top="5.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
