@@ -3,11 +3,10 @@ package de.fra.uas.digitales.kochbuch;
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipeLayout;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
+import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipeLayoutNeu;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -24,15 +23,13 @@ public class Main extends Application {
     /*
     True means we use the MockDataManger.
      */
-    public static final boolean isLocal = false;
-
     public static BorderPane mainPanel;
     public static AnchorPane startPane;
-    public static ScrollPane recipePage;
+    public static AnchorPane recipePage;
     public static VBox filterPage;
     public static VBox newRecipePage;
     public static AnchorPane settingsPage;
-    public static ControllerRecipe controllerRecipe;
+    public static ControllerRecipeLayoutNeu controllerRecipe;
     public static ControllerBase controllerBase;
     public static Stage stage;
     public static ControllerNewRecipeLayout controllerNewRecipe;
@@ -53,7 +50,7 @@ public class Main extends Application {
         startPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/startLayout.fxml")));
         mainPanel.setCenter(startPane);
 
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/recipeLayout.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/recipeLayoutNeu.fxml")));
         recipePage = loader.load();
         controllerRecipe = loader.getController();
 
