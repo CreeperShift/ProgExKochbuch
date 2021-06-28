@@ -236,7 +236,7 @@ public class ControllerStartLayout implements Initializable {
     public void onBtnSuche(ActionEvent actionEvent) throws SQLException, IOException {
 
         gridPane.getChildren().clear();
-        addChildren(DataManager.get().getRecipeList(searchbox.getText()));
+        addChildren(DataManager.get().getRecipeList(searchbox.getText(), 0));
 
     }
 }

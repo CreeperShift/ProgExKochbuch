@@ -45,9 +45,9 @@ public class DataManager implements IDataManager {
         password = spassword;
     }
 
-    public List<Recipe> getRecipeList(String name) throws SQLException, IOException {
+    public List<Recipe> getRecipeList(String name, int i) throws SQLException, IOException {
         List<Recipe> recipeList = new LinkedList<>();
-        ResultSet rs = statement4.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%';");
+        ResultSet rs = statement4.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%' LIMIT " + i * 9 + ",9");
         while (rs.next()) {
             Recipe recipe = new Recipe();
             recipe.setName(rs.getString("recipeName"));
