@@ -41,15 +41,8 @@ public class DataManager implements IDataManager {
             recipe.setSteps(rs.getString("instructions"));
             recipe.setTime(rs.getFloat("recipeTime"));
             recipe.setId(rs.getInt("id"));
-            Blob picture = rs.getBlob("picture");
-            if(picture!=null){
-                BufferedInputStream bis = new BufferedInputStream(picture.getBinaryStream());
-                BufferedImage bi = ImageIO.read(bis);
-                Image im = SwingFXUtils.toFXImage(bi, null);
-                recipe.setBild(im);
-            }
-            int idIng = rs.getInt("id");
-            recipe.setIngredients(getAllIngredients(idIng));
+            recipe.setImageRaw(rs.getBytes("picture"));
+            recipe.setIngredients(getAllIngredients(rs.getInt("id")));
             recipeList.add(recipe);
         }
         return recipeList;
@@ -59,7 +52,6 @@ public class DataManager implements IDataManager {
     public Recipe getRecipeByName(String name) throws SQLException {
 
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE recipeName='" + name + "'");
-
         try {
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
@@ -68,7 +60,6 @@ public class DataManager implements IDataManager {
         return null;
     }
 
-
     private Recipe getFullRecipeFromResultSet(Recipe recipe, ResultSet resultSet) throws SQLException, IOException {
         while (resultSet.next()) {
             recipe.setName(resultSet.getString("recipeName"));
@@ -76,16 +67,8 @@ public class DataManager implements IDataManager {
             recipe.setDesc(resultSet.getString("recipeDescription"));
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
-            Blob picture = resultSet.getBlob("picture");
-            if(picture!=null){
-                BufferedInputStream bis = new BufferedInputStream(picture.getBinaryStream());
-                BufferedImage bi = ImageIO.read(bis);
-                Image im = SwingFXUtils.toFXImage(bi, null);
-                recipe.setBild(im);
-            }
-            int idIng = resultSet.getInt("id");
-            recipe.setIngredients(getAllIngredients(idIng));
-
+            recipe.setImageRaw(resultSet.getBytes("picture"));
+            recipe.setIngredients(getAllIngredients(resultSet.getInt("id")));
         }
         return recipe;
     }
@@ -109,6 +92,12 @@ public class DataManager implements IDataManager {
         return temp;
 
     }
+
+
+
+
+
+
 
     @Override
     public void deleteRecipe(Recipe recipe) {
