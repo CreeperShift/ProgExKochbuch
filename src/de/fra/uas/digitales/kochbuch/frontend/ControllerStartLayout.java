@@ -2,16 +2,16 @@ package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
-import de.fra.uas.digitales.kochbuch.backend.MockDataManager;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -33,6 +34,7 @@ public class ControllerStartLayout implements Initializable {
     public Label page;
     public Button btnBack;
     public Button btnFront;
+    public TextField searchbox;
     private ColumnConstraints column1;
     private RowConstraints row1;
 
@@ -46,32 +48,35 @@ public class ControllerStartLayout implements Initializable {
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
-        addChildren(0);
+
+        List<Recipe> startRecipes = null;
+        try {
+            startRecipes = DataManager.get().getStartRecipes(0);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        addChildren(startRecipes);
 
     }
 
 
-    private void addChildren(int p) {
-        List<Recipe> startRecipes = null;
-        try {
-            startRecipes = DataManager.get().getStartRecipes(p);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        if (startRecipes != null && !startRecipes.isEmpty()) {
+    private void addChildren(List<Recipe> recipeList) {
 
-            for (int i = 0; i < startRecipes.size(); i++) {
+        if (recipeList != null && !recipeList.isEmpty()) {
+
+            for (int i = 0; i < recipeList.size(); i++) {
                 Pane pane = new Pane();
                 pane.prefWidthProperty().bind(column1.prefWidthProperty());
                 pane.prefHeightProperty().bind(row1.prefHeightProperty());
 
-                ImageView imageView = new ImageView(startRecipes.get(i).getImage());
+                ImageView imageView = new ImageView(recipeList.get(i).getImage());
                 //imageView.setPreserveRatio(true);
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                 imageView.getStyleClass().add("startPicture");
 
-                setupImageListeners(pane, imageView, startRecipes.get(i).getName());
+                setupImageListeners(pane, imageView, recipeList.get(i).getName());
 
                 int gridX = i % 3;
                 int gridY = i / 3;
@@ -150,8 +155,8 @@ public class ControllerStartLayout implements Initializable {
         {
             Main.mainPanel.setCenter(Main.recipePage);
             try {
-                Main.controllerRecipe.setRecipe(MockDataManager.getInstance().getRecipeByName("sadasd"));
-            } catch (SQLException throwables) {
+                Main.controllerRecipe.output(DataManager.get().getRecipeByName(name));
+            } catch (SQLException | IOException throwables) {
                 throwables.printStackTrace();
             }
         });
@@ -188,13 +193,13 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onBtnBack(ActionEvent actionEvent) {
+    public void onBtnBack(ActionEvent actionEvent) throws SQLException {
         int i = Integer.parseInt(page.getText());
         if (i > 0) {
             i--;
 
             gridPane.getChildren().clear();
-            addChildren(i);
+            addChildren(DataManager.get().getStartRecipes(i));
             page.setText("" + i);
         }
 
@@ -205,13 +210,14 @@ public class ControllerStartLayout implements Initializable {
     }
 
 
-    public void onBtnFront(ActionEvent actionEvent) {
+    public void onBtnFront(ActionEvent actionEvent) throws SQLException {
 
         int i = Integer.parseInt(page.getText());
         i++;
 
         gridPane.getChildren().clear();
-        addChildren(i);
+
+        addChildren(DataManager.get().getStartRecipes(i));
         page.setText("" + i);
         btnBack.setDisable(true);
         btnFront.setDisable(true);
@@ -227,4 +233,10 @@ public class ControllerStartLayout implements Initializable {
     }
 
 
+    public void onBtnSuche(ActionEvent actionEvent) throws SQLException, IOException {
+
+        gridPane.getChildren().clear();
+        addChildren(DataManager.get().getRecipeList(searchbox.getText()));
+
+    }
 }
