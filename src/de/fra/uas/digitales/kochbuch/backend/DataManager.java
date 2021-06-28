@@ -2,7 +2,6 @@ package de.fra.uas.digitales.kochbuch.backend;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
@@ -111,8 +110,6 @@ public class DataManager implements IDataManager {
 
     }
 
-
-
     @Override
     public void deleteRecipe(Recipe recipe) {
     }
@@ -139,7 +136,6 @@ public class DataManager implements IDataManager {
     public void addNewRecipe(Recipe recipe) throws SQLException {
         String insertRecipe = "insert into recipe (recipename, rating, recipeDescription, instructions, picture, recipeTime)" + "values (? , ? , ? , ? ,?, ?)";
         String insertIngredient = "insert into recipeingredients (recipe, ingredient, amount, unit)" + " values (?, ?, ?, ?)";
-
         PreparedStatement pState = connection.prepareStatement(insertRecipe);
         pState.setString(1, recipe.getName());
         pState.setInt(2, recipe.getRating());
@@ -149,15 +145,11 @@ public class DataManager implements IDataManager {
         pState.setFloat(6, recipe.getTime());
         pState.executeUpdate();
         pState.close();
-
         Statement getId = connection.createStatement();
         ResultSet resultSet = getId.executeQuery("SELECT id FROM recipe WHERE recipeName='" + recipe.getName() + "'");
         if (resultSet.next()) {
             int id = resultSet.getInt("id");
-
-
             PreparedStatement ingredStatement = connection.prepareStatement(insertIngredient);
-
             for (Ingredient i : recipe.getIngredients()) {
                 ingredStatement.setInt(1, id);
                 ingredStatement.setInt(2, getCreateIngredient(i));
@@ -165,7 +157,6 @@ public class DataManager implements IDataManager {
                 ingredStatement.setString(4, i.unit());
                 ingredStatement.executeUpdate();
             }
-
             ingredStatement.close();
         }
     }
@@ -210,6 +201,7 @@ public class DataManager implements IDataManager {
                         .setSteps(result.getString("instructions"))
                         .setTime(result.getFloat("recipeTime"));
                 rList.add(r);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
