@@ -1,18 +1,16 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
-import de.fra.uas.digitales.kochbuch.backend.DataManager;
+import de.fra.uas.digitales.kochbuch.backend.MockDataManager;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,10 +18,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-import java.io.IOException;
+
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ControllerStartLayout implements Initializable {
     public GridPane gridPane;
@@ -33,66 +34,29 @@ public class ControllerStartLayout implements Initializable {
     public Button btnFront;
     private ColumnConstraints column1;
     private RowConstraints row1;
-    public DataManager dataManager;
-    public Recipe welches;
-    public TextField rezepteSuchen;
-    public Button btnSuche;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
         vBox.getChildren().add(1, gridPane);
-        try {
-            addChildren(0);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
-
-    public void suchMethode(ActionEvent actionEvent) throws SQLException, IOException {
-
-        DataManager dm = new DataManager();
-        String tempString = rezepteSuchen.getText();
-        rezepteSuchen.setText("");
-        List<Recipe> liste = dm.getRecipeList(tempString);
-
-        for(int i=0; i<liste.size();i++){
-
-            System.out.println(liste.get(i).getName());
-            System.out.println(liste.get(i).getID());
-            System.out.println(liste.get(i).getIngredients());
-            System.out.println(liste.get(i).getDesc());
-            System.out.println(liste.get(i).getRating());
-            System.out.println();
-
-        }
-
-    }
-
-    private void addChildrenNeu(List<Recipe> list) throws SQLException {
-
-
-
-
-
+        addChildren(0);
 
     }
 
 
-    private void addChildren(int p) throws SQLException {
-
-        List<Recipe> startRecipes = Main.dataManager.getStartRecipes(0);
+    private void addChildren(int p) {
+        List<Recipe> startRecipes = null;
         try {
             startRecipes = Main.dataManager.getStartRecipes(p);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         if (startRecipes != null && !startRecipes.isEmpty()) {
 
             for (int i = 0; i < startRecipes.size(); i++) {
@@ -112,19 +76,12 @@ public class ControllerStartLayout implements Initializable {
                 int gridY = i / 3;
 
                 gridPane.add(pane, gridX, gridY);
-
-
-
             }
         }
 
     }
 
-
-    @FXML
-    private void setupImageListeners(Pane pane, ImageView imageView, String name) throws SQLException {
-
-        dataManager = new DataManager();
+    private void setupImageListeners(Pane pane, ImageView imageView, String name) {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
@@ -139,12 +96,16 @@ public class ControllerStartLayout implements Initializable {
                     background.setMinWidth(pane.getWidth() - 15);
                     background.setMaxWidth(pane.getWidth() - 15);
                     background.setMinHeight(45);
+
                     label.setMouseTransparent(true);
                     background.setMouseTransparent(true);
                     label.setMinWidth(pane.getWidth() - 15);
                     label.setMaxWidth(pane.getWidth() - 15);
+
                     pane.getChildren().add(background);
                     label.setPadding(new Insets(0, 15, 0, 15));
+
+
                     label.setLayoutY(pane.getHeight() - 75);
                     label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
@@ -186,22 +147,17 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_CLICKED, event ->
         {
+            Main.mainPanel.setCenter(Main.recipePage);
             try {
-                welches= dataManager.getRecipeByName(name);
+                Main.controllerRecipe.setRecipe(MockDataManager.getInstance().getRecipeByName("sadasd"));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
-            Main.controllerBase.clearButtons();
-            Main.mainPanel.setCenter(Main.recipePageNeu);
-            try {
-                Main.controllerRecpieLayoutNeu.output(welches);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         });
+
         pane.getChildren().add(imageView);
+
+
     }
 
     private void setupGrid(GridPane gridPane) {
@@ -231,23 +187,28 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onBtnBack(ActionEvent actionEvent) throws SQLException {
+    public void onBtnBack(ActionEvent actionEvent) {
         int i = Integer.parseInt(page.getText());
         if (i > 0) {
             i--;
+
             gridPane.getChildren().clear();
             addChildren(i);
             page.setText("" + i);
         }
+
         if (i == 0) {
             btnBack.setDisable(true);
         }
+
     }
 
-    public void onBtnFront(ActionEvent actionEvent) throws SQLException {
+
+    public void onBtnFront(ActionEvent actionEvent) {
 
         int i = Integer.parseInt(page.getText());
         i++;
+
         gridPane.getChildren().clear();
         addChildren(i);
         page.setText("" + i);
@@ -263,5 +224,6 @@ public class ControllerStartLayout implements Initializable {
         };
         timer.schedule(task, 800);
     }
+
 
 }

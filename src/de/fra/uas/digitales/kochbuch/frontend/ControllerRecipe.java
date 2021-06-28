@@ -1,5 +1,6 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
+import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -28,7 +29,7 @@ public class ControllerRecipe implements Initializable {
 
     }
 
-    public void setRecipe() {
+    public void setRecipe(Recipe recipe) {
         if(!done) {
             textName.setText("Flammkuchen");
             try {

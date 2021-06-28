@@ -14,16 +14,14 @@ public class ControllerBase implements Initializable {
     public Button btnStart;
     public Button btnRezept;
     public Button btnFilter;
+
     public Button[] navButtons;
     public Button btnSettings;
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnStart.setStyle("-fx-background-color: gray");
-        navButtons = new Button[]{btnStart, btnRezept, btnFilter};
-
+        btnStart.setStyle("-fx-background-color: gold");
+        navButtons = new Button[]{btnStart, btnRezept, btnFilter, btnSettings};
     }
 
     public void onBtnStart(ActionEvent actionEvent) {
@@ -48,14 +46,19 @@ public class ControllerBase implements Initializable {
         setButtonActive(btnFilter);
     }
 
-    public void clearButtons() {
+    private void clearButtons() {
         Arrays.stream(navButtons).forEach(b -> b.setStyle(null));
     }
 
     private void setButtonActive(Button button) {
-        button.setStyle("-fx-background-color: gray");
+        button.setStyle("-fx-background-color: gold");
     }
 
     public void onBtnSettings(ActionEvent actionEvent) {
+        clearButtons();
+        Main.mainPanel.setCenter(Main.settingsPage);
+        Main.settingsPage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
+        Main.settingsPage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
+        setButtonActive(btnSettings);
     }
 }
