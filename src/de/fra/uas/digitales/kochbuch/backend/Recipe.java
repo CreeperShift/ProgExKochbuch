@@ -1,8 +1,6 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
 import javafx.scene.image.Image;
-
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.LinkedList;
