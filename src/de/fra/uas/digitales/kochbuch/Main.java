@@ -1,8 +1,6 @@
 package de.fra.uas.digitales.kochbuch;
 
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
-import de.fra.uas.digitales.kochbuch.backend.IDataManager;
-import de.fra.uas.digitales.kochbuch.backend.MockDataManager;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipeLayout;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
@@ -15,6 +13,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 
@@ -25,7 +26,6 @@ public class Main extends Application {
      */
     public static final boolean isLocal = false;
 
-    public static IDataManager dataManager;
     public static BorderPane mainPanel;
     public static AnchorPane startPane;
     public static ScrollPane recipePage;
@@ -40,11 +40,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        if (isLocal) {
-            dataManager = MockDataManager.getInstance();
-        } else {
-            dataManager = new DataManager();
-        }
+        Path path = Paths.get("resources/Database.info");
+
+        DataManager.setDatabase(Files.readAllLines(path).get(0), Files.readAllLines(path).get(1), Files.readAllLines(path).get(2));
+
+
 
         FXMLLoader loaderBase = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/baseLayout.fxml")));
         mainPanel = loaderBase.load();

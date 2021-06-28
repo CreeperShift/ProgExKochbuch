@@ -1,6 +1,7 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.MockDataManager;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
@@ -53,7 +54,7 @@ public class ControllerStartLayout implements Initializable {
     private void addChildren(int p) {
         List<Recipe> startRecipes = null;
         try {
-            startRecipes = Main.dataManager.getStartRecipes(p);
+            startRecipes = DataManager.get().getStartRecipes(p);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
