@@ -2,6 +2,7 @@ package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -22,6 +23,7 @@ public class ControllerRecipeLayoutNeu implements Initializable {
     public Label labelZutaten;
     public Label labelSteps;
     public ImageView bildRating;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,6 +77,12 @@ public class ControllerRecipeLayoutNeu implements Initializable {
         }
 
         return rec.getImageRating();
+
+    }
+
+    public void editMethode(ActionEvent actionEvent) {
+
+
 
     }
 

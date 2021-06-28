@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipeLayoutNeu">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipeLayoutNeu">
    <children>
       <VBox prefHeight="700.0" prefWidth="1150.0">
          <children>
@@ -88,7 +87,7 @@
                         <Insets bottom="25.0" left="25.0" top="5.0" />
                      </HBox.margin></Button>
                   <Pane prefHeight="100.0" prefWidth="1010.0" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0" text="edit">
+                  <Button fx:id="editButtonRezeptSeite" mnemonicParsing="false" onAction="#editMethode" prefHeight="30.0" prefWidth="45.0" text="edit">
                      <HBox.margin>
                         <Insets bottom="25.0" right="25.0" top="5.0" />
                      </HBox.margin></Button>
