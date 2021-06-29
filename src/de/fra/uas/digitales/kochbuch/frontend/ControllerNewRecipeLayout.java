@@ -46,13 +46,10 @@ public class ControllerNewRecipeLayout implements Initializable {
     @FXML
     public void output(Recipe recipe)
     {
-        //Output wenn im Bearbeitungsmodus (edit)
         aktuellesRezept = recipe;
-
         recipeName.setText(recipe.getName());
         recipeSteps.setText(recipe.getSteps());
         recipeDesc.setText(recipe.getDesc());
-
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -66,44 +63,41 @@ public class ControllerNewRecipeLayout implements Initializable {
                     .setRating(0)
                     .setTime(15.0f)
                     .setSteps(recipeSteps.getText());
-
-            existsCheck(r);
-
+            if(this.aktuellesRezept!=null){
+                DataManager.get().editRecipe(this.aktuellesRezept);
+            }
             DataManager.get().addNewRecipe(r);
             clearRecipe();
             Main.controllerBase.btnStart.fire();
         }
     }
 
-    public void existsCheck(Recipe recipe) throws SQLException {
-
-        Recipe recipe1 = DataManager.get().getRecipeByName(recipe.getName());
-        if(recipe1!=null){
-            DataManager.get().deleteRecipe(recipe);
-            System.out.println("Altes Rezept wurde gelöscht!");
-        }
-        //todo
-    }
     public void onDeleteRezept(ActionEvent actionEvent) throws SQLException {
 
-        boolean wirklich=false;
-
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Warnung!");
         alert.setHeaderText("Rezept wirklich löschen?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get()==ButtonType.OK){
-
-        }
-
-
-
-
-        if(this.aktuellesRezept !=null){
-            DataManager.get().deleteRecipe(this.aktuellesRezept);
+        alert.setContentText("Kann nicht rückgängig gemacht werden!");
+        Optional<ButtonType> bestätigung = alert.showAndWait();
+        if(bestätigung.get()==ButtonType.OK){
+            if(this.aktuellesRezept !=null){
+                DataManager.get().deleteRecipe(this.aktuellesRezept);
+                Alert weg = new Alert(Alert.AlertType.INFORMATION);
+                weg.setTitle("Information");
+                weg.setHeaderText("Rezept wurde gelöscht!!");
+                weg.show();
+            }else{
+                Alert nicht = new Alert(Alert.AlertType.INFORMATION);
+                nicht.setTitle("Information");
+                nicht.setHeaderText("Ooh, da ist wohl was schief gelaufen!");
+                nicht.setContentText("Kein Rezept ausgewählt!");
+                nicht.show();
+            }
         }else{
-            System.out.println("Nichts zum Löschen ausgewählt!");
+            Alert abbruch = new Alert(Alert.AlertType.INFORMATION);
+            abbruch.setTitle("Information");
+            abbruch.setHeaderText("Löschvorgang wurde abgebrochen!");
+            abbruch.show();
         }
     }
 
@@ -167,7 +161,10 @@ public class ControllerNewRecipeLayout implements Initializable {
             if (!recipeName.getText().isBlank()) {
                 if (!recipeSteps.getText().isBlank()) {
                     if (currentImage != null) {
-                        return true;
+                        //if(ingredientList != null){
+                            return true;
+                       // }
+
                     }
                 }
             }

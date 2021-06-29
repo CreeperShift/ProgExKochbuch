@@ -37,12 +37,13 @@ public class ControllerStartLayout implements Initializable {
     public TextField searchbox;
     private ColumnConstraints column1;
     private RowConstraints row1;
-
+    public Label labelName;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        searchbox.setText("");
+        labelName.setText("Alle Rezepte");
         gridPane = new GridPane();
         gridPane.setPrefHeight(5000);
         gridPane.getStyleClass().add("grid");
@@ -55,9 +56,7 @@ public class ControllerStartLayout implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         addChildren(startRecipes);
-
     }
 
 
@@ -236,7 +235,13 @@ public class ControllerStartLayout implements Initializable {
     public void onBtnSuche(ActionEvent actionEvent) throws SQLException, IOException {
 
         gridPane.getChildren().clear();
-        addChildren(DataManager.get().getRecipeList(searchbox.getText(), 0));
+        String temp=searchbox.getText();
+        addChildren(DataManager.get().getRecipeList(temp, 0));
+        if(temp.isBlank()){
+            temp="Alle Rezepte";
+        }
+        labelName.setText(temp);
+        searchbox.setText("");
         //TODO: add more pages to search
 
     }

@@ -1,5 +1,7 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
+import de.fra.uas.digitales.kochbuch.Main;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -117,10 +119,21 @@ public class DataManager implements IDataManager {
         preDeleteRecipe.execute();
         System.out.println("Rezept wurde gelöscht!");
 
+
+        Main.controllerBase.btnStart.fire();
+
+
+
     }
 
     @Override
-    public void editRecipe(Recipe recipe) {
+    public void editRecipe(Recipe recipeNeu) throws SQLException {
+
+        Recipe recipeAlt = getRecipeByName(recipeNeu.getName());
+        if(recipeAlt!=null){
+            deleteRecipe(recipeAlt);
+            System.out.println("Altes Rezept wurde gelöscht!");
+        }
 
     }
 
