@@ -13,6 +13,7 @@ public class DataManager implements IDataManager {
     private Statement statement2;
     private Statement statement3;
     private Statement statement4;
+    private Statement statement5;
     private static DataManager INSTANCE;
 
     private static String url, user, password;
@@ -20,13 +21,12 @@ public class DataManager implements IDataManager {
     private DataManager() {
 
         try {
-
-            //Change user and password if necessary!
             connection = DriverManager.getConnection(url, user, password);
             statement2 = connection.createStatement();
             statement = connection.createStatement();
             statement3 = connection.createStatement();
             statement4 = connection.createStatement();
+            statement5 = connection.createStatement();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -110,7 +110,14 @@ public class DataManager implements IDataManager {
 
 
     @Override
-    public void deleteRecipe(Recipe recipe) {
+    public void deleteRecipe(Recipe recipe) throws SQLException {
+
+        String deleteRecipe = "DELETE FROM recipe WHERE recipeName=?";
+        PreparedStatement preDeleteRecipe = connection.prepareStatement(deleteRecipe);
+        preDeleteRecipe.setString(1, recipe.getName());
+        preDeleteRecipe.execute();
+        System.out.println("Rezept wurde gelöscht!");
+
     }
 
     @Override

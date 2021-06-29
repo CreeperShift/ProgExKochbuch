@@ -27,7 +27,6 @@ public class ControllerRecipeLayoutNeu implements Initializable {
     public Label labelZutaten;
     public Label labelSteps;
     public ImageView bildRating;
-
     public Recipe rectmp;
 
     @Override

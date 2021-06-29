@@ -35,6 +35,8 @@ public class ControllerNewRecipeLayout implements Initializable {
     private final List<Ingredient> ingredientList = new LinkedList<>();
     private File currentImage;
 
+    private Recipe aktuell;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -46,6 +48,7 @@ public class ControllerNewRecipeLayout implements Initializable {
         recipeName.setText(recipe.getName());
         recipeSteps.setText(recipe.getSteps());
         recipeDesc.setText(recipe.getDesc());
+        aktuell=recipe;
         //todo: restlichen Sachen wie Ingredients, bild, ...
 
 
@@ -77,11 +80,26 @@ public class ControllerNewRecipeLayout implements Initializable {
                     .setRating(0)
                     .setTime(15.0f)
                     .setSteps(recipeSteps.getText());
+
+            existsCheck(r);
+
             DataManager.get().addNewRecipe(r);
             clearRecipe();
             Main.controllerBase.btnStart.fire();
 
         }
+    }
+
+    public void existsCheck(Recipe recipe) throws SQLException {
+
+        Recipe recipe1 = DataManager.get().getRecipeByName(recipe.getName());
+        if(recipe1!=null){
+            DataManager.get().deleteRecipe(recipe);
+            System.out.println("Altes Rezept wurde gelöscht!");
+        }
+
+
+
     }
 
     public void onBtnIngredient(ActionEvent actionEvent) {
@@ -151,5 +169,14 @@ public class ControllerNewRecipeLayout implements Initializable {
             picPath.setText(file.getAbsolutePath());
             picName.setText(file.getName());
         }
+    }
+
+    public void onDeleteRezept(ActionEvent actionEvent) throws SQLException {
+        if(this.aktuell!=null){
+            DataManager.get().deleteRecipe(this.aktuell);
+        }
+
+        System.out.println("Nichts zum Löschen ausgewählt!");
+
     }
 }
