@@ -7,19 +7,20 @@ import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControllerNewRecipeLayout implements Initializable {
@@ -32,23 +33,26 @@ public class ControllerNewRecipeLayout implements Initializable {
     public VBox ingredientBox;
     public TextField picName;
     public TextField picPath;
-    private final List<Ingredient> ingredientList = new LinkedList<>();
     private File currentImage;
-
-    private Recipe aktuell;
+    private final List<Ingredient> ingredientList = new LinkedList<>();
+    private Recipe aktuellesRezept;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
 
     }
 
     @FXML
-    public void output(Recipe recipe){
+    public void output(Recipe recipe)
+    {
+        //Output wenn im Bearbeitungsmodus (edit)
+        aktuellesRezept = recipe;
+
         recipeName.setText(recipe.getName());
         recipeSteps.setText(recipe.getSteps());
         recipeDesc.setText(recipe.getDesc());
-        aktuell=recipe;
-        //todo: Ingredients, bild, rating, ...
+
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -81,8 +85,23 @@ public class ControllerNewRecipeLayout implements Initializable {
         //todo
     }
     public void onDeleteRezept(ActionEvent actionEvent) throws SQLException {
-        if(this.aktuell!=null){
-            DataManager.get().deleteRecipe(this.aktuell);
+
+        boolean wirklich=false;
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warnung!");
+        alert.setHeaderText("Rezept wirklich löschen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get()==ButtonType.OK){
+
+        }
+
+
+
+
+        if(this.aktuellesRezept !=null){
+            DataManager.get().deleteRecipe(this.aktuellesRezept);
         }else{
             System.out.println("Nichts zum Löschen ausgewählt!");
         }
@@ -143,15 +162,36 @@ public class ControllerNewRecipeLayout implements Initializable {
 
     private boolean isReadySave() {
 
-            if (!recipeDesc.getText().isBlank()) {
-                if (!recipeName.getText().isBlank()) {
-                    if (!recipeSteps.getText().isBlank()) {
-                        if (currentImage != null) {
-                            return true;
-                        }
+        //Wenn nichts fehlt ready!
+        if (!recipeDesc.getText().isBlank()) {
+            if (!recipeName.getText().isBlank()) {
+                if (!recipeSteps.getText().isBlank()) {
+                    if (currentImage != null) {
+                        return true;
                     }
                 }
             }
+        }
+
+        //Warnung das was fehlt!
+        String wasFehltNoch="Fehlende Komponenten:\n";
+        if(recipeName.getText().isBlank()){
+            wasFehltNoch+="-Name\n";
+        }
+        if(recipeDesc.getText().isBlank()){
+            wasFehltNoch+="-Beschreibung\n";
+        }
+        if(recipeSteps.getText().isBlank()){
+            wasFehltNoch+="-Schritte\n";
+        }
+        if(currentImage == null){
+            wasFehltNoch+="-Bild\n";
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Leider fehlt was!");
+        alert.setContentText(wasFehltNoch);
+        alert.showAndWait();
 
         return false;
     }

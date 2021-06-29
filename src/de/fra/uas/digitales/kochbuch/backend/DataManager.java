@@ -15,7 +15,6 @@ public class DataManager implements IDataManager {
     private Statement statement4;
     private Statement statement5;
     private static DataManager INSTANCE;
-
     private static String url, user, password;
 
     private DataManager() {
