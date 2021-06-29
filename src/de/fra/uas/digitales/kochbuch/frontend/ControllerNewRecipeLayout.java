@@ -49,7 +49,7 @@ public class ControllerNewRecipeLayout implements Initializable {
         recipeSteps.setText(recipe.getSteps());
         recipeDesc.setText(recipe.getDesc());
         aktuell=recipe;
-        //todo: restlichen Sachen wie Ingredients, bild, ...
+        //todo: Ingredients, bild, rating, ...
 
 
     }
@@ -146,15 +146,15 @@ public class ControllerNewRecipeLayout implements Initializable {
 
     private boolean isReadySave() {
 
-        if (!recipeDesc.getText().isBlank()) {
-            if (!recipeName.getText().isBlank()) {
-                if (!recipeSteps.getText().isBlank()) {
-                    if (currentImage != null) {
-                        return true;
+            if (!recipeDesc.getText().isBlank()) {
+                if (!recipeName.getText().isBlank()) {
+                    if (!recipeSteps.getText().isBlank()) {
+                        if (currentImage != null) {
+                            return true;
+                        }
                     }
                 }
             }
-        }
 
         return false;
     }
