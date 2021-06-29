@@ -93,6 +93,8 @@ public class ControllerRecipeLayoutNeu implements Initializable {
         Main.newRecipePage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
         Main.controllerNewRecipe.output(this.rectmp);
 
+
+
     }
 
 
