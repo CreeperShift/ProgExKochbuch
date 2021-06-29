@@ -174,9 +174,9 @@ public class ControllerNewRecipeLayout implements Initializable {
     public void onDeleteRezept(ActionEvent actionEvent) throws SQLException {
         if(this.aktuell!=null){
             DataManager.get().deleteRecipe(this.aktuell);
+        }else{
+            System.out.println("Nichts zum Löschen ausgewählt!");
         }
-
-        System.out.println("Nichts zum Löschen ausgewählt!");
 
     }
 }
