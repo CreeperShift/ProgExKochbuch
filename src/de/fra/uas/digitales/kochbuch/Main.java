@@ -40,11 +40,15 @@ public class Main extends Application {
         controllerBase = loaderBase.getController();
         startPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/startLayout.fxml")));
         mainPanel.setCenter(startPane);
+
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/recipeLayoutNeu.fxml")));
         recipePage = loader.load();
         controllerRecipe = loader.getController();
+
         FXMLLoader loaderNewRecipe = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
         newRecipePage = loaderNewRecipe.load();
+        controllerNewRecipe = loaderNewRecipe.getController();
+
         FXMLLoader loaderFilter = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/filterLayout.fxml")));
         filterPage = loaderFilter.load();
         FXMLLoader loaderSettings = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/SettingsLayout.fxml")));

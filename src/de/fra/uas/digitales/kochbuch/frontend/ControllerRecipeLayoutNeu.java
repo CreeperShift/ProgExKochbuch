@@ -1,5 +1,7 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
+import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.event.ActionEvent;
@@ -8,10 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ControllerRecipeLayoutNeu implements Initializable {
@@ -24,6 +28,7 @@ public class ControllerRecipeLayoutNeu implements Initializable {
     public Label labelSteps;
     public ImageView bildRating;
 
+    public Recipe rectmp;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,6 +48,7 @@ public class ControllerRecipeLayoutNeu implements Initializable {
         this.labelSteps.setText(recipe.getSteps());
         this.BildRezeptNeu.setImage(recipe.getImage());
         this.bildRating.setImage(getRatingBild(recipe.getRating(), recipe));
+        this.rectmp=recipe;
 
     }
 
@@ -80,10 +86,14 @@ public class ControllerRecipeLayoutNeu implements Initializable {
 
     }
 
-    public void editMethode(ActionEvent actionEvent) {
+    public void editMethode(ActionEvent actionEvent) throws SQLException {
 
-
+        Main.mainPanel.setCenter(Main.newRecipePage);
+        Main.newRecipePage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
+        Main.newRecipePage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
+        Main.controllerNewRecipe.output(this.rectmp);
 
     }
+
 
 }

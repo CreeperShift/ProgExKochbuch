@@ -5,6 +5,7 @@ import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -38,6 +39,19 @@ public class ControllerNewRecipeLayout implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    @FXML
+    public void output(Recipe recipe){
+
+        recipeName.setText(recipe.getName());
+        recipeSteps.setText(recipe.getSteps());
+        recipeDesc.setText(recipe.getDesc());
+        //todo: restlichen Sachen wie Ingredients, bild, ...
+
+
+    }
+
+
 
     private void clearRecipe() {
         recipeSteps.setText("");
