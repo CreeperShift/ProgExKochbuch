@@ -44,32 +44,14 @@ public class ControllerNewRecipeLayout implements Initializable {
 
     @FXML
     public void output(Recipe recipe){
-
         recipeName.setText(recipe.getName());
         recipeSteps.setText(recipe.getSteps());
         recipeDesc.setText(recipe.getDesc());
         aktuell=recipe;
         //todo: Ingredients, bild, rating, ...
-
-
-    }
-
-
-
-    private void clearRecipe() {
-        recipeSteps.setText("");
-        recipeDesc.setText("");
-        recipeName.setText("");
-        ingredientList.clear();
-        currentImage = null;
-        ingredientBox.getChildren().clear();
-        picName.setText("");
-        picPath.setText("");
-
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
-
         if (isReadySave()) {
             System.out.println("new rec");
             Recipe r = new Recipe();
@@ -86,7 +68,6 @@ public class ControllerNewRecipeLayout implements Initializable {
             DataManager.get().addNewRecipe(r);
             clearRecipe();
             Main.controllerBase.btnStart.fire();
-
         }
     }
 
@@ -97,9 +78,25 @@ public class ControllerNewRecipeLayout implements Initializable {
             DataManager.get().deleteRecipe(recipe);
             System.out.println("Altes Rezept wurde gelöscht!");
         }
+        //todo
+    }
+    public void onDeleteRezept(ActionEvent actionEvent) throws SQLException {
+        if(this.aktuell!=null){
+            DataManager.get().deleteRecipe(this.aktuell);
+        }else{
+            System.out.println("Nichts zum Löschen ausgewählt!");
+        }
+    }
 
-
-
+    private void clearRecipe() {
+        recipeSteps.setText("");
+        recipeDesc.setText("");
+        recipeName.setText("");
+        ingredientList.clear();
+        currentImage = null;
+        ingredientBox.getChildren().clear();
+        picName.setText("");
+        picPath.setText("");
     }
 
     public void onBtnIngredient(ActionEvent actionEvent) {
@@ -159,7 +156,6 @@ public class ControllerNewRecipeLayout implements Initializable {
         return false;
     }
 
-
     public void onBtnPicture(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Bild auswählen");
@@ -171,12 +167,4 @@ public class ControllerNewRecipeLayout implements Initializable {
         }
     }
 
-    public void onDeleteRezept(ActionEvent actionEvent) throws SQLException {
-        if(this.aktuell!=null){
-            DataManager.get().deleteRecipe(this.aktuell);
-        }else{
-            System.out.println("Nichts zum Löschen ausgewählt!");
-        }
-
-    }
 }
