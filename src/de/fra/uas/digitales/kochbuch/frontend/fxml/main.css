@@ -29,6 +29,7 @@
     -fx-border-color: gray;
     -fx-border-width: 5;
     -fx-border-style: solid;
+    -fx-padding: 1;
    }
 
 .scrollbar:focused {

@@ -14,7 +14,10 @@ import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -36,8 +39,6 @@ public class ControllerStartLayout implements Initializable {
     public TextField searchbox;
     public AnchorPane gridArea;
     public GridPane gridV;
-    private ColumnConstraints column1;
-    private RowConstraints row1;
     public Label labelName;
 
     @Override
@@ -45,11 +46,6 @@ public class ControllerStartLayout implements Initializable {
 
         searchbox.setText("");
         labelName.setText("Alle Rezepte");
-/*        gridPane = new GridPane();
-        gridPane.getStyleClass().add("grid");
-        setupGrid(gridPane);
-        gridArea.getChildren().add(gridPane);*/
-
         List<Recipe> startRecipes = null;
         try {
             startRecipes = DataManager.get().getStartRecipes(0);
@@ -65,18 +61,16 @@ public class ControllerStartLayout implements Initializable {
         if (recipeList != null && !recipeList.isEmpty()) {
 
             for (int i = 0; i < recipeList.size(); i++) {
-                Pane pane = new Pane();
+                AnchorPane pane = new AnchorPane();
                 pane.prefWidthProperty().bind(gridV.widthProperty().divide(3));
                 pane.prefHeightProperty().bind(gridV.heightProperty().divide(3));
-                StackPane pane2 = new StackPane();
-                pane2.getStyleClass().add("bildRand");
 
                 ImageView imageView = new ImageView(recipeList.get(i).getImage());
                 //imageView.setPreserveRatio(true);
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                 imageView.getStyleClass().add("startimage");
-                setupImageListeners(pane, imageView, recipeList.get(i).getName(), pane2);
+                setupImageListeners(pane, imageView, recipeList.get(i).getName());
 
                 int gridX = i % 3;
                 int gridY = i / 3;
@@ -87,20 +81,33 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    private void setupImageListeners(Pane pane, ImageView imageView, String name, StackPane pane2) {
+    private void setupImageListeners(Pane pane, ImageView imageView, String name) {
+
+        AnchorPane pane2 = new AnchorPane();
+        pane2.getStyleClass().add("startimage");
+        pane2.setPadding(new Insets(1,1,1,1));
+        pane2.minHeightProperty().bind(pane.heightProperty().subtract(15));
+        pane2.prefHeightProperty().bind(pane.heightProperty().subtract(15));
+        pane2.minWidthProperty().bind(pane.widthProperty().subtract(15));
+        pane2.prefWidthProperty().bind(pane.widthProperty().subtract(15));
+        pane2.maxWidthProperty().bind(pane.widthProperty().subtract(15));
+        pane2.maxHeightProperty().bind(pane.heightProperty().subtract(15));
+        pane2.getChildren().add(imageView);
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
-                    label.setFont(Font.font("Segeo UI", 21));
+                    label.setFont(Font.font("Segeo UI", 23));
                     label.setAlignment(Pos.CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
                     label.setTextAlignment(TextAlignment.CENTER);
+                    label.minWidthProperty().bind(pane2.minWidthProperty());
+                    label.minHeightProperty().bind(pane2.minHeightProperty().divide(2).subtract(15));
+                    label.maxWidthProperty().bind(pane.widthProperty().subtract(25));
+
+
                     AnchorPane background = new AnchorPane();
+                    background.setLayoutY(63);
                     background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
-                    background.setMaxHeight(pane2.getHeight() * 0.2);
-                    background.setPadding(new Insets(pane2.getHeight() * 0.1, 0, pane2.getHeight() - pane2.getHeight() * 0.9, 0));
-                    background.setLayoutY(background.getHeight()/2);
-                    background.setLayoutX(background.getWidth()/2);
                     background.setMouseTransparent(true);
                     background.getChildren().add(label);
                     pane2.getChildren().add(background);
@@ -144,38 +151,12 @@ public class ControllerStartLayout implements Initializable {
                 throwables.printStackTrace();
             }
         });
-        pane2.getChildren().add(imageView);
+
         pane.getChildren().add(pane2);
 
 
     }
 
-    private void setupGrid(GridPane gridPane) {
-
-        column1 = new ColumnConstraints();
-        column1.setPercentWidth(33.3);
-        gridPane.getColumnConstraints().add(column1);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(33.3);
-        gridPane.getColumnConstraints().add(column2);
-
-        ColumnConstraints column3 = new ColumnConstraints();
-        column3.setPercentWidth(33.3);
-        gridPane.getColumnConstraints().add(column3);
-
-        row1 = new RowConstraints();
-        row1.setPercentHeight(33.3);
-        gridPane.getRowConstraints().add(row1);
-
-        RowConstraints row2 = new RowConstraints();
-        row2.setPercentHeight(33.3);
-        gridPane.getRowConstraints().add(row2);
-        RowConstraints row3 = new RowConstraints();
-        row3.setPercentHeight(33.3);
-        gridPane.getRowConstraints().add(row3);
-
-    }
 
     public void onBtnBack(ActionEvent actionEvent) throws SQLException {
         int i = Integer.parseInt(page.getText());
