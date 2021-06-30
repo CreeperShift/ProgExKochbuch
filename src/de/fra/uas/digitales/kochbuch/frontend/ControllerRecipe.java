@@ -25,7 +25,6 @@ public class ControllerRecipe implements Initializable {
     public Label LabelBeschreibung;
     public Label labelZutaten;
     public Label labelSteps;
-    public ImageView bildRating;
     public Recipe currentRecipe;
     public VBox boxNameDescRat;
     private Rating rating;
