@@ -9,7 +9,7 @@
    <left>
       <VBox minWidth="130.0" prefHeight="375.0" prefWidth="130.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onBtnStart" prefHeight="44.0" prefWidth="144.0" styleClass="navbutton" text="Start">
+            <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onBtnStart" prefHeight="44.0" prefWidth="144.0" styleClass="navbutton" text="Rezepte">
                <font>
                   <Font size="21.0" />
                </font>

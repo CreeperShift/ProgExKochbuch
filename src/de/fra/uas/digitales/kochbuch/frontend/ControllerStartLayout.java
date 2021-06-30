@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import org.controlsfx.glyphfont.Glyph;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,19 +37,22 @@ public class ControllerStartLayout implements Initializable {
     public TextField searchbox;
     public AnchorPane gridArea;
     public GridPane gridV;
-    private ColumnConstraints column1;
-    private RowConstraints row1;
     public Label labelName;
+    public Button btnHome;
+    public Button btnSearch;
+    private String activeSearch = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        btnHome.setGraphic(new Glyph("FontAwesome", "home").size(30));
         searchbox.setText("");
+        btnBack.setText("");
+        btnBack.setDisable(true);
+        btnFront.setText("");
+        btnBack.setGraphic(new Glyph("FontAwesome", "chevron_left").size(25));
+        btnFront.setGraphic(new Glyph("FontAwesome", "chevron_right").size(25));
         labelName.setText("Alle Rezepte");
-/*        gridPane = new GridPane();
-        gridPane.getStyleClass().add("grid");
-        setupGrid(gridPane);
-        gridArea.getChildren().add(gridPane);*/
 
         List<Recipe> startRecipes = null;
         try {
@@ -83,8 +87,16 @@ public class ControllerStartLayout implements Initializable {
 
                 gridV.add(pane, gridX, gridY);
             }
-        }
+        } else if (recipeList != null) {
 
+            Label l = new Label("Keine Rezepte gefunden");
+            btnBack.setDisable(true);
+            btnFront.setDisable(true);
+            l.setFont(Font.font("Segeo UI", 50));
+            l.setLayoutX(gridV.getWidth() / 3);
+            gridV.add(l, 1, 1);
+
+        }
     }
 
     private void setupImageListeners(Pane pane, ImageView imageView, String name, StackPane pane2) {
@@ -99,8 +111,8 @@ public class ControllerStartLayout implements Initializable {
                     background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
                     background.setMaxHeight(pane2.getHeight() * 0.2);
                     background.setPadding(new Insets(pane2.getHeight() * 0.1, 0, pane2.getHeight() - pane2.getHeight() * 0.9, 0));
-                    background.setLayoutY(background.getHeight()/2);
-                    background.setLayoutX(background.getWidth()/2);
+                    background.setLayoutY(background.getHeight() / 2);
+                    background.setLayoutX(background.getWidth() / 2);
                     background.setMouseTransparent(true);
                     background.getChildren().add(label);
                     pane2.getChildren().add(background);
@@ -150,70 +162,69 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    private void setupGrid(GridPane gridPane) {
 
-        column1 = new ColumnConstraints();
-        column1.setPercentWidth(33.3);
-        gridPane.getColumnConstraints().add(column1);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(33.3);
-        gridPane.getColumnConstraints().add(column2);
-
-        ColumnConstraints column3 = new ColumnConstraints();
-        column3.setPercentWidth(33.3);
-        gridPane.getColumnConstraints().add(column3);
-
-        row1 = new RowConstraints();
-        row1.setPercentHeight(33.3);
-        gridPane.getRowConstraints().add(row1);
-
-        RowConstraints row2 = new RowConstraints();
-        row2.setPercentHeight(33.3);
-        gridPane.getRowConstraints().add(row2);
-        RowConstraints row3 = new RowConstraints();
-        row3.setPercentHeight(33.3);
-        gridPane.getRowConstraints().add(row3);
-
-    }
-
-    public void onBtnBack(ActionEvent actionEvent) throws SQLException {
+    public void onBtnBack(ActionEvent actionEvent) throws SQLException, IOException {
         int i = Integer.parseInt(page.getText());
         if (i > 0) {
             i--;
 
             gridV.getChildren().clear();
-            addChildren(DataManager.get().getStartRecipes(i));
+            if (activeSearch == null) {
+                addChildren(DataManager.get().getStartRecipes(i - 1));
+            } else {
+                addChildren(DataManager.get().getRecipeList(activeSearch, i - 1));
+            }
             page.setText("" + i);
         }
+        btnBack.setDisable(true);
+        btnFront.setDisable(true);
+        Timer timer = new Timer();
+        int finalI = i;
+        TimerTask task = new TimerTask() {
+            public void run() {
+                btnFront.setDisable(false);
+                if (finalI > 1) {
+                    btnBack.setDisable(false);
+                }
+            }
 
-        if (i == 0) {
-            btnBack.setDisable(true);
-        }
+        };
+        timer.schedule(task, 400);
+
 
     }
 
 
-    public void onBtnFront(ActionEvent actionEvent) throws SQLException {
+    public void onBtnFront(ActionEvent actionEvent) throws SQLException, IOException {
 
         int i = Integer.parseInt(page.getText());
         i++;
 
         gridV.getChildren().clear();
 
-        addChildren(DataManager.get().getStartRecipes(i));
+        final List<Recipe> recipeList;
+
+        if (activeSearch == null) {
+            recipeList = DataManager.get().getStartRecipes(i - 1);
+            addChildren(recipeList);
+        } else {
+            recipeList = DataManager.get().getRecipeList(activeSearch, i - 1);
+            addChildren(recipeList);
+        }
         page.setText("" + i);
         btnBack.setDisable(true);
         btnFront.setDisable(true);
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
-                btnFront.setDisable(false);
+                if (recipeList.size() >= 9) {
+                    btnFront.setDisable(false);
+                }
                 btnBack.setDisable(false);
             }
 
         };
-        timer.schedule(task, 800);
+        timer.schedule(task, 400);
     }
 
 
@@ -221,13 +232,35 @@ public class ControllerStartLayout implements Initializable {
 
         gridV.getChildren().clear();
         String temp = searchbox.getText();
-        addChildren(DataManager.get().getRecipeList(temp, 0));
+        List<Recipe> recipeList = DataManager.get().getRecipeList(temp, 0);
+        addChildren(recipeList);
         if (temp.isBlank()) {
-            temp = "Alle Rezepte";
-        }
-        labelName.setText(temp);
-        searchbox.setText("");
-        //TODO: add more pages to search
+            labelName.setText("Alle Rezepte");
+            page.setText("1");
+            activeSearch = null;
+        } else {
+            labelName.setText("Rezepte für " + temp);
+            page.setText("1");
+            activeSearch = temp;
+            btnFront.setDisable(false);
 
+            if (recipeList.size() < 9) {
+                btnFront.setDisable(true);
+            } else {
+                List<Recipe> recipeListNext = DataManager.get().getRecipeList(temp, 1);
+                if (recipeListNext.isEmpty()) {
+                    btnFront.setDisable(true);
+                }
+            }
+        }
+    }
+
+    public void onHome(ActionEvent actionEvent) throws SQLException {
+        gridV.getChildren().clear();
+        addChildren(DataManager.get().getStartRecipes(0));
+        labelName.setText("Alle Rezepte");
+        searchbox.setText("");
+        page.setText("1");
+        activeSearch = null;
     }
 }
