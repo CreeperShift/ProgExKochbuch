@@ -57,11 +57,11 @@ public class MockDataManager implements IDataManager {
 
         mockRecipe.setId(1)
                 .setDesc("Diese leckere Spezialität aus dem Elsass eignet sich sehr gut auch zum Apéro. Dünn ausgewallter Brotteig mit Sauerrahm, Zwiebeln und Speckwürfeli!")
-                .setImageRaw(file)
+                //.setImageRaw(file)
                 .setIngredients(ingredientList)
                 .setRating(3)
                 .setTime(15.0f)
-                .setSteps(stepList.toString())
+                //.setSteps(stepList.toString())
                 .setName("Flammkuchen");
 
 
@@ -75,9 +75,9 @@ public class MockDataManager implements IDataManager {
                     .setIngredients(ingredientList)
                     .setRating(3)
                     .setTime(15.0f)
-                    .setSteps(stepList.toString())
-                    .setName("Flammkuchen")
-                    .setImageRaw(file);
+                    //.setSteps(stepList.toString())
+                    .setName("Flammkuchen");
+                    //.setImageRaw(file);
             fakeRecipeList.add(r);
         }
 

@@ -11,18 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-
 public class Main extends Application {
 
-    /*
-    True means we use the MockDataManger.
-     */
     public static BorderPane mainPanel;
     public static AnchorPane startPane;
     public static AnchorPane recipePage;
@@ -38,15 +33,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Path path = Paths.get("resources/Database.info");
-
         DataManager.setDatabase(Files.readAllLines(path).get(0), Files.readAllLines(path).get(1), Files.readAllLines(path).get(2));
-
-
 
         FXMLLoader loaderBase = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/baseLayout.fxml")));
         mainPanel = loaderBase.load();
         controllerBase = loaderBase.getController();
-
         startPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/startLayout.fxml")));
         mainPanel.setCenter(startPane);
 
@@ -56,13 +47,12 @@ public class Main extends Application {
 
         FXMLLoader loaderNewRecipe = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
         newRecipePage = loaderNewRecipe.load();
+        controllerNewRecipe = loaderNewRecipe.getController();
 
         FXMLLoader loaderFilter = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/filterLayout.fxml")));
         filterPage = loaderFilter.load();
-
         FXMLLoader loaderSettings = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/SettingsLayout.fxml")));
         settingsPage = loaderSettings.load();
-
 
         primaryStage.setTitle("Digitales Kochbuch");
         primaryStage.setScene(new Scene(mainPanel, 1280, 700));
@@ -70,12 +60,9 @@ public class Main extends Application {
         stage = primaryStage;
     }
 
-
     public static void main(String[] args) {
 
         launch(args);
 
     }
 }
-
-

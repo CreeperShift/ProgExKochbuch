@@ -46,7 +46,7 @@ public class ControllerBase implements Initializable {
         setButtonActive(btnFilter);
     }
 
-    private void clearButtons() {
+    public void clearButtons() {
         Arrays.stream(navButtons).forEach(b -> b.setStyle(null));
     }
 
