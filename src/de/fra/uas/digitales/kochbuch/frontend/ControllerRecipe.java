@@ -57,8 +57,12 @@ public class ControllerRecipe implements Initializable {
 
     }
 
-
     public void onBtnEdit(ActionEvent actionEvent) {
+
+        ControllerEditRecipe controllerEditRecipe = new ControllerEditRecipe();
+        controllerEditRecipe.output(currentRecipe);
+        Main.mainPanel.setCenter(Main.editRecipePage);
+
     }
 
     public void onBtnBack(ActionEvent actionEvent) {
