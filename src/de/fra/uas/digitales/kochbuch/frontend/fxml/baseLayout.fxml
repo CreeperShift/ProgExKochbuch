@@ -7,7 +7,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerBase">
    <left>
-      <VBox prefHeight="375.0" prefWidth="130.0" styleClass="navbar" BorderPane.alignment="CENTER">
+      <VBox minWidth="130.0" prefHeight="375.0" prefWidth="130.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onBtnStart" prefHeight="44.0" prefWidth="144.0" styleClass="navbutton" text="Start">
                <font>
