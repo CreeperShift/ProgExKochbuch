@@ -13,12 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
-<VBox prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipe">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipe">
    <children>
       <AnchorPane prefHeight="49.0" prefWidth="800.0">
          <children>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Rezept bearbeiten" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0">
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Neues Rezept erstellen" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font size="23.0" />
                </font>
@@ -58,6 +59,8 @@
                </HBox.margin>
             </TextField>
             <Label prefHeight="25.0" prefWidth="62.0" text="Minuten" />
+            <Label prefHeight="25.0" prefWidth="62.0" text="Kategorie" />
+            <SearchableComboBox fx:id="recipetag" prefHeight="25.0" prefWidth="125.0" />
          </children>
       </HBox>
       <Separator prefWidth="200.0" />

@@ -1,21 +1,15 @@
-.navbarButton {
-    -fx-background-color: #b6ccdb;
+.navbutton {
+    -fx-background-color: gray;
     -fx-background-radius: 0;
     -fx-font-size: 19;
 }
-
-.navbarButton:hover {
-    -fx-background-color: #728fa3;
-    -fx-background-radius: 0;
+.navbuttonActive{
+    !important;
+    -fx-background-color: silver;
 }
 
-.navbarButton:pressed {
-    -fx-background-color: #415b6e;
-    -fx-background-radius: 0;
-}
-
-.navbarButton.active {
-    -fx-background-color: #728fa3;
+.navbutton:hover{
+    -fx-background-color: lightgray;
 }
 
 .editButton:pressed {
@@ -23,7 +17,7 @@
 }
 
 .navbar {
-    -fx-background-color: #b6ccdb;
+    -fx-background-color: gray;
 }
 
 .grid {
