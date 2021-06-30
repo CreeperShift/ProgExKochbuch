@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ControllerFilterLayout implements Initializable {
+public class ControllerFilter implements Initializable {
     public Button btnFind;
     public Button btnFilter;
     public TextField txtFilter;

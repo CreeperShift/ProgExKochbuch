@@ -2,8 +2,8 @@ package de.fra.uas.digitales.kochbuch;
 
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipeLayout;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipeLayoutNeu;
+import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipe;
+import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,15 +20,15 @@ import java.util.Objects;
 public class Main extends Application {
 
     public static BorderPane mainPanel;
-    public static AnchorPane startPane;
-    public static AnchorPane recipePage;
+    public static VBox startPane;
+    public static VBox recipePage;
     public static VBox filterPage;
     public static VBox newRecipePage;
     public static AnchorPane settingsPage;
-    public static ControllerRecipeLayoutNeu controllerRecipe;
+    public static ControllerRecipe controllerRecipe;
     public static ControllerBase controllerBase;
     public static Stage stage;
-    public static ControllerNewRecipeLayout controllerNewRecipe;
+    public static ControllerNewRecipe controllerNewRecipe;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -55,7 +56,8 @@ public class Main extends Application {
         settingsPage = loaderSettings.load();
 
         primaryStage.setTitle("Digitales Kochbuch");
-        primaryStage.setScene(new Scene(mainPanel, 1280, 700));
+        Scene s = new Scene(mainPanel, 1280, 700);
+        primaryStage.setScene(s);
         primaryStage.show();
         stage = primaryStage;
     }

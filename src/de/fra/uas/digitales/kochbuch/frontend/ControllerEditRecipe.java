@@ -1,6 +1,4 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
-public class EditController {
-
-
+public class ControllerEditRecipe {
 }

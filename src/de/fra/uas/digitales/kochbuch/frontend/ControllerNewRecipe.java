@@ -7,6 +7,7 @@ import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -14,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import org.controlsfx.control.Rating;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ControllerNewRecipeLayout implements Initializable {
+public class ControllerNewRecipe implements Initializable {
     public TextArea recipeSteps;
     public TextArea recipeDesc;
     public TextField recipeName;
@@ -33,19 +36,20 @@ public class ControllerNewRecipeLayout implements Initializable {
     public VBox ingredientBox;
     public TextField picName;
     public TextField picPath;
+    public Rating recipeRating;
+    public TextField recipeTime;
     private File currentImage;
     private final List<Ingredient> ingredientList = new LinkedList<>();
     private Recipe aktuellesRezept;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        recipeRating.setMax(5);
+        recipeRating.setPartialRating(false);
     }
 
     @FXML
-    public void output(Recipe recipe)
-    {
+    public void output(Recipe recipe) {
         aktuellesRezept = recipe;
         recipeName.setText(recipe.getName());
         recipeSteps.setText(recipe.getSteps());
@@ -60,10 +64,18 @@ public class ControllerNewRecipeLayout implements Initializable {
                     .setDesc(recipeDesc.getText())
                     .setImageRaw(currentImage)
                     .setIngredients(ingredientList)
-                    .setRating(0)
-                    .setTime(15.0f)
+                    .setRating(((int) recipeRating.getRating()))
                     .setSteps(recipeSteps.getText());
-            if(this.aktuellesRezept!=null){
+
+            float time = 0;
+            try {
+                time = Float.parseFloat(recipeTime.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            r.setTime(time);
+
+            if (this.aktuellesRezept != null) {
                 DataManager.get().editRecipe(this.aktuellesRezept);
             }
             DataManager.get().addNewRecipe(r);
@@ -79,21 +91,21 @@ public class ControllerNewRecipeLayout implements Initializable {
         alert.setHeaderText("Rezept wirklich löschen?");
         alert.setContentText("Kann nicht rückgängig gemacht werden!");
         Optional<ButtonType> bestätigung = alert.showAndWait();
-        if(bestätigung.get()==ButtonType.OK){
-            if(this.aktuellesRezept !=null){
+        if (bestätigung.get() == ButtonType.OK) {
+            if (this.aktuellesRezept != null) {
                 DataManager.get().deleteRecipe(this.aktuellesRezept);
                 Alert weg = new Alert(Alert.AlertType.INFORMATION);
                 weg.setTitle("Information");
                 weg.setHeaderText("Rezept wurde gelöscht!!");
                 weg.show();
-            }else{
+            } else {
                 Alert nicht = new Alert(Alert.AlertType.INFORMATION);
                 nicht.setTitle("Information");
                 nicht.setHeaderText("Ooh, da ist wohl was schief gelaufen!");
                 nicht.setContentText("Kein Rezept ausgewählt!");
                 nicht.show();
             }
-        }else{
+        } else {
             Alert abbruch = new Alert(Alert.AlertType.INFORMATION);
             abbruch.setTitle("Information");
             abbruch.setHeaderText("Löschvorgang wurde abgebrochen!");
@@ -127,6 +139,7 @@ public class ControllerNewRecipeLayout implements Initializable {
                     ingredient = new Ingredient(name, amount, unit);
                 }
                 HBox box = new HBox();
+                box.setPadding(new Insets(5, 5, 0, 0));
                 TextField text = new TextField(ingredient.toString());
                 text.setEditable(false);
                 Button button = new Button("X");
@@ -162,8 +175,8 @@ public class ControllerNewRecipeLayout implements Initializable {
                 if (!recipeSteps.getText().isBlank()) {
                     if (currentImage != null) {
                         //if(ingredientList != null){
-                            return true;
-                       // }
+                        return true;
+                        // }
 
                     }
                 }
@@ -171,22 +184,19 @@ public class ControllerNewRecipeLayout implements Initializable {
         }
 
         //Warnung das was fehlt!
-        String wasFehltNoch="Fehlende Komponenten:\n";
-        if(recipeName.getText().isBlank()){
-            wasFehltNoch+="-Name\n";
+        String wasFehltNoch = "Fehlende Komponenten:\n";
+        if (recipeName.getText().isBlank()) {
+            wasFehltNoch += "-Name\n";
         }
-        if(recipeDesc.getText().isBlank()){
-            wasFehltNoch+="-Beschreibung\n";
+        if (recipeDesc.getText().isBlank()) {
+            wasFehltNoch += "-Beschreibung\n";
         }
-        if(recipeSteps.getText().isBlank()){
-            wasFehltNoch+="-Schritte\n";
-        }
-        if(currentImage == null){
-            wasFehltNoch+="-Bild\n";
+        if (recipeSteps.getText().isBlank()) {
+            wasFehltNoch += "-Schritte\n";
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
-        alert.setHeaderText("Leider fehlt was!");
+        alert.setHeaderText("Leider fehlt etwas!");
         alert.setContentText(wasFehltNoch);
         alert.showAndWait();
 
