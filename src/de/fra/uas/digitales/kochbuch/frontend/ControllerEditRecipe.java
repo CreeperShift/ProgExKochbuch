@@ -120,6 +120,9 @@ public class ControllerEditRecipe implements Initializable {
                 weg.setTitle("Information");
                 weg.setHeaderText("Rezept wurde gelöscht!!");
                 weg.show();
+                Main.controllerBase.btnStart.fire();
+                //todo: evtl etwas abwarten bis es fired!?
+
             } else {
                 Alert nicht = new Alert(Alert.AlertType.INFORMATION);
                 nicht.setTitle("Information");
@@ -133,6 +136,7 @@ public class ControllerEditRecipe implements Initializable {
             abbruch.setHeaderText("Löschvorgang wurde abgebrochen!");
             abbruch.show();
         }
+
     }
 
     private void clearRecipe() {
@@ -195,7 +199,7 @@ public class ControllerEditRecipe implements Initializable {
         if (!recipeDesc.getText().isBlank()) {
             if (!recipeName.getText().isBlank()) {
                 if (!recipeSteps.getText().isBlank()) {
-                        return true;
+                    return true;
                 }
             }
         }

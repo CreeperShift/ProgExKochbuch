@@ -118,7 +118,6 @@ public class DataManager implements IDataManager {
         PreparedStatement preDeleteRecipe = connection.prepareStatement(deleteRecipe);
         preDeleteRecipe.setString(1, recipe.getName());
         preDeleteRecipe.execute();
-        System.out.println("Rezept wurde gelöscht!");
 
     }
 

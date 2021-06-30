@@ -1,10 +1,7 @@
 package de.fra.uas.digitales.kochbuch;
 
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerEditRecipe;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipe;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
+import de.fra.uas.digitales.kochbuch.frontend.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
