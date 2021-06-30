@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.GridView?>
 
-
-  <VBox fx:id="vBox" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
+<VBox fx:id="vBox" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
       <children>
       <AnchorPane>
          <children>
@@ -38,6 +38,14 @@
          <VBox.margin>
             <Insets bottom="15.0" />
          </VBox.margin>
+      </AnchorPane>
+      <AnchorPane fx:id="gridArea" prefHeight="410.0" prefWidth="855.0">
+         <VBox.margin>
+            <Insets bottom="15.0" right="15.0" />
+         </VBox.margin>
+         <children>
+            <GridView fx:id="gridV" prefHeight="210.0" prefWidth="855.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
       </AnchorPane>
       <HBox alignment="CENTER" prefHeight="0.0" prefWidth="815.0">
          <children>

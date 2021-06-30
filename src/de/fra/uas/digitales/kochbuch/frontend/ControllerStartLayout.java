@@ -35,6 +35,7 @@ public class ControllerStartLayout implements Initializable {
     public Button btnBack;
     public Button btnFront;
     public TextField searchbox;
+    public AnchorPane gridArea;
     private ColumnConstraints column1;
     private RowConstraints row1;
     public Label labelName;
@@ -45,10 +46,9 @@ public class ControllerStartLayout implements Initializable {
         searchbox.setText("");
         labelName.setText("Alle Rezepte");
         gridPane = new GridPane();
-        gridPane.setPrefHeight(5000);
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
-        vBox.getChildren().add(1, gridPane);
+        gridArea.getChildren().add(gridPane);
 
         List<Recipe> startRecipes = null;
         try {
