@@ -29,13 +29,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ControllerStartLayout implements Initializable {
-    public GridPane gridPane;
     public VBox vBox;
     public Label page;
     public Button btnBack;
     public Button btnFront;
     public TextField searchbox;
     public AnchorPane gridArea;
+    public GridPane gridV;
     private ColumnConstraints column1;
     private RowConstraints row1;
     public Label labelName;
@@ -45,10 +45,10 @@ public class ControllerStartLayout implements Initializable {
 
         searchbox.setText("");
         labelName.setText("Alle Rezepte");
-        gridPane = new GridPane();
+/*        gridPane = new GridPane();
         gridPane.getStyleClass().add("grid");
         setupGrid(gridPane);
-        gridArea.getChildren().add(gridPane);
+        gridArea.getChildren().add(gridPane);*/
 
         List<Recipe> startRecipes = null;
         try {
@@ -66,84 +66,69 @@ public class ControllerStartLayout implements Initializable {
 
             for (int i = 0; i < recipeList.size(); i++) {
                 Pane pane = new Pane();
-                pane.prefWidthProperty().bind(column1.prefWidthProperty());
-                pane.prefHeightProperty().bind(row1.prefHeightProperty());
+                pane.prefWidthProperty().bind(gridV.widthProperty().divide(3));
+                pane.prefHeightProperty().bind(gridV.heightProperty().divide(3));
+                StackPane pane2 = new StackPane();
+                pane2.getStyleClass().add("bildRand");
 
                 ImageView imageView = new ImageView(recipeList.get(i).getImage());
                 //imageView.setPreserveRatio(true);
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
-                imageView.getStyleClass().add("startPicture");
-
-                setupImageListeners(pane, imageView, recipeList.get(i).getName());
+                imageView.getStyleClass().add("startimage");
+                setupImageListeners(pane, imageView, recipeList.get(i).getName(), pane2);
 
                 int gridX = i % 3;
                 int gridY = i / 3;
 
-                gridPane.add(pane, gridX, gridY);
+                gridV.add(pane, gridX, gridY);
             }
         }
 
     }
 
-    private void setupImageListeners(Pane pane, ImageView imageView, String name) {
+    private void setupImageListeners(Pane pane, ImageView imageView, String name, StackPane pane2) {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
                     label.setFont(Font.font("Segeo UI", 21));
-                    label.setAlignment(Pos.TOP_CENTER);
+                    label.setAlignment(Pos.CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
                     label.setTextAlignment(TextAlignment.CENTER);
                     AnchorPane background = new AnchorPane();
                     background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
-                    background.setLayoutY(pane.getHeight() - 80);
-                    background.setLayoutX(0);
-                    background.setMinWidth(pane.getWidth() - 15);
-                    background.setMaxWidth(pane.getWidth() - 15);
-                    background.setMinHeight(45);
-
-                    label.setMouseTransparent(true);
+                    background.setMaxHeight(pane2.getHeight() * 0.2);
+                    background.setPadding(new Insets(pane2.getHeight() * 0.1, 0, pane2.getHeight() - pane2.getHeight() * 0.9, 0));
+                    background.setLayoutY(background.getHeight()/2);
+                    background.setLayoutX(background.getWidth()/2);
                     background.setMouseTransparent(true);
-                    label.setMinWidth(pane.getWidth() - 15);
-                    label.setMaxWidth(pane.getWidth() - 15);
+                    background.getChildren().add(label);
+                    pane2.getChildren().add(background);
 
-                    pane.getChildren().add(background);
-                    label.setPadding(new Insets(0, 15, 0, 15));
-
-
-                    label.setLayoutY(pane.getHeight() - 75);
                     label.setTextFill(Color.WHITE);
-                    ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
-                    ScaleTransition scale2 = new ScaleTransition(Duration.millis(50), label);
-                    ScaleTransition scale3 = new ScaleTransition(Duration.millis(50), background);
+                    ScaleTransition scale = new ScaleTransition(Duration.millis(50), pane2);
                     scale.setToX(1.07);
-                    scale2.setToX(1.07);
-                    scale3.setToX(1.07);
                     scale.setToY(1.07);
-                    scale2.setToY(1.07);
-                    scale3.setToY(1.07);
                     scale.play();
-                    scale2.play();
-                    scale3.play();
-                    pane.getChildren().add(label);
+
                 }
         );
         imageView.addEventFilter(MouseEvent.MOUSE_EXITED_TARGET, event -> {
                     final Label[] l = {null};
-                    pane.getChildren().forEach(c -> {
+                    pane2.getChildren().forEach(c -> {
                         if (c instanceof Label) {
                             l[0] = (Label) c;
                         }
                     });
                     final AnchorPane[] a = {null};
-                    pane.getChildren().forEach(c -> {
+                    pane2.getChildren().forEach(c -> {
                         if (c instanceof AnchorPane) {
                             a[0] = (AnchorPane) c;
                         }
                     });
-                    pane.getChildren().removeAll(l);
-                    pane.getChildren().removeAll(a);
-                    ScaleTransition scale = new ScaleTransition(Duration.millis(50), imageView);
+                    pane2.getChildren().removeAll(l);
+                    pane2.getChildren().removeAll(a);
+                    ScaleTransition scale = new ScaleTransition(Duration.millis(50), pane2);
                     scale.setToX(1f);
                     scale.setToY(1f);
                     scale.play();
@@ -159,8 +144,8 @@ public class ControllerStartLayout implements Initializable {
                 throwables.printStackTrace();
             }
         });
-
-        pane.getChildren().add(imageView);
+        pane2.getChildren().add(imageView);
+        pane.getChildren().add(pane2);
 
 
     }
@@ -197,7 +182,7 @@ public class ControllerStartLayout implements Initializable {
         if (i > 0) {
             i--;
 
-            gridPane.getChildren().clear();
+            gridV.getChildren().clear();
             addChildren(DataManager.get().getStartRecipes(i));
             page.setText("" + i);
         }
@@ -214,7 +199,7 @@ public class ControllerStartLayout implements Initializable {
         int i = Integer.parseInt(page.getText());
         i++;
 
-        gridPane.getChildren().clear();
+        gridV.getChildren().clear();
 
         addChildren(DataManager.get().getStartRecipes(i));
         page.setText("" + i);
@@ -234,11 +219,11 @@ public class ControllerStartLayout implements Initializable {
 
     public void onBtnSuche(ActionEvent actionEvent) throws SQLException, IOException {
 
-        gridPane.getChildren().clear();
-        String temp=searchbox.getText();
+        gridV.getChildren().clear();
+        String temp = searchbox.getText();
         addChildren(DataManager.get().getRecipeList(temp, 0));
-        if(temp.isBlank()){
-            temp="Alle Rezepte";
+        if (temp.isBlank()) {
+            temp = "Alle Rezepte";
         }
         labelName.setText(temp);
         searchbox.setText("");

@@ -3,12 +3,13 @@
     -fx-background-radius: 0;
     -fx-font-size: 19;
 }
-.navbuttonActive{
-    !important;
+
+.navbuttonActive {
+!important;
     -fx-background-color: silver;
 }
 
-.navbutton:hover{
+.navbutton:hover {
     -fx-background-color: lightgray;
 }
 
@@ -24,13 +25,21 @@
     -fx-padding: 30;
 }
 
-.startPicture:hover {
-}
+.startimage {
+    -fx-border-color: gray;
+    -fx-border-width: 5;
+    -fx-border-style: solid;
+   }
 
 .scrollbar:focused {
     -fx-faint-focus-color: transparent;
     -fx-focus-color: transparent;
 }
 
-.recipeLabel{
+.bildRand{
+    -fx-border-style: solid;
+    -fx-border-color: black;
+}
+
+.recipeLabel {
 }
