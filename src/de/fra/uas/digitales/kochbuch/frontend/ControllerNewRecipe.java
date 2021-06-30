@@ -211,4 +211,26 @@ public class ControllerNewRecipe implements Initializable {
         }
     }
 
+    public void btnZuruck(ActionEvent actionEvent) {
+
+        Main.mainPanel.setCenter(Main.startPane);
+
+    }
+
+    public void btnAbbrechen(ActionEvent actionEvent) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Bist du sicher?");
+        //alert.setContentText("Bist du sicher?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            Main.mainPanel.setCenter(Main.startPane);
+
+        }
+
+
+    }
 }
