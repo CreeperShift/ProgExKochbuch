@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -37,18 +38,43 @@ public class ControllerEditRecipe implements Initializable {
     public Rating recipeRating;
     public TextField recipeTime;
     private File currentImage;
-    private final List<Ingredient> ingredientList = new LinkedList<>();
+
+    private List<Ingredient> ingredientList = new LinkedList<>();
     private Recipe recipeEdit;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         recipeRating.setMax(5);
         recipeRating.setPartialRating(false);
+        recipeRating.setUpdateOnHover(false);
     }
 
     @FXML
     public void output(Recipe recipe) {
         recipeEdit = recipe;
+        recipeName.setText(recipe.getName());
+        recipeDesc.setText(recipe.getDesc());
+        recipeSteps.setText(recipe.getSteps());
+        recipeRating.setRating(recipe.getRating());
+        recipeTime.setText(String.valueOf(recipe.getTime()));
+        ingredientList = recipe.getIngredients();
+
+        for (Ingredient ing : ingredientList) {
+
+            HBox box = new HBox();
+            box.setPadding(new Insets(5, 5, 0, 0));
+            TextField text = new TextField(ing.toString());
+            text.setEditable(false);
+            Button button = new Button("X");
+            box.getChildren().add(text);
+            box.getChildren().add(button);
+            ingredientBox.getChildren().add(box);
+            button.setOnAction(actionEvent1 -> {
+                ingredientBox.getChildren().remove(box);
+                ingredientList.remove(ing);
+            });
+
+        }
 
     }
 
@@ -61,8 +87,8 @@ public class ControllerEditRecipe implements Initializable {
                     .setImageRaw(currentImage)
                     .setIngredients(ingredientList)
                     .setRating(((int) recipeRating.getRating()))
+                    .setId(recipeEdit.getID())
                     .setSteps(recipeSteps.getText());
-
             float time = 0;
             try {
                 time = Float.parseFloat(recipeTime.getText());
@@ -72,9 +98,9 @@ public class ControllerEditRecipe implements Initializable {
             r.setTime(time);
 
             if (this.recipeEdit != null) {
-                DataManager.get().editRecipe(this.recipeEdit);
+                DataManager.get().editRecipe(r);
             }
-            DataManager.get().addNewRecipe(r);
+
             clearRecipe();
             Main.controllerBase.btnStart.fire();
         }
@@ -169,12 +195,7 @@ public class ControllerEditRecipe implements Initializable {
         if (!recipeDesc.getText().isBlank()) {
             if (!recipeName.getText().isBlank()) {
                 if (!recipeSteps.getText().isBlank()) {
-                    if (currentImage != null) {
-                        //if(ingredientList != null){
                         return true;
-                        // }
-
-                    }
                 }
             }
         }

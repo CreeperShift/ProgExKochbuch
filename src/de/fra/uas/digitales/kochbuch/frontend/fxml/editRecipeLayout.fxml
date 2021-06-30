@@ -13,7 +13,7 @@
     <children>
         <AnchorPane prefHeight="49.0" prefWidth="800.0">
             <children>
-                <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Neues Rezept erstellen"
+                <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Rezept bearbeiten"
                        textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0"
                        AnchorPane.topAnchor="5.0">
                     <font>
