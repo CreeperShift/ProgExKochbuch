@@ -114,9 +114,9 @@ public class DataManager implements IDataManager {
     @Override
     public void deleteRecipe(Recipe recipe) throws SQLException {
 
-        String deleteRecipe = "DELETE FROM recipe WHERE recipeName=?";
+        String deleteRecipe = "DELETE FROM recipe WHERE id=?";
         PreparedStatement preDeleteRecipe = connection.prepareStatement(deleteRecipe);
-        preDeleteRecipe.setString(1, recipe.getName());
+        preDeleteRecipe.setString(1, String.valueOf(recipe.getID()));
         preDeleteRecipe.execute();
 
     }
