@@ -48,7 +48,7 @@ public class ControllerNewRecipe implements Initializable {
             Recipe r = new Recipe();
             r.setName(recipeName.getText())
                     .setDesc(recipeDesc.getText())
-                    .setImageRaw(currentImage)
+                    //.setImageRaw(currentImage)
                     .setIngredients(ingredientList)
                     .setRating(((int) recipeRating.getRating()))
                     .setSteps(recipeSteps.getText());
@@ -60,6 +60,13 @@ public class ControllerNewRecipe implements Initializable {
                 e.printStackTrace();
             }
             r.setTime(time);
+
+            if(currentImage!=null){
+                r.setImageRaw(currentImage);
+            }else{
+                File fileNoPic = new File("resources/images/noPicture.jpg");
+                r.setImageRaw(fileNoPic);
+            }
 
             if (this.aktuellesRezept != null) {
                 DataManager.get().editRecipe(this.aktuellesRezept);
@@ -130,12 +137,12 @@ public class ControllerNewRecipe implements Initializable {
         if (!recipeDesc.getText().isBlank()) {
             if (!recipeName.getText().isBlank()) {
                 if (!recipeSteps.getText().isBlank()) {
-                    if (currentImage != null) {
+                    //if (currentImage != null) {
                         //if(ingredientList != null){
                         return true;
                         // }
 
-                    }
+                    //}
                 }
             }
         }
