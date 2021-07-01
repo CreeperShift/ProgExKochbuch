@@ -25,6 +25,11 @@
                   <DropShadow />
                </effect>
             </Button>
+            <Button mnemonicParsing="false" onAction="#onExport" style="-fx-background-color: lightblue;" text="PDF Export" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
          </children>
       </AnchorPane>
       <HBox prefHeight="0.0" prefWidth="800.0">
