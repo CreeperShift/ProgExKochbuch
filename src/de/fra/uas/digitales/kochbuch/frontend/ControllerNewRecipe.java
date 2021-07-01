@@ -213,21 +213,30 @@ public class ControllerNewRecipe implements Initializable {
 
     public void btnZuruck(ActionEvent actionEvent) {
 
-        Main.mainPanel.setCenter(Main.startPane);
+        //Main.mainPanel.setCenter(Main.startPane);
+        Main.controllerBase.btnStart.fire();
 
     }
 
     public void btnAbbrechen(ActionEvent actionEvent) {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Bist du sicher?");
-        //alert.setContentText("Bist du sicher?");
+
+       Alert  alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Title");
+        alert.setHeaderText("Sind Sie sicher?");
+        //alert.setContentText("");
+      ButtonType  buttonTypeOne = new ButtonType("Ja");
+       ButtonType buttonTypeCancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK){
-            Main.mainPanel.setCenter(Main.startPane);
+
+      //  Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == buttonTypeOne){
+           Main.mainPanel.setCenter(Main.newRecipePage);
+             clearRecipe();
 
         }
 
