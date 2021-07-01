@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DataManager implements IDataManager {
 
-    private Connection connection;
+    private static Connection connection;
     private Statement statement;
     private Statement statement2;
     private Statement statement3;
@@ -44,6 +44,20 @@ public class DataManager implements IDataManager {
         url = surl;
         user = suser;
         password = spassword;
+    }
+
+    public List<String> getAllIngredientNames() throws SQLException {
+        List<String> ret = new LinkedList<>();
+
+        String getIngredName = "select ingredientName from ingredients";
+        PreparedStatement pState = connection.prepareStatement(getIngredName);
+        ResultSet result = pState.executeQuery();
+
+        while (result.next()) {
+            ret.add(result.getString("ingredientName"));
+        }
+
+        return ret;
     }
 
     public List<Recipe> getRecipeList(String name, int i) throws SQLException, IOException {
@@ -123,14 +137,13 @@ public class DataManager implements IDataManager {
         Main.controllerBase.btnStart.fire();
 
 
-
     }
 
     @Override
     public void editRecipe(Recipe recipeNeu) throws SQLException {
 
         Recipe recipeAlt = getRecipeByName(recipeNeu.getName());
-        if(recipeAlt!=null){
+        if (recipeAlt != null) {
             deleteRecipe(recipeAlt);
             System.out.println("Altes Rezept wurde gelöscht!");
         }
@@ -235,5 +248,9 @@ public class DataManager implements IDataManager {
     @Override
     public List<Recipe> getRecipeByIngredient(List<String> ingredients, int page) {
         return null;
+    }
+
+    public void stopConnection() throws SQLException {
+        connection.close();
     }
 }

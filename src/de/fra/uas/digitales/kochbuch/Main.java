@@ -63,6 +63,12 @@ public class Main extends Application {
         stage = primaryStage;
     }
 
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        DataManager.get().stopConnection();
+    }
+
     public static void main(String[] args) {
 
         launch(args);
