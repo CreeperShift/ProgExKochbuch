@@ -7,167 +7,149 @@
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.*?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerEditRecipe">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerEditRecipe">
 
     <children>
         <AnchorPane prefHeight="49.0" prefWidth="800.0">
             <children>
-                <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Rezept bearbeiten"
-                       textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0"
-                       AnchorPane.topAnchor="5.0">
+                <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Rezept bearbeiten" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0">
                     <font>
-                        <Font size="23.0"/>
+                        <Font size="23.0" />
                     </font>
                 </Label>
-                <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: gold;"
-                        text="&lt;-- Zurück">
+                <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: gold;" text="&lt;-- Zurück">
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Button>
             </children>
             <VBox.margin>
-                <Insets bottom="15.0"/>
+                <Insets bottom="15.0" />
             </VBox.margin>
         </AnchorPane>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <HBox prefHeight="51.0" prefWidth="600.0" style="-fx-spacing: 15; -fx-padding: 15;">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Name"/>
+                <Label prefHeight="25.0" prefWidth="100.0" text="Name" />
                 <TextField fx:id="recipeName" prefHeight="25.0" prefWidth="226.0">
                     <HBox.margin>
-                        <Insets right="15.0"/>
+                        <Insets right="15.0" />
                     </HBox.margin>
                 </TextField>
                 <Label prefHeight="25.0" prefWidth="41.0" text="Rating">
                     <HBox.margin>
-                        <Insets left="15.0"/>
+                        <Insets left="15.0" />
                     </HBox.margin>
                 </Label>
                 <Rating fx:id="recipeRating" prefHeight="33.0" prefWidth="134.0">
                     <HBox.margin>
-                        <Insets right="15.0" top="-8.0"/>
+                        <Insets right="15.0" top="-8.0" />
                     </HBox.margin>
                 </Rating>
                 <Label prefHeight="25.0" prefWidth="62.0" text="Kochdauer">
                     <HBox.margin>
-                        <Insets left="15.0"/>
+                        <Insets left="15.0" />
                     </HBox.margin>
                 </Label>
                 <TextField fx:id="recipeTime" prefHeight="25.0" prefWidth="47.0" text="0">
                     <HBox.margin>
-                        <Insets right="-12.0"/>
+                        <Insets right="-12.0" />
                     </HBox.margin>
                 </TextField>
-                <Label prefHeight="25.0" prefWidth="62.0" text="Minuten"/>
-                <Label prefHeight="25.0" prefWidth="62.0" text="Kategorie"/>
-                <SearchableComboBox fx:id="recipetag" prefHeight="25.0" prefWidth="125.0"/>
+                <Label prefHeight="25.0" prefWidth="62.0" text="Minuten" />
+                <Label prefHeight="25.0" prefWidth="62.0" text="Kategorie" />
+                <SearchableComboBox fx:id="recipetag" prefHeight="25.0" prefWidth="125.0" />
             </children>
         </HBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <HBox prefHeight="119.0" prefWidth="600.0" style="-fx-spacing: 15; -fx-padding: 15;" VBox.vgrow="ALWAYS">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Beschreibung" HBox.hgrow="SOMETIMES"/>
-                <TextArea fx:id="recipeDesc" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                <Label prefHeight="25.0" prefWidth="100.0" text="Beschreibung" HBox.hgrow="SOMETIMES" />
+                <TextArea fx:id="recipeDesc" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <HBox prefHeight="55.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Titelbild" HBox.hgrow="ALWAYS"/>
-                <Button mnemonicParsing="false" onAction="#onBtnPicture" style="-fx-background-color: gold;"
-                        text="Bild auswählen" HBox.hgrow="ALWAYS">
+                <Label prefHeight="25.0" prefWidth="100.0" text="Titelbild" HBox.hgrow="ALWAYS" />
+                <Button mnemonicParsing="false" onAction="#onBtnPicture" style="-fx-background-color: gold;" text="Bild auswählen" HBox.hgrow="ALWAYS">
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Button>
-                <TextField fx:id="picName" disable="true" editable="false" prefHeight="25.0" prefWidth="134.0"/>
-                <TextField fx:id="picPath" disable="true" editable="false" minWidth="50.0" prefHeight="25.0"
-                           prefWidth="403.0" HBox.hgrow="NEVER"/>
+                <TextField fx:id="picName" disable="true" editable="false" prefHeight="25.0" prefWidth="134.0" />
+                <TextField fx:id="picPath" disable="true" editable="false" minWidth="50.0" prefHeight="25.0" prefWidth="403.0" HBox.hgrow="NEVER" />
             </children>
         </HBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <HBox prefHeight="55.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;">
             <children>
                 <Label text="Menge:">
                     <padding>
-                        <Insets left="115.0" top="4.0"/>
+                        <Insets left="115.0" top="4.0" />
                     </padding>
                 </Label>
                 <TextField fx:id="amountIngredient" prefHeight="25.0" prefWidth="45.0">
                     <HBox.margin>
-                        <Insets left="-8.0"/>
+                        <Insets left="-8.0" />
                     </HBox.margin>
                 </TextField>
                 <Label text="Einheit">
                     <padding>
-                        <Insets top="4.0"/>
+                        <Insets top="4.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="unitIngredient" prefHeight="25.0" prefWidth="45.0"/>
+                <TextField fx:id="unitIngredient" prefHeight="25.0" prefWidth="45.0" />
                 <Label alignment="CENTER" contentDisplay="BOTTOM" text="Zutat:">
                     <padding>
-                        <Insets top="4.0"/>
+                        <Insets top="4.0" />
                     </padding>
                 </Label>
                 <TextField fx:id="textIngredient" prefHeight="25.0" prefWidth="119.0">
                     <HBox.margin>
-                        <Insets left="-8.0" right="15.0"/>
+                        <Insets left="-8.0" right="15.0" />
                     </HBox.margin>
                 </TextField>
-                <Button mnemonicParsing="false" onAction="#onBtnIngredientEdit" style="-fx-background-color: gold;"
-                        text="Zutat hinzufügen">
+                <Button mnemonicParsing="false" onAction="#onBtnIngredientEdit" style="-fx-background-color: gold;" text="Zutat hinzufügen">
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Button>
             </children>
         </HBox>
-        <HBox maxHeight="1.7976931348623157E308" prefHeight="170.0" prefWidth="800.0"
-              style="-fx-spacing: 15; -fx-padding: 15;" VBox.vgrow="ALWAYS">
+        <HBox maxHeight="1.7976931348623157E308" prefHeight="170.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;" VBox.vgrow="ALWAYS">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Zutaten" HBox.hgrow="ALWAYS"/>
-                <ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER"
-                            prefHeight="140.0" prefWidth="655.0" HBox.hgrow="ALWAYS">
+                <Label prefHeight="25.0" prefWidth="100.0" text="Zutaten" HBox.hgrow="ALWAYS" />
+                <ScrollPane fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" prefHeight="140.0" prefWidth="655.0" HBox.hgrow="ALWAYS">
                     <content>
-                        <VBox fx:id="ingredientBox" prefHeight="221.0" prefWidth="645.0" spacing="5.0"
-                              styleClass="scrollbar" stylesheets="@main.css"/>
+                        <VBox fx:id="ingredientBox" prefHeight="221.0" prefWidth="645.0" spacing="5.0" styleClass="scrollbar" stylesheets="@main.css" />
                     </content>
                 </ScrollPane>
             </children>
         </HBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <HBox prefHeight="226.0" prefWidth="800.0" style="-fx-spacing: 15; -fx-padding: 15;" VBox.vgrow="ALWAYS">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Schritte" HBox.hgrow="ALWAYS"/>
-                <TextArea fx:id="recipeSteps" prefHeight="125.0" prefWidth="655.0" HBox.hgrow="ALWAYS"/>
+                <Label prefHeight="25.0" prefWidth="100.0" text="Schritte" HBox.hgrow="ALWAYS" />
+                <TextArea fx:id="recipeSteps" prefHeight="125.0" prefWidth="655.0" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
-        <Separator prefWidth="200.0"/>
+        <Separator prefWidth="200.0" />
         <AnchorPane>
             <children>
-                <Button alignment="CENTER" layoutX="9.0" layoutY="9.0" mnemonicParsing="false" prefHeight="22.0"
-                        prefWidth="89.0" style="-fx-background-color: INDIANRED;"
-                        text="Abbrechen" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
-                        AnchorPane.topAnchor="15.0">
+                <Button alignment="CENTER" layoutX="9.0" layoutY="9.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="89.0" style="-fx-background-color: INDIANRED;" text="Abbrechen" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Button>
-                <Button contentDisplay="CENTER" mnemonicParsing="false" prefWidth="89.0"
-                        style="-fx-background-color: INDIANRED;" text="Löschen" AnchorPane.bottomAnchor="15.0"
-                        onAction="#onDeleteRezept"
-                        AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="15.0">
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeleteRezept" prefWidth="89.0" style="-fx-background-color: INDIANRED;" text="Löschen" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="15.0">
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Button>
-                <Button alignment="CENTER" layoutX="9.0" layoutY="34.0" mnemonicParsing="false" onAction="#onSaveEdit"
-                        prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: gold;" text="Speichern"
-                        AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                <Button alignment="CENTER" layoutX="9.0" layoutY="34.0" mnemonicParsing="false" onAction="#onSaveEdit" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: gold;" text="Speichern" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Button>
             </children>
