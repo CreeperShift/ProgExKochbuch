@@ -151,7 +151,7 @@ public class ControllerStartLayout implements Initializable {
         {
             Main.mainPanel.setCenter(Main.recipePage);
             try {
-                Main.controllerRecipe.output(DataManager.get().getRecipeByName(name));
+                Main.controllerRecipe.output(DataManager.get().getRecipeByName(name), false);
             } catch (SQLException | IOException throwables) {
                 throwables.printStackTrace();
             }

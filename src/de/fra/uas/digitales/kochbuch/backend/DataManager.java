@@ -246,11 +246,59 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public List<Recipe> getRecipeByIngredient(List<String> ingredients, int page) {
-        return null;
+    public List<Recipe> getRecipeByIngredient(List<String> ingredients, int limit, int page) throws SQLException {
+
+        List<Recipe> recipeIDs = new LinkedList<>();
+
+        String ingredientsString = "";
+        for (int i = 0; i < ingredients.size(); i++) {
+            if (i != 0) {
+                ingredientsString = ingredientsString.concat(",'" + ingredients.get(i) + "'");
+            } else {
+                ingredientsString = ingredientsString.concat("'" + ingredients.get(i) + "'");
+            }
+        }
+
+        /*
+        Ignore error it works, stupid java formatting
+         */
+        String query = "select r.*\n" +
+                "from recipeingredients ri\n" +
+                "         inner join ingredients i on i.id = ri.ingredient\n" +
+                "     join recipe r on r.id = ri.recipe\n" +
+                "where ingredientName in (" + ingredientsString + ")\n" +
+                "group by recipe\n" +
+                "having count(distinct ingredientName) >= " + limit + " LIMIT " + page * 6 + " ,6;";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        ResultSet result = statement.executeQuery();
+
+        while (result.next()) {
+            try {
+                Recipe r = new Recipe();
+                r.setName(result.getString("recipeName"))
+                        .setDesc(result.getString("recipeDescription"))
+                        .setImageRaw(result.getBytes("picture"))
+                        .setRating(result.getInt("rating"))
+                        .setSteps(result.getString("instructions"))
+                        .setTime(result.getFloat("recipeTime"));
+                recipeIDs.add(r);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        statement.close();
+        result.close();
+
+        return recipeIDs;
     }
 
     public void stopConnection() throws SQLException {
         connection.close();
     }
+
 }

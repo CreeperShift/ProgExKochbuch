@@ -33,6 +33,7 @@ public class ControllerRecipe implements Initializable {
     public Recipe currentRecipe;
     public VBox boxNameDescRat;
     private Rating rating;
+    private boolean isFilter = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,8 +45,9 @@ public class ControllerRecipe implements Initializable {
     }
 
     @FXML
-    public void output(Recipe recipe) throws IOException {
+    public void output(Recipe recipe, boolean filter) throws IOException {
 
+        isFilter = filter;
         NameLabelNeu.setText(recipe.getName());
         LabelBeschreibung.setText(recipe.getDesc());
         StringBuilder tmp = new StringBuilder("\n");
@@ -66,7 +68,11 @@ public class ControllerRecipe implements Initializable {
     }
 
     public void onBtnBack(ActionEvent actionEvent) {
-        Main.controllerBase.btnStart.fire();
+        if (!isFilter) {
+            Main.controllerBase.btnStart.fire();
+        } else {
+            Main.controllerBase.btnFilter.fire();
+        }
 
     }
 
@@ -113,14 +119,12 @@ public class ControllerRecipe implements Initializable {
         document.add(new Paragraph(" ", font));
 
 
-
         Paragraph ingred = new Paragraph("Zutaten:", font);
         document.add(ingred);
-        for(Ingredient i : currentRecipe.getIngredients()){
+        for (Ingredient i : currentRecipe.getIngredients()) {
             document.add(new Paragraph(i.toString(), fontSmall));
         }
         document.add(new Paragraph(" ", font));
-
 
 
         document.add(new Paragraph("Anleitung:", font));
