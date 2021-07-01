@@ -243,6 +243,7 @@ public class ControllerStartLayout implements Initializable {
             page.setText("1");
             activeSearch = temp;
             btnFront.setDisable(false);
+            btnBack.setDisable(true);
 
             if (recipeList.size() < 9) {
                 btnFront.setDisable(true);
@@ -261,6 +262,8 @@ public class ControllerStartLayout implements Initializable {
         labelName.setText("Alle Rezepte");
         searchbox.setText("");
         page.setText("1");
+        btnFront.setDisable(false);
+        btnBack.setDisable(true);
         activeSearch = null;
     }
 }
