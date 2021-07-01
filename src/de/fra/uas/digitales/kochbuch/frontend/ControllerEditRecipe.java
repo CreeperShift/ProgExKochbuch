@@ -38,6 +38,7 @@ public class ControllerEditRecipe implements Initializable {
     public Rating recipeRating;
     public TextField recipeTime;
     private File currentImage;
+    private byte[] curImage;
 
     private List<Ingredient> ingredientList = new LinkedList<>();
     private Recipe recipeEdit;
@@ -58,6 +59,7 @@ public class ControllerEditRecipe implements Initializable {
         recipeRating.setRating(recipe.getRating());
         recipeTime.setText(String.valueOf(recipe.getTime()));
         ingredientList = recipe.getIngredients();
+        curImage = recipe.getImageRaw();
 
         for (Ingredient ing : ingredientList) {
 
@@ -84,7 +86,7 @@ public class ControllerEditRecipe implements Initializable {
             Recipe r = new Recipe();
             r.setName(recipeName.getText())
                     .setDesc(recipeDesc.getText())
-                    .setImageRaw(currentImage)
+                    //.setImageRaw(currentImage)
                     .setIngredients(ingredientList)
                     .setRating(((int) recipeRating.getRating()))
                     .setId(recipeEdit.getID())
@@ -96,6 +98,12 @@ public class ControllerEditRecipe implements Initializable {
                 e.printStackTrace();
             }
             r.setTime(time);
+
+            if(currentImage!=null){
+                r.setImageRaw(currentImage);
+            }else{
+                r.setImageRaw(curImage);
+            }
 
             if (this.recipeEdit != null) {
                 DataManager.get().editRecipe(r);
