@@ -31,14 +31,14 @@
                <children>
                   <HBox alignment="TOP_CENTER" layoutX="-23.0" prefHeight="39.0" prefWidth="600.0" spacing="15.0" AnchorPane.leftAnchor="-23.0" AnchorPane.rightAnchor="53.0">
                      <children>
-                        <Label text="Addresse:" />
-                        <TextField text="localhost">
+                        <Label fx:id="addressL" text="Addresse:" />
+                        <TextField fx:id="address" text="localhost">
                            <HBox.margin>
                               <Insets left="6.0" />
                            </HBox.margin>
                         </TextField>
-                        <Label text="Port:" />
-                        <TextField prefHeight="25.0" prefWidth="48.0" text="3306">
+                        <Label fx:id="portL" text="Port:" />
+                        <TextField fx:id="port" prefHeight="25.0" prefWidth="48.0" text="3306">
                            <HBox.margin>
                               <Insets left="25.0" />
                            </HBox.margin>
@@ -54,17 +54,17 @@
                <children>
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <children>
-                        <Label text="Username:" />
-                        <TextField text="root" />
-                        <Label text="Passwort:" />
-                        <TextField prefHeight="25.0" prefWidth="123.0" text="******" />
+                        <Label fx:id="rootL" text="Username:" />
+                        <TextField fx:id="root" text="root" />
+                        <Label fx:id="passL" text="Passwort:" />
+                        <TextField fx:id="pass" prefHeight="25.0" prefWidth="123.0" text="******" />
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
             <AnchorPane>
                <children>
-                  <Button layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: gold;" text="Übernehmen" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="15.0">
+                  <Button layoutY="25.0" mnemonicParsing="false" onAction="#btnUbernehmen" style="-fx-background-color: gold;" text="Übernehmen" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="15.0">
                      <effect>
                         <DropShadow />
                      </effect>
