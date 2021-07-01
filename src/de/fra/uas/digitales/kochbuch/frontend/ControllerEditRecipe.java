@@ -227,7 +227,38 @@ public class ControllerEditRecipe implements Initializable {
     public void onBtnPicture(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Bild auswählen");
+
+        double einMB = 1048576;
+        double sizeMB;
+
         File file = fileChooser.showOpenDialog(Main.stage);
+
+        if (file != null) {
+
+            sizeMB = file.length();
+            String end = file.getName().toLowerCase();
+
+            //todo: ggf. noch andere Bildformate...
+            if (!end.endsWith(".jpg")) {
+                Alert format = new Alert(Alert.AlertType.INFORMATION);
+                format.setTitle("");
+                format.setHeaderText("Falscher Dateityp!");
+                format.setContentText("Bitte wählen Sie JPEG als Dateityp!");
+                format.showAndWait();
+                file = null;
+
+            }
+            if (sizeMB > einMB && file!=null) {
+                Alert big = new Alert(Alert.AlertType.INFORMATION);
+                big.setTitle("");
+                big.setHeaderText("Datei ist zu groß!");
+                big.setContentText("Maximal 1MB");
+                big.showAndWait();
+                file = null;
+
+            }
+        }
+
         if (file != null) {
             currentImage = file;
             picPath.setText(file.getAbsolutePath());
