@@ -48,6 +48,11 @@ public class ControllerFilter implements Initializable {
         boxes[1] = box2;
         boxes[2] = box3;
         boxes[3] = box4;
+
+
+    }
+
+    public void startConnected(){
         try {
             List<String> list = DataManager.get().getAllIngredientNames();
 
@@ -55,7 +60,6 @@ public class ControllerFilter implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     public void onNewFilter(ActionEvent actionEvent) {

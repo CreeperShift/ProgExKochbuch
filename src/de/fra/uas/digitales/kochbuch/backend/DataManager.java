@@ -1,7 +1,5 @@
 package de.fra.uas.digitales.kochbuch.backend;
 
-import de.fra.uas.digitales.kochbuch.Main;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -292,7 +290,9 @@ public class DataManager implements IDataManager {
     }
 
     public void stopConnection() throws SQLException {
-        connection.close();
+        if(connection != null) {
+            connection.close();
+        }
     }
 
 }

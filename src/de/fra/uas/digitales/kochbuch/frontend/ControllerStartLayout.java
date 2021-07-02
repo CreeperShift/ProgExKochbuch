@@ -54,6 +54,11 @@ public class ControllerStartLayout implements Initializable {
         btnFront.setGraphic(new Glyph("FontAwesome", "chevron_right").size(25));
         labelName.setText("Alle Rezepte");
 
+
+    }
+
+
+    public void startConnected(){
         List<Recipe> startRecipes = null;
         try {
             startRecipes = DataManager.get().getStartRecipes(0);

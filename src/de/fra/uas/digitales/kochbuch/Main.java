@@ -29,17 +29,20 @@ public class Main extends Application {
     public static ControllerBase controllerBase;
     public static Stage stage;
     public static ControllerNewRecipe controllerNewRecipe;
+    public static ControllerStartLayout controllerStartLayout;
+    public static ControllerFilter controllerFilter;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Path path = Paths.get("resources/Database.info");
-        DataManager.setDatabase(Files.readAllLines(path).get(0), Files.readAllLines(path).get(1), Files.readAllLines(path).get(2));
 
         FXMLLoader loaderBase = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/baseLayout.fxml")));
         mainPanel = loaderBase.load();
         controllerBase = loaderBase.getController();
-        startPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("frontend/fxml/startLayout.fxml")));
+
+        FXMLLoader loaderStart = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/startLayout.fxml")));
+        startPane = loaderStart.load();
+        controllerStartLayout = loaderStart.getController();
         mainPanel.setCenter(startPane);
 
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/recipeLayoutNeu.fxml")));
@@ -56,8 +59,21 @@ public class Main extends Application {
 
         FXMLLoader loaderFilter = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/filterLayout.fxml")));
         filterPage = loaderFilter.load();
+        controllerFilter = loaderFilter.getController();
+
         FXMLLoader loaderSettings = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/SettingsLayout.fxml")));
         settingsPage = loaderSettings.load();
+
+        Path path = Paths.get("Database.info");
+        if (Files.exists(path)) {
+            DataManager.setDatabase(Files.readAllLines(path).get(0), Files.readAllLines(path).get(1), Files.readAllLines(path).get(2));
+            mainPanel.setCenter(startPane);
+            controllerStartLayout.startConnected();
+            controllerFilter.startConnected();
+        } else {
+            mainPanel.setCenter(settingsPage);
+            controllerBase.btnSettings.fire();
+        }
 
         primaryStage.setTitle("Digitales Kochbuch");
         Scene s = new Scene(mainPanel, 1280, 880);

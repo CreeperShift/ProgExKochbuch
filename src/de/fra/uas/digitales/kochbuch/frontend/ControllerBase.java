@@ -17,6 +17,7 @@ public class ControllerBase implements Initializable {
 
     public Button[] navButtons;
     public Button btnSettings;
+    public static boolean isConnected = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,5 +61,10 @@ public class ControllerBase implements Initializable {
         Main.settingsPage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
         Main.settingsPage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
         setButtonActive(btnSettings);
+        if(!isConnected){
+            btnStart.setDisable(true);
+            btnFilter.setDisable(true);
+            btnRezept.setDisable(true);
+        }
     }
 }
