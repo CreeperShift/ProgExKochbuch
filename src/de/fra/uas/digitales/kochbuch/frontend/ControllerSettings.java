@@ -91,6 +91,7 @@ public class ControllerSettings implements Initializable {
             }
             Main.controllerStartLayout.startConnected();
             Main.controllerFilter.startConnected();
+            Main.controllerBase.btnStart.fire();
         }
 
 
