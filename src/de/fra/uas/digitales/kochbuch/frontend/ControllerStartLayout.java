@@ -275,6 +275,7 @@ public class ControllerStartLayout implements Initializable {
             activeSearch = temp;
             btnFront.setDisable(false);
             btnBack.setDisable(true);
+            recipetag.setValue("Alle");
 
             if (recipeList.size() < 9) {
                 btnFront.setDisable(true);
@@ -316,6 +317,9 @@ public class ControllerStartLayout implements Initializable {
                 btnHome.fire();
             } else {
                 List<Recipe> recipeList = DataManager.get().getRecipeByTag(recipetag.getValue(), 0);
+                activeSearch = null;
+                searchbox.setText("");
+                labelName.setText("Alle Rezepte in Kategorie " + recipetag.getValue());
                 addChildren(recipeList);
             }
             i = 0;
