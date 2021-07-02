@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -82,7 +81,6 @@ public class ControllerEditRecipe implements Initializable {
 
     public void onSaveEdit(ActionEvent actionEvent) throws SQLException, IOException {
         if (isReadySave()) {
-            System.out.println("new rec");
             Recipe r = new Recipe();
             r.setName(recipeName.getText())
                     .setDesc(recipeDesc.getText())
@@ -99,9 +97,9 @@ public class ControllerEditRecipe implements Initializable {
             }
             r.setTime(time);
 
-            if(currentImage!=null){
+            if (currentImage != null) {
                 r.setImageRaw(currentImage);
-            }else{
+            } else {
                 r.setImageRaw(curImage);
             }
 
@@ -256,7 +254,7 @@ public class ControllerEditRecipe implements Initializable {
                 file = null;
 
             }
-            if (sizeMB > einMB && file!=null) {
+            if (sizeMB > einMB && file != null) {
                 Alert big = new Alert(Alert.AlertType.INFORMATION);
                 big.setTitle("");
                 big.setHeaderText("Datei ist zu groß!");
@@ -275,11 +273,11 @@ public class ControllerEditRecipe implements Initializable {
     }
 
     public void editAbbrechen(ActionEvent actionEvent) {
-        Alert  alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Title");
         alert.setHeaderText("Sind Sie sicher?");
         //alert.setContentText("");
-        ButtonType  buttonTypeOne = new ButtonType("Ja");
+        ButtonType buttonTypeOne = new ButtonType("Ja");
         ButtonType buttonTypeCancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
 
@@ -288,7 +286,7 @@ public class ControllerEditRecipe implements Initializable {
 
         //  Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne){
+        if (result.get() == buttonTypeOne) {
             Main.mainPanel.setCenter(Main.startPane);
 
 

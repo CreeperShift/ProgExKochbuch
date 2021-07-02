@@ -25,7 +25,6 @@ public class DataManager implements IDataManager {
 
     public static void setDatabase(String surl, String suser, String spassword) {
         url = surl;
-        System.out.println(url);
         user = suser;
         password = spassword;
     }
@@ -40,7 +39,7 @@ public class DataManager implements IDataManager {
         while (result.next()) {
             ret.add(result.getString("ingredientName"));
         }
-
+        pState.close();
         return ret;
     }
 
@@ -68,11 +67,12 @@ public class DataManager implements IDataManager {
     public Recipe getRecipeByName(String name) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE recipeName='" + name + "'");
-        statement.close();
         try {
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            statement.close();
         }
         return null;
     }
@@ -161,12 +161,12 @@ public class DataManager implements IDataManager {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE id='" + id + "'");
 
         try {
-            statement.close();
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            statement.close();
         }
-        statement.close();
         return null;
     }
 
@@ -197,6 +197,7 @@ public class DataManager implements IDataManager {
             }
             ingredStatement.close();
         }
+        getId.close();
     }
 
     private int getCreateIngredient(Ingredient ing) throws SQLException {
@@ -241,6 +242,7 @@ public class DataManager implements IDataManager {
                 rList.add(r);
 
             }
+            statement.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -266,9 +268,6 @@ public class DataManager implements IDataManager {
             }
         }
 
-        /*
-        Ignore error it works, stupid java formatting
-         */
         String query = "select r.*\n" +
                 "from recipeingredients ri\n" +
                 "         inner join ingredients i on i.id = ri.ingredient\n" +
