@@ -281,6 +281,9 @@ public class ControllerFilter implements Initializable {
         ingrAmount.setText("0");
         slider.setValue(1);
         slider.setMax(1);
+        btnBack.setDisable(true);
+        btnFront.setDisable(true);
+        page.setText("1");
         grid.getChildren().clear();
         for (VBox box : boxes) {
             box.getChildren().clear();
