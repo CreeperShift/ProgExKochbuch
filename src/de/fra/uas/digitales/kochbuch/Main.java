@@ -80,6 +80,7 @@ public class Main extends Application {
                 controllerBase.btnSettings.fire();
             }
         } else {
+            System.out.println("Database info not found or incorrect, redirecting to settings page.");
             mainPanel.setCenter(settingsPage);
             controllerBase.btnSettings.fire();
         }

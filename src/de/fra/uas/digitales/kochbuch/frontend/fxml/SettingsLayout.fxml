@@ -29,6 +29,11 @@
             </Label>
          </children>
       </AnchorPane>
+      <AnchorPane prefHeight="0.0" prefWidth="750.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="740.0" text="Informationen zur Datenbankverbindung. Beim Verbinden werden die Informationen gespeichert und danach wird Automatisch verbunden." textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+         </children>
+      </AnchorPane>
       <Separator prefWidth="200.0" />
       <AnchorPane>
          <children>
@@ -37,7 +42,7 @@
                   <Label text="Username:" />
                   <TextField fx:id="fieldUsername" text="root" />
                   <Label prefWidth="50.0" text="Passwort:" />
-                  <PasswordField fx:id="fieldPassword" prefHeight="25.0" prefWidth="122.0" promptText="********" />
+                  <PasswordField fx:id="fieldPassword" prefHeight="25.0" prefWidth="122.0" />
                </children>
             </HBox>
          </children>

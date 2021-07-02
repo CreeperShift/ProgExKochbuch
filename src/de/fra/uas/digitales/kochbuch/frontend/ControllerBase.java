@@ -62,6 +62,9 @@ public class ControllerBase implements Initializable {
         Main.settingsPage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
         Main.settingsPage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
         setButtonActive(btnSettings);
+        if (DataManager.get().isConnected()) {
+            Main.controllerSettings.setAlreadyConnected();
+        }
         if (!DataManager.get().isConnected()) {
             initButtons(true);
         }
