@@ -4,8 +4,8 @@ import de.fra.uas.digitales.kochbuch.Main;
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -13,12 +13,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.controlsfx.control.Rating;
+import org.controlsfx.control.SearchableComboBox;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class ControllerNewRecipe implements Initializable {
     public TextArea recipeSteps;
@@ -32,9 +36,9 @@ public class ControllerNewRecipe implements Initializable {
     public TextField picPath;
     public Rating recipeRating;
     public TextField recipeTime;
+    public SearchableComboBox<String> recipetag;
     private File currentImage;
     private final List<Ingredient> ingredientList = new LinkedList<>();
-    private Recipe aktuellesRezept;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,9 +46,13 @@ public class ControllerNewRecipe implements Initializable {
         recipeRating.setPartialRating(false);
     }
 
+    public void onConnected() {
+        recipetag.setItems(FXCollections.observableArrayList(Main.controllerStartLayout.categoryList));
+        recipetag.setValue("Keine");
+    }
+
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
         if (isReadySave()) {
-            System.out.println("new rec");
             Recipe r = new Recipe();
             r.setName(recipeName.getText())
                     .setDesc(recipeDesc.getText())
@@ -61,16 +69,13 @@ public class ControllerNewRecipe implements Initializable {
             }
             r.setTime(time);
 
-            if(currentImage!=null){
+            if (currentImage != null) {
                 r.setImageRaw(currentImage);
-            }else{
+            } else {
                 File fileNoPic = new File("resources/images/noPicture.jpg");
                 r.setImageRaw(fileNoPic);
             }
 
-            if (this.aktuellesRezept != null) {
-                DataManager.get().editRecipe(this.aktuellesRezept);
-            }
             DataManager.get().addNewRecipe(r);
             clearRecipe();
             Main.controllerBase.btnStart.fire();
@@ -79,6 +84,7 @@ public class ControllerNewRecipe implements Initializable {
 
     private void clearRecipe() {
         recipeSteps.setText("");
+        recipetag.setValue("Keine");
         recipeDesc.setText("");
         recipeName.setText("");
         ingredientList.clear();
@@ -138,9 +144,9 @@ public class ControllerNewRecipe implements Initializable {
             if (!recipeName.getText().isBlank()) {
                 if (!recipeSteps.getText().isBlank()) {
                     //if (currentImage != null) {
-                        //if(ingredientList != null){
-                        return true;
-                        // }
+                    //if(ingredientList != null){
+                    return true;
+                    // }
 
                     //}
                 }
@@ -191,7 +197,7 @@ public class ControllerNewRecipe implements Initializable {
                 file = null;
 
             }
-            if (sizeMB > einMB && file!=null) {
+            if (sizeMB > einMB && file != null) {
                 Alert big = new Alert(Alert.AlertType.INFORMATION);
                 big.setTitle("");
                 big.setHeaderText("Datei ist zu groß!");
@@ -220,22 +226,22 @@ public class ControllerNewRecipe implements Initializable {
     public void btnAbbrechen(ActionEvent actionEvent) {
 
 
-       Alert  alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Title");
         alert.setHeaderText("Sind Sie sicher?");
         //alert.setContentText("");
-      ButtonType  buttonTypeOne = new ButtonType("Ja");
-       ButtonType buttonTypeCancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonTypeOne = new ButtonType("Ja");
+        ButtonType buttonTypeCancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
 
 
-      //  Optional<ButtonType> result = alert.showAndWait();
+        //  Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonTypeOne){
-           Main.mainPanel.setCenter(Main.newRecipePage);
-             clearRecipe();
+        if (result.get() == buttonTypeOne) {
+            Main.mainPanel.setCenter(Main.newRecipePage);
+            clearRecipe();
 
         }
 

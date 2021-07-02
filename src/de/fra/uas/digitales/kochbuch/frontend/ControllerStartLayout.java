@@ -43,7 +43,7 @@ public class ControllerStartLayout implements Initializable {
     public Button btnHome;
     public Button btnSearch;
     private String activeSearch = null;
-    private List<String> categoryList;
+    public List<String> categoryList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
