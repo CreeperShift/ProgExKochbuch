@@ -65,6 +65,7 @@ public class ControllerRecipe implements Initializable {
 
 
     public void onBtnEdit(ActionEvent actionEvent) {
+
     }
 
     public void onBtnBack(ActionEvent actionEvent) {
