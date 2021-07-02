@@ -32,6 +32,7 @@ public class ControllerRecipe implements Initializable {
     public Label labelSteps;
     public Recipe currentRecipe;
     public VBox boxNameDescRat;
+    public Label labelTime;
     private Rating rating;
     private boolean isFilter = false;
 
@@ -41,7 +42,7 @@ public class ControllerRecipe implements Initializable {
         rating.setMax(5);
         rating.setUpdateOnHover(false);
         rating.addEventFilter(MouseEvent.ANY, Event::consume);
-        boxNameDescRat.getChildren().add(1, rating);
+        boxNameDescRat.getChildren().add(2,rating);
     }
 
     @FXML
@@ -58,6 +59,7 @@ public class ControllerRecipe implements Initializable {
         labelSteps.setText(recipe.getSteps());
         BildRezeptNeu.setImage(recipe.getImage());
         rating.ratingProperty().setValue(recipe.getRating());
+        labelTime.setText("Kochzeit: " + recipe.getTime() + " Minuten");
 
         currentRecipe = recipe;
 
