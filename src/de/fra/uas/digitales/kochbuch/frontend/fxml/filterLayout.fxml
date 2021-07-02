@@ -127,7 +127,7 @@
             </AnchorPane>
          </bottom>
       </BorderPane>
-      <AnchorPane prefHeight="450.0" prefWidth="900.0" style="-fx-background-color: white;">
+      <AnchorPane prefHeight="370.0" prefWidth="870.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="25.0" />
          </VBox.margin>
@@ -148,15 +148,31 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" spacing="15.0" VBox.vgrow="ALWAYS">
+      <AnchorPane prefHeight="31.0" prefWidth="882.0" VBox.vgrow="NEVER">
          <children>
-            <Button disable="true" mnemonicParsing="false" text="&lt;--" />
-            <Label text="1" />
-            <Button disable="true" mnemonicParsing="false" text="--&gt;" />
+            <HBox alignment="CENTER" layoutY="4.0" prefHeight="0.0" prefWidth="815.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+               <children>
+                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#onBtnPageBack" prefHeight="5.0" prefWidth="40.0" style="-fx-background-color: gold;" text="Zurück" HBox.hgrow="ALWAYS">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+                  <Label fx:id="page" alignment="CENTER" prefHeight="17.0" prefWidth="30.0" text="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnFront" mnemonicParsing="false" onAction="#onBtnFront" prefHeight="10.0" prefWidth="40.0" style="-fx-background-color: gold;" text="Vor" HBox.hgrow="ALWAYS">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
-            <Insets bottom="5.0" top="5.0" />
+            <Insets bottom="20.0" left="15.0" />
          </VBox.margin>
-      </HBox>
+      </AnchorPane>
    </children>
 </VBox>

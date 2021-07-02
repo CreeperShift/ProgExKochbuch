@@ -19,13 +19,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.glyphfont.Glyph;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ControllerFilter implements Initializable {
@@ -42,6 +41,10 @@ public class ControllerFilter implements Initializable {
     public Slider slider;
     public Label ingrAmount;
     public Button btnReset;
+    public Button btnFront;
+    public Label page;
+    public Button btnBack;
+    private List<String> names = new LinkedList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,6 +52,12 @@ public class ControllerFilter implements Initializable {
         boxes[1] = box2;
         boxes[2] = box3;
         boxes[3] = box4;
+        btnBack.setText("");
+        btnBack.setDisable(true);
+        btnFront.setDisable(true);
+        btnFront.setText("");
+        btnBack.setGraphic(new Glyph("FontAwesome", "chevron_left").size(25));
+        btnFront.setGraphic(new Glyph("FontAwesome", "chevron_right").size(25));
     }
 
     public void startConnected() {
@@ -63,6 +72,8 @@ public class ControllerFilter implements Initializable {
 
     public void reset() {
         grid.getChildren().clear();
+        btnFront.setDisable(true);
+        btnBack.setDisable(true);
         btnReset.fire();
     }
 
@@ -125,12 +136,22 @@ public class ControllerFilter implements Initializable {
 
     public void onBtnFind(ActionEvent actionEvent) throws SQLException {
 
-        List<String> names = ingredients.stream().map(Ingredient::name).collect(Collectors.toList());
+        names = ingredients.stream().map(Ingredient::name).collect(Collectors.toList());
 
         if (!names.isEmpty()) {
 
             grid.getChildren().clear();
-            addChildren(DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), 0));
+            List<Recipe> recipeList = DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), 0);
+            btnFront.setDisable(true);
+            btnBack.setDisable(true);
+            if(recipeList.size() >= 6){
+                btnFront.setDisable(false);
+                List<Recipe> recipeListNext = DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), 1);
+                if(recipeListNext.isEmpty()){
+                    btnFront.setDisable(true);
+                }
+            }
+            addChildren(recipeList);
         }
 
     }
@@ -159,16 +180,16 @@ public class ControllerFilter implements Initializable {
 
                 grid.add(pane, gridX, gridY);
             }
-        } /*else if (recipeList != null) {
+        } else if (recipeList != null) {
 
-            Label l = new Label("Keine Rezepte gefunden");
+            Label l = new Label("Keine Rezepte...");
             btnBack.setDisable(true);
             btnFront.setDisable(true);
             l.setFont(Font.font("Segeo UI", 50));
-            l.setLayoutX(gridV.getWidth() / 3);
-            gridV.add(l, 1, 1);
+            l.setLayoutX(grid.getWidth() / 3);
+            grid.add(l, 1, 0);
 
-        }*/
+        }
     }
 
     private void setupImageListeners(Pane pane, ImageView imageView, String name, StackPane pane2) {
@@ -262,5 +283,62 @@ public class ControllerFilter implements Initializable {
         for (VBox box : boxes) {
             box.getChildren().clear();
         }
+    }
+
+    public void onBtnFront(ActionEvent actionEvent) throws SQLException {
+
+
+        int i = Integer.parseInt(page.getText());
+        i++;
+
+        grid.getChildren().clear();
+
+        List<Recipe> recipeList = DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), i - 1);
+        addChildren(recipeList);
+
+
+        page.setText("" + i);
+        btnBack.setDisable(true);
+        btnFront.setDisable(true);
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if (recipeList.size() >= 6) {
+                    btnFront.setDisable(false);
+                }
+                btnBack.setDisable(false);
+            }
+
+        };
+        timer.schedule(task, 400);
+
+    }
+
+    public void onBtnPageBack(ActionEvent actionEvent) throws SQLException {
+
+        int i = Integer.parseInt(page.getText());
+        if (i > 0) {
+            i--;
+
+            grid.getChildren().clear();
+            List<Recipe> recipeList = DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), i - 1);
+            addChildren(recipeList);
+            page.setText("" + i);
+        }
+        btnBack.setDisable(true);
+        btnFront.setDisable(true);
+        Timer timer = new Timer();
+        int finalI = i;
+        TimerTask task = new TimerTask() {
+            public void run() {
+                btnFront.setDisable(false);
+                if (finalI > 1) {
+                    btnBack.setDisable(false);
+                }
+            }
+
+        };
+        timer.schedule(task, 400);
+
     }
 }
