@@ -44,7 +44,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <SearchableComboBox fx:id="recipetag" layoutX="610.0" layoutY="49.0" onAction="#onCategory" prefHeight="25.0" prefWidth="137.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="22.0">
+            <SearchableComboBox fx:id="recipetag" layoutX="610.0" layoutY="49.0" onHidden="#onCategory" prefHeight="25.0" prefWidth="137.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="22.0">
                <effect>
                   <DropShadow />
                </effect>

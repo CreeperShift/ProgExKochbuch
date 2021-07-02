@@ -250,8 +250,29 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public List<Recipe> getRecipeByTag(List<String> tags, int page) {
-        return null;
+    public List<Recipe> getRecipeByTag(String tag, int page) {
+        List<Recipe> rList = new LinkedList<>();
+        try {
+            String select9 = "SELECT * from recipe where category = '" + tag + "' ORDER BY id LIMIT " + page * 9 + ",9";
+            PreparedStatement statement = connection.prepareStatement(select9);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Recipe r = new Recipe();
+
+                r.setName(result.getString("recipeName"))
+                        .setDesc(result.getString("recipeDescription"))
+                        .setImageRaw(result.getBytes("picture"))
+                        .setRating(result.getInt("rating"))
+                        .setSteps(result.getString("instructions"))
+                        .setTime(result.getFloat("recipeTime"));
+                rList.add(r);
+
+            }
+            statement.close();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+        return rList;
     }
 
     @Override

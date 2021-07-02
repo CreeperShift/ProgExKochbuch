@@ -7,6 +7,7 @@ import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -73,7 +74,7 @@ public class ControllerStartLayout implements Initializable {
             categoryList = DataManager.get().getCategories();
             recipetag.setValue("Alle");
             ObservableList<String> list = FXCollections.observableArrayList(categoryList);
-            list.add(0,"Alle");
+            list.add(0, "Alle");
             recipetag.setItems(list);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -290,6 +291,7 @@ public class ControllerStartLayout implements Initializable {
         gridV.getChildren().clear();
         addChildren(DataManager.get().getStartRecipes(0));
         labelName.setText("Alle Rezepte");
+        recipetag.setValue("Alle");
         searchbox.setText("");
         page.setText("1");
         btnFront.setDisable(false);
@@ -305,12 +307,18 @@ public class ControllerStartLayout implements Initializable {
 
     }
 
-    public void onCategory(ActionEvent actionEvent) {
+    public void onCategory(Event actionEvent) {
         i++;
-        if(i == 3) { //I know this looks weird but the combo box activates 3 times for some reason
-            System.out.println(actionEvent.getSource());
-            i=0;
+        if (i == 2) {
+            System.out.println(recipetag.getValue());
+            gridV.getChildren().clear();
+            if (recipetag.getValue() != null && recipetag.getValue().equalsIgnoreCase("Alle")) {
+                btnHome.fire();
+            } else {
+                List<Recipe> recipeList = DataManager.get().getRecipeByTag(recipetag.getValue(), 0);
+                addChildren(recipeList);
+            }
+            i = 0;
         }
-
     }
 }
