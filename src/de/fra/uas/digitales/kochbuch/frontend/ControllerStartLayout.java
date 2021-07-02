@@ -202,6 +202,8 @@ public class ControllerStartLayout implements Initializable {
             gridV.getChildren().clear();
             if (activeSearch == null) {
                 addChildren(DataManager.get().getStartRecipes(i - 1));
+            } else if (!recipetag.getValue().equalsIgnoreCase("Alle")) {
+                DataManager.get().getRecipeByTag(recipetag.getValue(), i - 1);
             } else {
                 addChildren(DataManager.get().getRecipeList(activeSearch, i - 1));
             }
@@ -238,6 +240,8 @@ public class ControllerStartLayout implements Initializable {
         if (activeSearch == null) {
             recipeList = DataManager.get().getStartRecipes(i - 1);
             addChildren(recipeList);
+        } else if (!recipetag.getValue().equalsIgnoreCase("Alle")) {
+            recipeList = DataManager.get().getRecipeByTag(recipetag.getValue(), i - 1);
         } else {
             recipeList = DataManager.get().getRecipeList(activeSearch, i - 1);
             addChildren(recipeList);
@@ -320,6 +324,9 @@ public class ControllerStartLayout implements Initializable {
                 activeSearch = null;
                 searchbox.setText("");
                 labelName.setText("Alle Rezepte in Kategorie " + recipetag.getValue());
+                btnFront.setDisable(recipeList.size() < 9);
+                btnBack.setDisable(true);
+                page.setText("1");
                 addChildren(recipeList);
             }
             i = 0;
