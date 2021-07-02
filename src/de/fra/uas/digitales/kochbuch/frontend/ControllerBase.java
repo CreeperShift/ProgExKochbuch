@@ -1,6 +1,7 @@
 package de.fra.uas.digitales.kochbuch.frontend;
 
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -61,10 +62,14 @@ public class ControllerBase implements Initializable {
         Main.settingsPage.prefWidthProperty().bind(Main.mainPanel.widthProperty().subtract(200));
         Main.settingsPage.prefHeightProperty().bind(Main.mainPanel.heightProperty().subtract(50)); //TODO: This is messy
         setButtonActive(btnSettings);
-        if(!isConnected){
-            btnStart.setDisable(true);
-            btnFilter.setDisable(true);
-            btnRezept.setDisable(true);
+        if (!DataManager.get().isConnected()) {
+            initButtons(true);
         }
+    }
+
+    public void initButtons(boolean disabled) {
+        btnStart.setDisable(disabled);
+        btnFilter.setDisable(disabled);
+        btnRezept.setDisable(disabled);
     }
 }

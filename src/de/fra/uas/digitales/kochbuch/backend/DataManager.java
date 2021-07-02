@@ -16,19 +16,9 @@ public class DataManager implements IDataManager {
     private Statement statement5;
     private static DataManager INSTANCE;
     private static String url, user, password;
+    private boolean isConnected = false;
 
     private DataManager() {
-
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            statement2 = connection.createStatement();
-            statement = connection.createStatement();
-            statement3 = connection.createStatement();
-            statement4 = connection.createStatement();
-            statement5 = connection.createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 
     public static DataManager get() {
@@ -40,6 +30,7 @@ public class DataManager implements IDataManager {
 
     public static void setDatabase(String surl, String suser, String spassword) {
         url = surl;
+        System.out.println(url);
         user = suser;
         password = spassword;
     }
@@ -293,6 +284,20 @@ public class DataManager implements IDataManager {
         if(connection != null) {
             connection.close();
         }
+        isConnected = false;
     }
 
+    public void connect() throws SQLException {
+            connection = DriverManager.getConnection(url, user, password);
+            statement2 = connection.createStatement();
+            statement = connection.createStatement();
+            statement3 = connection.createStatement();
+            statement4 = connection.createStatement();
+            statement5 = connection.createStatement();
+            isConnected = true;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
 }

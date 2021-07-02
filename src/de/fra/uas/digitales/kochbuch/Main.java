@@ -68,10 +68,17 @@ public class Main extends Application {
 
         Path path = Paths.get("Database.info");
         if (Files.exists(path)) {
-            DataManager.setDatabase(Files.readAllLines(path).get(0), Files.readAllLines(path).get(1), Files.readAllLines(path).get(2));
-            mainPanel.setCenter(startPane);
-            controllerStartLayout.startConnected();
-            controllerFilter.startConnected();
+            try {
+                DataManager.setDatabase(Files.readAllLines(path).get(0), Files.readAllLines(path).get(1), Files.readAllLines(path).get(2));
+                DataManager.get().connect();
+                mainPanel.setCenter(startPane);
+                controllerStartLayout.startConnected();
+                controllerFilter.startConnected();
+            } catch (Exception e) {
+                System.out.println("Database info not found or incorrect, redirecting to settings page.");
+                mainPanel.setCenter(settingsPage);
+                controllerBase.btnSettings.fire();
+            }
         } else {
             mainPanel.setCenter(settingsPage);
             controllerBase.btnSettings.fire();
@@ -88,7 +95,7 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        if(controllerSettings.isConnected()) {
+        if (controllerSettings.isConnected()) {
             DataManager.get().stopConnection();
         }
     }
