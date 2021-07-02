@@ -62,6 +62,9 @@ public class ControllerRecipe implements Initializable {
     public void output(Recipe recipe, boolean filter) throws IOException {
 
         isFilter = filter;
+        if(recipe.isFav()){
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART").size(90).color(Color.INDIANRED).useHoverEffect());
+        }
         NameLabelNeu.setText(recipe.getName());
         LabelBeschreibung.setText(recipe.getDesc());
         StringBuilder tmp = new StringBuilder("\n");
