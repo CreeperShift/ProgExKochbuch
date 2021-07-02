@@ -1,9 +1,7 @@
 package de.fra.uas.digitales.kochbuch;
 
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerBase;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerNewRecipe;
-import de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe;
+import de.fra.uas.digitales.kochbuch.frontend.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,8 +22,10 @@ public class Main extends Application {
     public static VBox recipePage;
     public static VBox filterPage;
     public static VBox newRecipePage;
+    public static VBox editRecipePage;
     public static AnchorPane settingsPage;
     public static ControllerRecipe controllerRecipe;
+    public static ControllerEditRecipe controllerEditRecipe;
     public static ControllerBase controllerBase;
     public static Stage stage;
     public static ControllerNewRecipe controllerNewRecipe;
@@ -49,6 +49,10 @@ public class Main extends Application {
         FXMLLoader loaderNewRecipe = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/newRecipeLayout.fxml")));
         newRecipePage = loaderNewRecipe.load();
         controllerNewRecipe = loaderNewRecipe.getController();
+
+        FXMLLoader loaderEditRecipe = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/editRecipeLayout.fxml")));
+        editRecipePage = loaderEditRecipe.load();
+        controllerEditRecipe = loaderEditRecipe.getController();
 
         FXMLLoader loaderFilter = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/filterLayout.fxml")));
         filterPage = loaderFilter.load();

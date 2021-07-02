@@ -97,6 +97,7 @@ public class DataManager implements IDataManager {
             recipe.setDesc(resultSet.getString("recipeDescription"));
             recipe.setSteps(resultSet.getString("instructions"));
             recipe.setTime(resultSet.getFloat("recipeTime"));
+            recipe.setId(resultSet.getInt("id"));
             recipe.setImageRaw(resultSet.getBytes("picture"));
             recipe.setIngredients(getAllIngredients(resultSet.getInt("id")));
         }
@@ -127,26 +128,19 @@ public class DataManager implements IDataManager {
     @Override
     public void deleteRecipe(Recipe recipe) throws SQLException {
 
-        String deleteRecipe = "DELETE FROM recipe WHERE recipeName=?";
+        String deleteRecipe = "DELETE FROM recipe WHERE id=?";
         PreparedStatement preDeleteRecipe = connection.prepareStatement(deleteRecipe);
-        preDeleteRecipe.setString(1, recipe.getName());
+        preDeleteRecipe.setString(1, String.valueOf(recipe.getID()));
         preDeleteRecipe.execute();
-        System.out.println("Rezept wurde gelöscht!");
-
-
-        Main.controllerBase.btnStart.fire();
-
 
     }
 
     @Override
     public void editRecipe(Recipe recipeNeu) throws SQLException {
 
-        Recipe recipeAlt = getRecipeByName(recipeNeu.getName());
-        if (recipeAlt != null) {
-            deleteRecipe(recipeAlt);
-            System.out.println("Altes Rezept wurde gelöscht!");
-        }
+        Recipe recipeAlt = getRecipeByID(recipeNeu.getID());
+        deleteRecipe(recipeAlt);
+        addNewRecipe(recipeNeu);
 
     }
 

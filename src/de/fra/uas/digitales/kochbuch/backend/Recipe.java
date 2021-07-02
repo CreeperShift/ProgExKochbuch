@@ -19,31 +19,10 @@ public class Recipe {
     private Image image = null;
     private byte[] imageRaw;
 
-    private Image imageRating=null;
-    private byte[] imageRawRating;
-
-    public Recipe setImageRawRating(File file) throws IOException {
-        imageRawRating = Files.readAllBytes(file.toPath());
-        return this;
-    }
-    public Recipe setImageRawRating(byte[] bytes){
-        imageRawRating = bytes;
-        return this;
-    }
-    public Image getImageRating(){
-        if(imageRating==null){
-            imageRating = new Image(new ByteArrayInputStream(imageRawRating));
-        }
-        return imageRating;
-    }
-    public byte[] getImageRawRating(){
-        return imageRawRating;
-    }
-
-
-
     public Recipe setImageRaw(File file) throws IOException {
-        imageRaw = Files.readAllBytes(file.toPath());
+
+            imageRaw = Files.readAllBytes(file.toPath());
+
         return this;
     }
     public Recipe setImageRaw(byte[] bytes) throws IOException {
