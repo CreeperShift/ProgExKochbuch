@@ -86,7 +86,7 @@ public class Main extends Application {
         }
 
         primaryStage.setTitle("Digitales Kochbuch");
-        Scene s = new Scene(mainPanel, 1000, 600);
+        Scene s = new Scene(mainPanel, 1280, 880);
         s.getStylesheets().add("de/fra/uas/digitales/kochbuch/frontend/fxml/main.css");
         primaryStage.setScene(s);
         primaryStage.show();

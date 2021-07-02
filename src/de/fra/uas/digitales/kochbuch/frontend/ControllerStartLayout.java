@@ -58,7 +58,7 @@ public class ControllerStartLayout implements Initializable {
     }
 
 
-    public void startConnected(){
+    public void startConnected() {
         List<Recipe> startRecipes = null;
         try {
             startRecipes = DataManager.get().getStartRecipes(0);
@@ -108,10 +108,11 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
-                    label.setFont(Font.font("Segeo UI", 15));
+                    label.setFont(Font.font("Segeo UI", 21));
                     label.setAlignment(Pos.CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
                     label.setTextAlignment(TextAlignment.CENTER);
+
                     AnchorPane background = new AnchorPane();
                     background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
                     background.setMaxHeight(pane2.getHeight() * 0.2);
@@ -120,22 +121,24 @@ public class ControllerStartLayout implements Initializable {
                     background.setLayoutX(background.getWidth() / 2);
                     background.setMouseTransparent(true);
                     background.getChildren().add(label);
+                    label.setMouseTransparent(true);
+                    label.setMaxWidth(pane2.getWidth()-60);
                     pane2.getChildren().add(background);
 
                     label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), pane2);
-            ScaleTransition scale1 = new ScaleTransition(Duration.millis(50), label);
-            ScaleTransition scale2= new ScaleTransition(Duration.millis(50), background);
+                    ScaleTransition scale1 = new ScaleTransition(Duration.millis(50), label);
+                    ScaleTransition scale2 = new ScaleTransition(Duration.millis(50), background);
                     scale.setToX(1.07);
                     scale.setToY(1.07);
-            scale1.setToX(1.07);
-            scale1.setToY(1.07);
-            scale2.setToX(1.0);
-            scale2.setToY(1.0);
+                    scale1.setToX(1.07);
+                    scale1.setToY(1.07);
+                    scale2.setToX(1.0);
+                    scale2.setToY(1.0);
                     scale.play();
-            scale1.play();
-            scale2.play();
-            pane2.getChildren().add(label);
+                    scale1.play();
+                    scale2.play();
+                    pane2.getChildren().add(label);
 
                 }
         );

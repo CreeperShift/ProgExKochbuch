@@ -270,8 +270,6 @@ public class DataManager implements IDataManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
 
         statement.close();
