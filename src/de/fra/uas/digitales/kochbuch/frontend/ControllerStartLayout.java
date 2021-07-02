@@ -4,6 +4,8 @@ import de.fra.uas.digitales.kochbuch.Main;
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
 import javafx.animation.ScaleTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -21,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.glyphfont.Glyph;
 
 import java.io.IOException;
@@ -42,8 +45,10 @@ public class ControllerStartLayout implements Initializable {
     public Label labelName;
     public Button btnHome;
     public Button btnSearch;
+    public SearchableComboBox<String> recipetag;
     private String activeSearch = null;
     public List<String> categoryList;
+    private int i = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,6 +71,10 @@ public class ControllerStartLayout implements Initializable {
         try {
             startRecipes = DataManager.get().getStartRecipes(0);
             categoryList = DataManager.get().getCategories();
+            recipetag.setValue("Alle");
+            ObservableList<String> list = FXCollections.observableArrayList(categoryList);
+            list.add(0,"Alle");
+            recipetag.setItems(list);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -292,6 +301,15 @@ public class ControllerStartLayout implements Initializable {
 
         if (keyEvent.getCode() == KeyCode.ENTER) {
             btnSearch.fire();
+        }
+
+    }
+
+    public void onCategory(ActionEvent actionEvent) {
+        i++;
+        if(i == 3) { //I know this looks weird but the combo box activates 3 times for some reason
+            System.out.println(actionEvent.getSource());
+            i=0;
         }
 
     }

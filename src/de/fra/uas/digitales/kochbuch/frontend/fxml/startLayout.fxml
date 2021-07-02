@@ -14,12 +14,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <VBox fx:id="vBox" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerStartLayout">
       <children>
-      <AnchorPane>
+      <AnchorPane prefHeight="61.0" prefWidth="885.0">
          <children>
-            <Label fx:id="labelName" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="9.0" prefHeight="58.0" prefWidth="403.0" style="-fx-padding: 10;" text="Alle Rezepte" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="5.0">
+            <Label fx:id="labelName" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="9.0" prefHeight="58.0" prefWidth="403.0" style="-fx-padding: 10;" text="Alle Rezepte" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
@@ -37,12 +38,17 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Separator prefWidth="200.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0" />
-            <Button fx:id="btnHome" alignment="TOP_CENTER" layoutX="571.0" layoutY="19.0" mnemonicParsing="false" onAction="#onHome" style="-fx-background-color: gold;" textAlignment="CENTER" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="12.0">
+            <Separator prefWidth="200.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="70.0" />
+            <Button fx:id="btnHome" alignment="TOP_CENTER" layoutX="585.0" layoutY="10.0" mnemonicParsing="false" onAction="#onHome" style="-fx-background-color: gold;" textAlignment="CENTER" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="10.0">
                <effect>
                   <DropShadow />
                </effect>
             </Button>
+            <SearchableComboBox fx:id="recipetag" layoutX="610.0" layoutY="49.0" onAction="#onCategory" prefHeight="25.0" prefWidth="137.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="22.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </SearchableComboBox>
          </children>
          <VBox.margin>
             <Insets bottom="15.0" />

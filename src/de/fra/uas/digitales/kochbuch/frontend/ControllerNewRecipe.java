@@ -48,7 +48,7 @@ public class ControllerNewRecipe implements Initializable {
 
     public void onConnected() {
         recipetag.setItems(FXCollections.observableArrayList(Main.controllerStartLayout.categoryList));
-        recipetag.setValue("Keine");
+        recipetag.setValue("Keine Kategorie");
     }
 
     public void onSave(ActionEvent actionEvent) throws SQLException, IOException {
