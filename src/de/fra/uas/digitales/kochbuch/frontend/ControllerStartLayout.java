@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -122,7 +124,7 @@ public class ControllerStartLayout implements Initializable {
                     background.setMouseTransparent(true);
                     background.getChildren().add(label);
                     label.setMouseTransparent(true);
-                    label.setMaxWidth(pane2.getWidth()-60);
+                    label.setMaxWidth(pane2.getWidth() - 60);
                     pane2.getChildren().add(background);
 
                     label.setTextFill(Color.WHITE);
@@ -282,5 +284,13 @@ public class ControllerStartLayout implements Initializable {
         btnFront.setDisable(false);
         btnBack.setDisable(true);
         activeSearch = null;
+    }
+
+    public void onKey(KeyEvent keyEvent) {
+
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            btnSearch.fire();
+        }
+
     }
 }

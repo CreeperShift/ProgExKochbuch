@@ -58,6 +58,8 @@ public class ControllerFilter implements Initializable {
         btnFront.setText("");
         btnBack.setGraphic(new Glyph("FontAwesome", "chevron_left").size(25));
         btnFront.setGraphic(new Glyph("FontAwesome", "chevron_right").size(25));
+
+        slider.valueProperty().addListener((obs, oldVal, newVal) -> slider.setValue(newVal.intValue()));
     }
 
     public void startConnected() {
@@ -144,10 +146,10 @@ public class ControllerFilter implements Initializable {
             List<Recipe> recipeList = DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), 0);
             btnFront.setDisable(true);
             btnBack.setDisable(true);
-            if(recipeList.size() >= 6){
+            if (recipeList.size() >= 6) {
                 btnFront.setDisable(false);
                 List<Recipe> recipeListNext = DataManager.get().getRecipeByIngredient(names, ((int) slider.getValue()), 1);
-                if(recipeListNext.isEmpty()){
+                if (recipeListNext.isEmpty()) {
                     btnFront.setDisable(true);
                 }
             }
