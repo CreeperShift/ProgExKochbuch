@@ -127,8 +127,8 @@ public class ControllerEditRecipe implements Initializable {
                 weg.setTitle("Information");
                 weg.setHeaderText("Rezept wurde gelöscht!!");
                 weg.show();
+                Main.controllerStartLayout.startConnected();
                 Main.controllerBase.btnStart.fire();
-                //todo: evtl etwas abwarten bis es fired!?
 
             } else {
                 Alert nicht = new Alert(Alert.AlertType.INFORMATION);
@@ -276,7 +276,7 @@ public class ControllerEditRecipe implements Initializable {
     public void editAbbrechen(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Title");
-        alert.setHeaderText("Sind Sie sicher?");
+        alert.setHeaderText("Sind Sie sicher? Alle Änderungen gehen verloren!");
         //alert.setContentText("");
         ButtonType buttonTypeOne = new ButtonType("Ja");
         ButtonType buttonTypeCancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
