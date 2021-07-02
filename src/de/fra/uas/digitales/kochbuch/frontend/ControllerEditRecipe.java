@@ -108,6 +108,7 @@ public class ControllerEditRecipe implements Initializable {
             }
 
             clearRecipe();
+            Main.controllerStartLayout.startConnected();
             Main.controllerBase.btnStart.fire();
         }
     }
