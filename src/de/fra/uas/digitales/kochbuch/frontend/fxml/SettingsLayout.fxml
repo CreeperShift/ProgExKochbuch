@@ -1,77 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerSettings">
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerSettings">
    <children>
-      <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: silver;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="62.0" prefWidth="600.0">
          <children>
-            <AnchorPane prefHeight="62.0" prefWidth="600.0">
+            <Button fx:id="btnZuruck" mnemonicParsing="false" onAction="#btnZurucksetting" style="-fx-background-color: gold;" text="&lt;-- Zurück" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Label alignment="CENTER" layoutX="265.0" layoutY="7.0" text="Einstellungen" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Separator prefWidth="200.0" />
+      <AnchorPane>
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="68.0" prefWidth="720.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <children>
-                  <Button fx:id="btnZuruck" mnemonicParsing="false" onAction="#btnZurucksetting" style="-fx-background-color: gold;" text="&lt;-- Zurück" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="12.0">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Button>
-                  <Label alignment="CENTER" layoutX="265.0" layoutY="7.0" text="Einstellungen" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+                  <Label fx:id="rootL" text="Username:" />
+                  <TextField fx:id="fieldUsername" text="root" />
+                  <Label fx:id="passL" text="Passwort:" />
+                  <TextField fx:id="fieldPassword" prefHeight="25.0" prefWidth="123.0" text="******" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets top="25.0" />
+         </VBox.margin>
+      </AnchorPane>
+      <AnchorPane>
+         <children>
+            <HBox alignment="TOP_CENTER" layoutX="-23.0" prefHeight="39.0" prefWidth="600.0" spacing="15.0" AnchorPane.leftAnchor="-23.0" AnchorPane.rightAnchor="53.0">
+               <children>
+                  <Label fx:id="addressL" text="Addresse:" />
+                  <TextField fx:id="fieldAddress" text="localhost">
+                     <HBox.margin>
+                        <Insets left="6.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label fx:id="portL" text="Port:" />
+                  <TextField fx:id="fieldPort" prefHeight="25.0" prefWidth="48.0" text="3306">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+      </AnchorPane>
+      <AnchorPane />
+      <AnchorPane>
+         <children>
+            <HBox alignment="CENTER" layoutX="350.0" spacing="5.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="319.0">
+               <children>
+                  <Label alignment="CENTER" text="Status:" textAlignment="CENTER">
                      <font>
-                        <Font size="27.0" />
+                        <Font size="17.0" />
                      </font>
                   </Label>
+                  <Circle fx:id="led" fill="RED" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
-            </AnchorPane>
-            <AnchorPane>
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
-               <children>
-                  <HBox alignment="TOP_CENTER" layoutX="-23.0" prefHeight="39.0" prefWidth="600.0" spacing="15.0" AnchorPane.leftAnchor="-23.0" AnchorPane.rightAnchor="53.0">
-                     <children>
-                        <Label fx:id="addressL" text="Addresse:" />
-                        <TextField fx:id="address" text="localhost">
-                           <HBox.margin>
-                              <Insets left="6.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Label fx:id="portL" text="Port:" />
-                        <TextField fx:id="port" prefHeight="25.0" prefWidth="48.0" text="3306">
-                           <HBox.margin>
-                              <Insets left="25.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane>
-               <VBox.margin>
-                  <Insets left="15.0" />
-               </VBox.margin>
-               <children>
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-                     <children>
-                        <Label fx:id="rootL" text="Username:" />
-                        <TextField fx:id="root" text="root" />
-                        <Label fx:id="passL" text="Passwort:" />
-                        <TextField fx:id="pass" prefHeight="25.0" prefWidth="123.0" text="******" />
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane>
-               <children>
-                  <Button layoutY="25.0" mnemonicParsing="false" onAction="#btnUbernehmen" style="-fx-background-color: gold;" text="Übernehmen" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="15.0">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </Button>
-               </children>
-            </AnchorPane>
+            </HBox>
          </children>
-      </VBox>
+      </AnchorPane>
+      <AnchorPane prefHeight="29.0" prefWidth="750.0">
+         <children>
+            <Label fx:id="statustext" alignment="CENTER" prefHeight="25.0" prefWidth="50.0" text="Label" textAlignment="CENTER" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
+               <font>
+                  <Font name="System Italic" size="17.0" />
+               </font>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane>
+         <children>
+            <Button layoutY="25.0" mnemonicParsing="false" onAction="#onBtnConnect" style="-fx-background-color: gold;" text="Verbinden" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="15.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" />
+         </VBox.margin>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</VBox>

@@ -48,8 +48,6 @@ public class ControllerFilter implements Initializable {
         boxes[1] = box2;
         boxes[2] = box3;
         boxes[3] = box4;
-
-
     }
 
     public void startConnected(){

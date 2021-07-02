@@ -5,7 +5,6 @@ import de.fra.uas.digitales.kochbuch.frontend.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,7 +22,7 @@ public class Main extends Application {
     public static VBox filterPage;
     public static VBox newRecipePage;
     public static VBox editRecipePage;
-    public static AnchorPane settingsPage;
+    public static VBox settingsPage;
     public static ControllerRecipe controllerRecipe;
     public static ControllerEditRecipe controllerEditRecipe;
     public static ControllerBase controllerBase;
@@ -31,6 +30,7 @@ public class Main extends Application {
     public static ControllerNewRecipe controllerNewRecipe;
     public static ControllerStartLayout controllerStartLayout;
     public static ControllerFilter controllerFilter;
+    public static ControllerSettings controllerSettings;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -63,6 +63,8 @@ public class Main extends Application {
 
         FXMLLoader loaderSettings = new FXMLLoader(Objects.requireNonNull(getClass().getResource("frontend/fxml/SettingsLayout.fxml")));
         settingsPage = loaderSettings.load();
+        controllerSettings = loaderSettings.getController();
+
 
         Path path = Paths.get("Database.info");
         if (Files.exists(path)) {
@@ -86,7 +88,9 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        DataManager.get().stopConnection();
+        if(controllerSettings.isConnected()) {
+            DataManager.get().stopConnection();
+        }
     }
 
     public static void main(String[] args) {
