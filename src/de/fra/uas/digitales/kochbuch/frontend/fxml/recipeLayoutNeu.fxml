@@ -13,7 +13,7 @@
 
 <VBox prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerRecipe">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="39.0" prefWidth="900.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onBtnBack" style="-fx-background-color: gold;" text="&lt;-- Zurück" AnchorPane.leftAnchor="15.0">
                <effect>
@@ -25,14 +25,19 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onExport" style="-fx-background-color: lightblue;" text="PDF Export" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0">
+            <Button mnemonicParsing="false" onAction="#onExport" style="-fx-background-color: lightblue;" text="PDF Export" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="0.0">
                <effect>
                   <DropShadow />
                </effect>
             </Button>
+            <Button fx:id="btnFav" mnemonicParsing="false" onAction="#btnFav" style="-fx-background-color: none;" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="45.0" />
+            <Label fx:id="labelHeart" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="45.0" />
          </children>
+         <padding>
+            <Insets bottom="-60.0" />
+         </padding>
       </AnchorPane>
-      <HBox prefHeight="0.0" prefWidth="800.0">
+      <HBox mouseTransparent="true" prefHeight="0.0" prefWidth="800.0">
          <children>
             <ImageView fx:id="BildRezeptNeu" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>

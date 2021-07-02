@@ -3,24 +3,34 @@ package de.fra.uas.digitales.kochbuch.frontend;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import de.fra.uas.digitales.kochbuch.Main;
+import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
+import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 import org.controlsfx.control.Rating;
+import org.controlsfx.glyphfont.Glyph;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ControllerRecipe implements Initializable {
 
@@ -33,6 +43,8 @@ public class ControllerRecipe implements Initializable {
     public Recipe currentRecipe;
     public VBox boxNameDescRat;
     public Label labelTime;
+    public Button btnFav;
+    public Label labelHeart;
     private Rating rating;
     private boolean isFilter = false;
 
@@ -42,7 +54,8 @@ public class ControllerRecipe implements Initializable {
         rating.setMax(5);
         rating.setUpdateOnHover(false);
         rating.addEventFilter(MouseEvent.ANY, Event::consume);
-        boxNameDescRat.getChildren().add(2,rating);
+        boxNameDescRat.getChildren().add(2, rating);
+        btnFav.setGraphic(new Glyph("FontAwesome", "HEART_ALT").size(90).color(Color.INDIANRED).useHoverEffect());
     }
 
     @FXML
@@ -139,4 +152,37 @@ public class ControllerRecipe implements Initializable {
         return document;
     }
 
+    public void btnFav(ActionEvent actionEvent) throws SQLException {
+        if (currentRecipe.isFav()) {
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART_ALT").size(90).color(Color.INDIANRED));
+            DataManager.get().setFavorite(currentRecipe.getID(), false);
+            currentRecipe.setFav(false);
+        } else {
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART").size(90).color(Color.INDIANRED));
+            DataManager.get().setFavorite(currentRecipe.getID(), true);
+            currentRecipe.setFav(true);
+        }
+        labelHeart.setGraphic(new Glyph("FontAwesome", "HEART").size(90).color(Color.INDIANRED));
+
+        ScaleTransition transition = new ScaleTransition(Duration.millis(300), labelHeart);
+        transition.setToX(2);
+        transition.setToY(2);
+        transition.play();
+
+
+        Timer t1 = new Timer();
+        t1.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    ScaleTransition transitionReset = new ScaleTransition(Duration.millis(1), labelHeart);
+                    transitionReset.setToX(1);
+                    transitionReset.setToY(1);
+                    transitionReset.play();
+                    labelHeart.setGraphic(null);
+                    t1.cancel();
+                });
+            }
+        }, 350, 350);
+    }
 }

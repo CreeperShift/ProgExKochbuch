@@ -351,6 +351,15 @@ public class DataManager implements IDataManager {
         return categoryList;
     }
 
+    @Override
+    public void setFavorite(int id, boolean isFav) throws SQLException {
+        String query = "update recipe set isFavorite = ? where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(2, id);
+        preparedStatement.setBoolean(1, isFav);
+        preparedStatement.executeUpdate();
+    }
+
     public void stopConnection() throws SQLException {
         if (connection != null) {
             connection.close();

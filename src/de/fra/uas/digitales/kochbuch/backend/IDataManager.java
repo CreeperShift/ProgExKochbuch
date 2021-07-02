@@ -68,7 +68,7 @@ public interface IDataManager {
      * Same as getStartRecipes(); but the tag allows additional filtering.
      *
      * @param page which 9 recipes should be returned.
-     * @param tag a tag to be filtered for in the database
+     * @param tag  a tag to be filtered for in the database
      * @return A list of 9 (or less) recipes.
      */
     List<Recipe> getRecipeByTag(String tag, int page) throws SQLException;
@@ -83,4 +83,6 @@ public interface IDataManager {
     List<Recipe> getRecipeByIngredient(List<String> ingredients, int limit, int page) throws SQLException;
 
     List<String> getCategories() throws SQLException;
+
+    void setFavorite(int id, boolean isFav) throws SQLException;
 }
