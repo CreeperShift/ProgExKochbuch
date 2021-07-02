@@ -57,6 +57,7 @@ public class DataManager implements IDataManager {
             recipe.setId(rs.getInt("id"));
             recipe.setCategory(rs.getString("category"));
             recipe.setImageRaw(rs.getBytes("picture"));
+            recipe.setFav(rs.getBoolean("isFavorite"));
             recipe.setIngredients(getAllIngredients(rs.getInt("id")));
             recipeList.add(recipe);
         }
@@ -88,6 +89,7 @@ public class DataManager implements IDataManager {
             recipe.setId(resultSet.getInt("id"));
             recipe.setImageRaw(resultSet.getBytes("picture"));
             recipe.setCategory(resultSet.getString("category"));
+            recipe.setFav(resultSet.getBoolean("isFavorite"));
             recipe.setIngredients(getAllIngredients(resultSet.getInt("id")));
         }
         return recipe;
@@ -244,6 +246,7 @@ public class DataManager implements IDataManager {
                         .setRating(result.getInt("rating"))
                         .setCategory(result.getString("category"))
                         .setSteps(result.getString("instructions"))
+                        .setFav(result.getBoolean("isFavorite"))
                         .setTime(result.getFloat("recipeTime"));
                 rList.add(r);
 
@@ -271,6 +274,7 @@ public class DataManager implements IDataManager {
                         .setRating(result.getInt("rating"))
                         .setCategory(result.getString("category"))
                         .setSteps(result.getString("instructions"))
+                        .setFav(result.getBoolean("isFavorite"))
                         .setTime(result.getFloat("recipeTime"));
                 rList.add(r);
 
@@ -317,6 +321,7 @@ public class DataManager implements IDataManager {
                         .setRating(result.getInt("rating"))
                         .setCategory(result.getString("category"))
                         .setSteps(result.getString("instructions"))
+                        .setFav(result.getBoolean("isFavorite"))
                         .setTime(result.getFloat("recipeTime"));
                 recipeIDs.add(r);
             } catch (IOException e) {

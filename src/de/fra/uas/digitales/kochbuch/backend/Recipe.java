@@ -122,7 +122,8 @@ public class Recipe {
         return isFav;
     }
 
-    public void setFav(boolean fav) {
+    public Recipe setFav(boolean fav) {
         isFav = fav;
+        return this;
     }
 }
