@@ -20,7 +20,7 @@ public class Recipe {
     private byte[] imageRaw;
     private boolean hasImageChanged = false;
     private String category;
-    private boolean isFav;
+    private boolean isFav = false;
 
     public Recipe setImageRaw(File file) throws IOException {
 
