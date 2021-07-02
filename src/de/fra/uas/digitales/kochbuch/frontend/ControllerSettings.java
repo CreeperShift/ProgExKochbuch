@@ -92,6 +92,7 @@ public class ControllerSettings implements Initializable {
             Main.controllerStartLayout.startConnected();
             Main.controllerFilter.startConnected();
             Main.controllerNewRecipe.onConnected();
+            Main.controllerEditRecipe.onConnected();
             Main.controllerBase.btnStart.fire();
         }
 

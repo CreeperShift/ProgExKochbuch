@@ -315,7 +315,6 @@ public class ControllerStartLayout implements Initializable {
     public void onCategory(Event actionEvent) {
         i++;
         if (i == 2) {
-            System.out.println(recipetag.getValue());
             gridV.getChildren().clear();
             if (recipetag.getValue() != null && recipetag.getValue().equalsIgnoreCase("Alle")) {
                 btnHome.fire();

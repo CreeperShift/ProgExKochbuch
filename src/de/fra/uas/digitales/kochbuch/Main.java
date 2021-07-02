@@ -75,6 +75,7 @@ public class Main extends Application {
                 controllerStartLayout.startConnected();
                 controllerFilter.startConnected();
                 controllerNewRecipe.onConnected();
+                controllerEditRecipe.onConnected();
             } catch (Exception e) {
                 System.out.println("Database info not found or incorrect, redirecting to settings page.");
                 mainPanel.setCenter(settingsPage);

@@ -141,8 +141,9 @@ public class DataManager implements IDataManager {
             preparedStatement.setString(4, recipe.getSteps());
             preparedStatement.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
             preparedStatement.setFloat(6, recipe.getTime());
-            preparedStatement.setInt(7, recipe.getID());
-            preparedStatement.setString(8, recipe.getCategory());
+            preparedStatement.setString(7, recipe.getCategory());
+            preparedStatement.setInt(8, recipe.getID());
+
         } else {
             String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, recipeTime = ?, category = ? where id = ? ";
             preparedStatement = connection.prepareStatement(editQuery);
@@ -151,8 +152,9 @@ public class DataManager implements IDataManager {
             preparedStatement.setString(3, recipe.getDesc());
             preparedStatement.setString(4, recipe.getSteps());
             preparedStatement.setFloat(5, recipe.getTime());
-            preparedStatement.setInt(6, recipe.getID());
-            preparedStatement.setString(7, recipe.getCategory());
+            preparedStatement.setString(6, recipe.getCategory());
+            preparedStatement.setInt(7, recipe.getID());
+
         }
 
         preparedStatement.executeUpdate();
