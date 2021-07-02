@@ -18,6 +18,7 @@ public class Recipe {
     private List<Ingredient> ingredients = new LinkedList<>();
     private Image image = null;
     private byte[] imageRaw;
+    private boolean hasImageChanged = false;
 
     public Recipe setImageRaw(File file) throws IOException {
 
@@ -96,5 +97,13 @@ public class Recipe {
         return time;
     }
     public Recipe() {
+    }
+
+    public boolean isHasImageChanged() {
+        return hasImageChanged;
+    }
+
+    public void setHasImageChanged(boolean hasImageChanged) {
+        this.hasImageChanged = hasImageChanged;
     }
 }

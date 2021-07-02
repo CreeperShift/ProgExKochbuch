@@ -9,11 +9,6 @@ import java.util.List;
 public class DataManager implements IDataManager {
 
     private static Connection connection;
-    private Statement statement;
-    private Statement statement2;
-    private Statement statement3;
-    private Statement statement4;
-    private Statement statement5;
     private static DataManager INSTANCE;
     private static String url, user, password;
     private boolean isConnected = false;
@@ -50,8 +45,9 @@ public class DataManager implements IDataManager {
     }
 
     public List<Recipe> getRecipeList(String name, int i) throws SQLException, IOException {
+        Statement statement = connection.createStatement();
         List<Recipe> recipeList = new LinkedList<>();
-        ResultSet rs = statement4.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%' LIMIT " + i * 9 + ",9");
+        ResultSet rs = statement.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%' LIMIT " + i * 9 + ",9");
         while (rs.next()) {
             Recipe recipe = new Recipe();
             recipe.setName(rs.getString("recipeName"));
@@ -64,13 +60,15 @@ public class DataManager implements IDataManager {
             recipe.setIngredients(getAllIngredients(rs.getInt("id")));
             recipeList.add(recipe);
         }
+        statement.close();
         return recipeList;
     }
 
     @Override
     public Recipe getRecipeByName(String name) throws SQLException {
-
+        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE recipeName='" + name + "'");
+        statement.close();
         try {
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
@@ -94,7 +92,8 @@ public class DataManager implements IDataManager {
     }
 
     private List<Ingredient> getAllIngredients(int id) throws SQLException {
-
+        Statement statement2 = connection.createStatement();
+        Statement statement3 = connection.createStatement();
 
         List<Ingredient> temp = new LinkedList<>();
 
@@ -108,7 +107,8 @@ public class DataManager implements IDataManager {
             }
 
         }
-
+        statement2.close();
+        statement3.close();
         return temp;
 
     }
@@ -121,28 +121,52 @@ public class DataManager implements IDataManager {
         PreparedStatement preDeleteRecipe = connection.prepareStatement(deleteRecipe);
         preDeleteRecipe.setString(1, String.valueOf(recipe.getID()));
         preDeleteRecipe.execute();
+        preDeleteRecipe.close();
 
     }
 
     @Override
-    public void editRecipe(Recipe recipeNeu) throws SQLException {
+    public void editRecipe(Recipe recipe) throws SQLException {
+        PreparedStatement preparedStatement;
+        if (recipe.isHasImageChanged()) {
+            String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, picture = ?, recipeTime = ? where id = ? ";
+            preparedStatement = connection.prepareStatement(editQuery);
+            preparedStatement.setString(1, recipe.getName());
+            preparedStatement.setInt(2, recipe.getRating());
+            preparedStatement.setString(3, recipe.getDesc());
+            preparedStatement.setString(4, recipe.getSteps());
+            preparedStatement.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
+            preparedStatement.setFloat(6, recipe.getTime());
+            preparedStatement.setInt(7, recipe.getID());
+        } else {
+            String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, recipeTime = ? where id = ? ";
+            preparedStatement = connection.prepareStatement(editQuery);
+            preparedStatement.setString(1, recipe.getName());
+            preparedStatement.setInt(2, recipe.getRating());
+            preparedStatement.setString(3, recipe.getDesc());
+            preparedStatement.setString(4, recipe.getSteps());
+            preparedStatement.setFloat(5, recipe.getTime());
+            preparedStatement.setInt(6, recipe.getID());
+        }
 
-        Recipe recipeAlt = getRecipeByID(recipeNeu.getID());
-        deleteRecipe(recipeAlt);
-        addNewRecipe(recipeNeu);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
 
     }
 
     @Override
     public Recipe getRecipeByID(int id) throws SQLException {
 
+        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE id='" + id + "'");
 
         try {
+            statement.close();
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        statement.close();
         return null;
     }
 
@@ -279,20 +303,15 @@ public class DataManager implements IDataManager {
     }
 
     public void stopConnection() throws SQLException {
-        if(connection != null) {
+        if (connection != null) {
             connection.close();
         }
         isConnected = false;
     }
 
     public void connect() throws SQLException {
-            connection = DriverManager.getConnection(url, user, password);
-            statement2 = connection.createStatement();
-            statement = connection.createStatement();
-            statement3 = connection.createStatement();
-            statement4 = connection.createStatement();
-            statement5 = connection.createStatement();
-            isConnected = true;
+        connection = DriverManager.getConnection(url, user, password);
+        isConnected = true;
     }
 
     public boolean isConnected() {

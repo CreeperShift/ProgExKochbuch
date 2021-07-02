@@ -45,7 +45,7 @@ public class ControllerSettings implements Initializable {
 
     public void setAlreadyConnected(){
         led.setFill(Color.GREEN);
-        statustext.setText("Verbunden.");
+        statustext.setText("Verbunden");
     }
 
     public boolean isConnected() {
