@@ -89,7 +89,7 @@
                      <effect>
                         <DropShadow />
                      </effect></Button>
-                  <Button layoutX="125.0" layoutY="74.0" mnemonicParsing="false" onAction="#onBtnReset" style="-fx-background-color: INDIANRED;" text="Reset">
+                  <Button fx:id="btnReset" layoutX="125.0" layoutY="74.0" mnemonicParsing="false" onAction="#onBtnReset" style="-fx-background-color: INDIANRED;" text="Reset">
                      <effect>
                         <DropShadow />
                      </effect>

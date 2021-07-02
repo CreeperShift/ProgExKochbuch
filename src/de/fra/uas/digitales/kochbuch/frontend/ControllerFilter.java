@@ -41,6 +41,7 @@ public class ControllerFilter implements Initializable {
     public GridPane grid;
     public Slider slider;
     public Label ingrAmount;
+    public Button btnReset;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +51,7 @@ public class ControllerFilter implements Initializable {
         boxes[3] = box4;
     }
 
-    public void startConnected(){
+    public void startConnected() {
         try {
             List<String> list = DataManager.get().getAllIngredientNames();
 
@@ -58,6 +59,11 @@ public class ControllerFilter implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void reset() {
+        grid.getChildren().clear();
+        btnReset.fire();
     }
 
     public void onNewFilter(ActionEvent actionEvent) {
@@ -173,6 +179,7 @@ public class ControllerFilter implements Initializable {
                     label.setAlignment(Pos.CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
                     label.setTextAlignment(TextAlignment.CENTER);
+
                     AnchorPane background = new AnchorPane();
                     background.setStyle("-fx-background-color: black; -fx-opacity: 0.65");
                     background.setMaxHeight(pane2.getHeight() * 0.2);
@@ -181,13 +188,24 @@ public class ControllerFilter implements Initializable {
                     background.setLayoutX(background.getWidth() / 2);
                     background.setMouseTransparent(true);
                     background.getChildren().add(label);
+                    label.setMouseTransparent(true);
+                    label.setMaxWidth(pane2.getWidth() - 60);
                     pane2.getChildren().add(background);
 
                     label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), pane2);
+                    ScaleTransition scale1 = new ScaleTransition(Duration.millis(50), label);
+                    ScaleTransition scale2 = new ScaleTransition(Duration.millis(50), background);
                     scale.setToX(1.07);
                     scale.setToY(1.07);
+                    scale1.setToX(1.07);
+                    scale1.setToY(1.07);
+                    scale2.setToX(1.0);
+                    scale2.setToY(1.0);
                     scale.play();
+                    scale1.play();
+                    scale2.play();
+                    pane2.getChildren().add(label);
 
                 }
         );
@@ -240,6 +258,7 @@ public class ControllerFilter implements Initializable {
         ingrAmount.setText("0");
         slider.setValue(1);
         slider.setMax(1);
+        grid.getChildren().clear();
         for (VBox box : boxes) {
             box.getChildren().clear();
         }

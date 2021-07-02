@@ -109,6 +109,7 @@ public class ControllerEditRecipe implements Initializable {
 
             clearRecipe();
             Main.controllerStartLayout.startConnected();
+            Main.controllerFilter.reset();
             Main.controllerBase.btnStart.fire();
         }
     }
@@ -128,6 +129,7 @@ public class ControllerEditRecipe implements Initializable {
                 weg.setHeaderText("Rezept wurde gelöscht!!");
                 weg.show();
                 Main.controllerStartLayout.startConnected();
+                Main.controllerFilter.reset();
                 Main.controllerBase.btnStart.fire();
 
             } else {
