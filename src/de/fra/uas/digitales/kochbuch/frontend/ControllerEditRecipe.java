@@ -4,6 +4,7 @@ import de.fra.uas.digitales.kochbuch.Main;
 import de.fra.uas.digitales.kochbuch.backend.DataManager;
 import de.fra.uas.digitales.kochbuch.backend.Ingredient;
 import de.fra.uas.digitales.kochbuch.backend.Recipe;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.controlsfx.control.Rating;
+import org.controlsfx.control.SearchableComboBox;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +39,7 @@ public class ControllerEditRecipe implements Initializable {
     public Rating recipeRating;
     public TextField recipeTime;
     private File currentImage;
+    public SearchableComboBox<String> recipetag;
     private byte[] curImage;
 
     private List<Ingredient> ingredientList = new LinkedList<>();
@@ -49,6 +52,11 @@ public class ControllerEditRecipe implements Initializable {
         recipeRating.setUpdateOnHover(false);
     }
 
+    public void onConnected() {
+        recipetag.setItems(FXCollections.observableArrayList(Main.controllerStartLayout.categoryList));
+        recipetag.setValue("Keine Kategorie");
+    }
+
     @FXML
     public void output(Recipe recipe) {
         recipeEdit = recipe;
@@ -59,6 +67,7 @@ public class ControllerEditRecipe implements Initializable {
         recipeTime.setText(String.valueOf(recipe.getTime()));
         ingredientList = recipe.getIngredients();
         curImage = recipe.getImageRaw();
+        recipetag.setValue(recipe.getCategory());
 
         for (Ingredient ing : ingredientList) {
 
@@ -88,6 +97,7 @@ public class ControllerEditRecipe implements Initializable {
                     .setIngredients(ingredientList)
                     .setRating(((int) recipeRating.getRating()))
                     .setId(recipeEdit.getID())
+                    .setCategory(recipetag.getValue())
                     .setSteps(recipeSteps.getText());
             float time = 0;
             try {

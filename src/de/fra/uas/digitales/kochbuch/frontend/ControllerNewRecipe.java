@@ -59,6 +59,7 @@ public class ControllerNewRecipe implements Initializable {
                     //.setImageRaw(currentImage)
                     .setIngredients(ingredientList)
                     .setRating(((int) recipeRating.getRating()))
+                    .setCategory(recipetag.getValue())
                     .setSteps(recipeSteps.getText());
 
             float time = 0;
@@ -235,9 +236,6 @@ public class ControllerNewRecipe implements Initializable {
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
-
-
-        //  Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == buttonTypeOne) {
             Main.mainPanel.setCenter(Main.newRecipePage);

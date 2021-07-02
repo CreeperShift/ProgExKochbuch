@@ -55,6 +55,7 @@ public class DataManager implements IDataManager {
             recipe.setSteps(rs.getString("instructions"));
             recipe.setTime(rs.getFloat("recipeTime"));
             recipe.setId(rs.getInt("id"));
+            recipe.setCategory(rs.getString("category"));
             recipe.setImageRaw(rs.getBytes("picture"));
             recipe.setIngredients(getAllIngredients(rs.getInt("id")));
             recipeList.add(recipe);
@@ -86,6 +87,7 @@ public class DataManager implements IDataManager {
             recipe.setTime(resultSet.getFloat("recipeTime"));
             recipe.setId(resultSet.getInt("id"));
             recipe.setImageRaw(resultSet.getBytes("picture"));
+            recipe.setCategory(resultSet.getString("category"));
             recipe.setIngredients(getAllIngredients(resultSet.getInt("id")));
         }
         return recipe;
@@ -129,7 +131,7 @@ public class DataManager implements IDataManager {
     public void editRecipe(Recipe recipe) throws SQLException {
         PreparedStatement preparedStatement;
         if (recipe.isHasImageChanged()) {
-            String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, picture = ?, recipeTime = ? where id = ? ";
+            String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, picture = ?, recipeTime = ?, category = ? where id = ? ";
             preparedStatement = connection.prepareStatement(editQuery);
             preparedStatement.setString(1, recipe.getName());
             preparedStatement.setInt(2, recipe.getRating());
@@ -138,8 +140,9 @@ public class DataManager implements IDataManager {
             preparedStatement.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
             preparedStatement.setFloat(6, recipe.getTime());
             preparedStatement.setInt(7, recipe.getID());
+            preparedStatement.setString(8, recipe.getCategory());
         } else {
-            String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, recipeTime = ? where id = ? ";
+            String editQuery = "UPDATE recipe set recipeName = ?, rating = ?, recipeDescription = ?, instructions = ?, recipeTime = ?, category = ? where id = ? ";
             preparedStatement = connection.prepareStatement(editQuery);
             preparedStatement.setString(1, recipe.getName());
             preparedStatement.setInt(2, recipe.getRating());
@@ -147,6 +150,7 @@ public class DataManager implements IDataManager {
             preparedStatement.setString(4, recipe.getSteps());
             preparedStatement.setFloat(5, recipe.getTime());
             preparedStatement.setInt(6, recipe.getID());
+            preparedStatement.setString(7, recipe.getCategory());
         }
 
         preparedStatement.executeUpdate();
@@ -172,7 +176,7 @@ public class DataManager implements IDataManager {
 
     @Override
     public void addNewRecipe(Recipe recipe) throws SQLException {
-        String insertRecipe = "insert into recipe (recipename, rating, recipeDescription, instructions, picture, recipeTime)" + "values (? , ? , ? , ? ,?, ?)";
+        String insertRecipe = "insert into recipe (recipename, rating, recipeDescription, instructions, picture, recipeTime, category)" + "values (? , ? , ? , ? ,?, ?, ?)";
         String insertIngredient = "insert into recipeingredients (recipe, ingredient, amount, unit)" + " values (?, ?, ?, ?)";
         PreparedStatement pState = connection.prepareStatement(insertRecipe);
         pState.setString(1, recipe.getName());
@@ -181,6 +185,7 @@ public class DataManager implements IDataManager {
         pState.setString(4, recipe.getSteps());
         pState.setBinaryStream(5, new ByteArrayInputStream(recipe.getImageRaw()));
         pState.setFloat(6, recipe.getTime());
+        pState.setString(7, recipe.getCategory());
         pState.executeUpdate();
         pState.close();
         Statement getId = connection.createStatement();
@@ -237,6 +242,7 @@ public class DataManager implements IDataManager {
                         .setDesc(result.getString("recipeDescription"))
                         .setImageRaw(result.getBytes("picture"))
                         .setRating(result.getInt("rating"))
+                        .setCategory(result.getString("category"))
                         .setSteps(result.getString("instructions"))
                         .setTime(result.getFloat("recipeTime"));
                 rList.add(r);
@@ -263,6 +269,7 @@ public class DataManager implements IDataManager {
                         .setDesc(result.getString("recipeDescription"))
                         .setImageRaw(result.getBytes("picture"))
                         .setRating(result.getInt("rating"))
+                        .setCategory(result.getString("category"))
                         .setSteps(result.getString("instructions"))
                         .setTime(result.getFloat("recipeTime"));
                 rList.add(r);
@@ -308,6 +315,7 @@ public class DataManager implements IDataManager {
                         .setDesc(result.getString("recipeDescription"))
                         .setImageRaw(result.getBytes("picture"))
                         .setRating(result.getInt("rating"))
+                        .setCategory(result.getString("category"))
                         .setSteps(result.getString("instructions"))
                         .setTime(result.getFloat("recipeTime"));
                 recipeIDs.add(r);

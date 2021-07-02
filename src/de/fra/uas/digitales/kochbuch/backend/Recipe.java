@@ -19,6 +19,8 @@ public class Recipe {
     private Image image = null;
     private byte[] imageRaw;
     private boolean hasImageChanged = false;
+    private String category;
+    private boolean isFav;
 
     public Recipe setImageRaw(File file) throws IOException {
 
@@ -105,5 +107,22 @@ public class Recipe {
 
     public void setHasImageChanged(boolean hasImageChanged) {
         this.hasImageChanged = hasImageChanged;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Recipe setCategory(String category) {
+        this.category = category;
+        return this;
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
     }
 }
