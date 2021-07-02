@@ -82,4 +82,5 @@ public interface IDataManager {
      */
     List<Recipe> getRecipeByIngredient(List<String> ingredients, int limit, int page) throws SQLException;
 
+    List<String> getCategories() throws SQLException;
 }

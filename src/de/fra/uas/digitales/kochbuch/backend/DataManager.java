@@ -71,7 +71,7 @@ public class DataManager implements IDataManager {
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             statement.close();
         }
         return null;
@@ -164,7 +164,7 @@ public class DataManager implements IDataManager {
             return getFullRecipeFromResultSet(new Recipe(), resultSet);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             statement.close();
         }
         return null;
@@ -299,6 +299,20 @@ public class DataManager implements IDataManager {
         result.close();
 
         return recipeIDs;
+    }
+
+    @Override
+    public List<String> getCategories() throws SQLException {
+
+        String query = "select distinct category from recipe";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet res = preparedStatement.executeQuery();
+        List<String> categoryList = new LinkedList<>();
+        while (res.next()) {
+            categoryList.add(res.getString("category"));
+        }
+
+        return categoryList;
     }
 
     public void stopConnection() throws SQLException {

@@ -43,6 +43,7 @@ public class ControllerStartLayout implements Initializable {
     public Button btnHome;
     public Button btnSearch;
     private String activeSearch = null;
+    private List<String> categoryList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,6 +65,7 @@ public class ControllerStartLayout implements Initializable {
         List<Recipe> startRecipes = null;
         try {
             startRecipes = DataManager.get().getStartRecipes(0);
+            categoryList = DataManager.get().getCategories();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
