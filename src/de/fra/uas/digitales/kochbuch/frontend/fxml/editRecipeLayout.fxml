@@ -137,7 +137,7 @@
         <Separator prefWidth="200.0" />
         <AnchorPane>
             <children>
-                <Button alignment="CENTER" layoutX="9.0" layoutY="9.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="89.0" style="-fx-background-color: INDIANRED;" text="Abbrechen" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                <Button alignment="CENTER" layoutX="9.0" layoutY="9.0" mnemonicParsing="false" onAction="#editAbbrechen" prefHeight="22.0" prefWidth="89.0" style="-fx-background-color: INDIANRED;" text="Abbrechen" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <effect>
                         <DropShadow />
                     </effect>

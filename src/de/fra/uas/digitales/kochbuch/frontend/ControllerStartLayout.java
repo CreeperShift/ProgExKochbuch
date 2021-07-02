@@ -103,7 +103,7 @@ public class ControllerStartLayout implements Initializable {
 
         imageView.addEventFilter(MouseEvent.MOUSE_ENTERED_TARGET, event -> {
                     Label label = new Label(name);
-                    label.setFont(Font.font("Segeo UI", 21));
+                    label.setFont(Font.font("Segeo UI", 15));
                     label.setAlignment(Pos.CENTER);
                     label.setTextOverrun(OverrunStyle.ELLIPSIS);
                     label.setTextAlignment(TextAlignment.CENTER);
@@ -119,9 +119,18 @@ public class ControllerStartLayout implements Initializable {
 
                     label.setTextFill(Color.WHITE);
                     ScaleTransition scale = new ScaleTransition(Duration.millis(50), pane2);
+            ScaleTransition scale1 = new ScaleTransition(Duration.millis(50), label);
+            ScaleTransition scale2= new ScaleTransition(Duration.millis(50), background);
                     scale.setToX(1.07);
                     scale.setToY(1.07);
+            scale1.setToX(1.07);
+            scale1.setToY(1.07);
+            scale2.setToX(1.0);
+            scale2.setToY(1.0);
                     scale.play();
+            scale1.play();
+            scale2.play();
+            pane2.getChildren().add(label);
 
                 }
         );
