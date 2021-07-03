@@ -43,7 +43,14 @@ public class ControllerSettings implements Initializable {
 
     }
 
-    public void setAlreadyConnected(){
+    public void enableButton() {
+        if (!topAnchor.getChildren().contains(btnBack)) {
+            topAnchor.getChildren().add(btnBack);
+        }
+
+    }
+
+    public void setAlreadyConnected() {
         led.setFill(Color.GREEN);
         statustext.setText("Verbunden");
     }

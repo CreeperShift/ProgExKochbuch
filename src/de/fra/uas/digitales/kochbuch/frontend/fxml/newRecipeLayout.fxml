@@ -21,7 +21,7 @@
          <children>
             <Label alignment="CENTER" prefHeight="25.0" prefWidth="500.0" text="Neues Rezept erstellen" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0">
                <font>
-                  <Font size="23.0" />
+                  <Font size="25.0" />
                </font>
             </Label>
             <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnZuruck" style="-fx-background-color: gold;" text="&lt;-- Zurück">

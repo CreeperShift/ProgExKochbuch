@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerSettings">
+<VBox style="-fx-background-color: silver;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fra.uas.digitales.kochbuch.frontend.ControllerSettings">
    <children>
       <AnchorPane fx:id="topAnchor" prefHeight="62.0" prefWidth="600.0">
          <children>
@@ -24,7 +24,7 @@
             </Button>
             <Label alignment="CENTER" layoutX="265.0" layoutY="7.0" text="Einstellungen" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
                <font>
-                  <Font size="27.0" />
+                  <Font size="25.0" />
                </font>
             </Label>
          </children>

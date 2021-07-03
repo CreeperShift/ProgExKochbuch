@@ -20,9 +20,9 @@
       <children>
       <AnchorPane prefHeight="61.0" prefWidth="885.0">
          <children>
-            <Label fx:id="labelName" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="9.0" prefHeight="58.0" prefWidth="403.0" style="-fx-padding: 10;" text="Alle Rezepte" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="5.0">
+            <Label fx:id="labelName" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="9.0" prefHeight="43.0" prefWidth="385.0" style="-fx-padding: 10;" text="Alle Rezepte" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="5.0">
                <font>
-                  <Font name="System Bold" size="26.0" />
+                  <Font size="29.0" />
                </font>
             </Label>
             <TextField fx:id="searchbox" layoutX="9.0" layoutY="58.0" onKeyPressed="#onKey" prefHeight="25.0" prefWidth="176.0" promptText="Rezept suchen" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="22.0">
