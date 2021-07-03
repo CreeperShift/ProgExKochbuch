@@ -133,7 +133,24 @@ public class DataManager implements IDataManager {
 
         }
 
+        String removeIngrQuery = "Delete from recipeingredients where recipe = " + recipe.getID() + ";";
+        PreparedStatement removeIngredRel = connection.prepareStatement(removeIngrQuery);
+
         preparedStatement.executeUpdate();
+        removeIngredRel.executeUpdate();
+
+        String insertIngredient = "insert into recipeingredients (recipe, ingredient, amount, unit)" + " values (?, ?, ?, ?)";
+        PreparedStatement insertIngr = connection.prepareStatement(insertIngredient);
+
+        for (Ingredient i : recipe.getIngredients()) {
+            insertIngr.setInt(1, recipe.getID());
+            insertIngr.setInt(2, getCreateIngredient(i));
+            insertIngr.setFloat(3, i.amount());
+            insertIngr.setString(4, i.unit());
+            insertIngr.executeUpdate();
+        }
+        insertIngr.close();
+        removeIngredRel.close();
         preparedStatement.close();
 
     }
