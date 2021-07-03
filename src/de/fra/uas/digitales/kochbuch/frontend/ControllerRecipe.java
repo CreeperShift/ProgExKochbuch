@@ -62,8 +62,10 @@ public class ControllerRecipe implements Initializable {
     public void output(Recipe recipe, boolean filter) throws IOException {
 
         isFilter = filter;
-        if(recipe.isFav()){
-            btnFav.setGraphic(new Glyph("FontAwesome", "HEART").size(90).color(Color.INDIANRED).useHoverEffect());
+        if (recipe.isFav()) {
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART").size(70).color(Color.INDIANRED).useHoverEffect());
+        } else {
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART_ALT").size(70).color(Color.INDIANRED).useHoverEffect());
         }
         NameLabelNeu.setText(recipe.getName());
         LabelBeschreibung.setText(recipe.getDesc());
@@ -157,15 +159,15 @@ public class ControllerRecipe implements Initializable {
 
     public void btnFav(ActionEvent actionEvent) throws SQLException {
         if (currentRecipe.isFav()) {
-            btnFav.setGraphic(new Glyph("FontAwesome", "HEART_ALT").size(90).color(Color.INDIANRED));
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART_ALT").size(70).color(Color.INDIANRED));
             DataManager.get().setFavorite(currentRecipe.getID(), false);
             currentRecipe.setFav(false);
         } else {
-            btnFav.setGraphic(new Glyph("FontAwesome", "HEART").size(90).color(Color.INDIANRED));
+            btnFav.setGraphic(new Glyph("FontAwesome", "HEART").size(70).color(Color.INDIANRED));
             DataManager.get().setFavorite(currentRecipe.getID(), true);
             currentRecipe.setFav(true);
         }
-        labelHeart.setGraphic(new Glyph("FontAwesome", "HEART").size(90).color(Color.INDIANRED));
+        labelHeart.setGraphic(new Glyph("FontAwesome", "HEART").size(70).color(Color.INDIANRED));
 
         ScaleTransition transition = new ScaleTransition(Duration.millis(300), labelHeart);
         transition.setToX(2);

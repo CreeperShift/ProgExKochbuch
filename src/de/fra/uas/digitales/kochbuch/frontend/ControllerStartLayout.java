@@ -75,6 +75,7 @@ public class ControllerStartLayout implements Initializable {
             recipetag.setValue("Alle");
             ObservableList<String> list = FXCollections.observableArrayList(categoryList);
             list.add(0, "Alle");
+            list.add(1, "Favoriten");
             recipetag.setItems(list);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -99,7 +100,9 @@ public class ControllerStartLayout implements Initializable {
                 imageView.fitHeightProperty().bind(pane.heightProperty().subtract(15));
                 imageView.fitWidthProperty().bind(pane.widthProperty().subtract(15));
                 imageView.getStyleClass().add("startimage");
+
                 setupImageListeners(pane, imageView, recipeList.get(i).getName(), pane2);
+
 
                 int gridX = i % 3;
                 int gridY = i / 3;
@@ -200,10 +203,12 @@ public class ControllerStartLayout implements Initializable {
             i--;
 
             gridV.getChildren().clear();
-            if (activeSearch == null) {
+            if (recipetag.getValue().equalsIgnoreCase("Favoriten")) {
+                addChildren(DataManager.get().getRecipeFav(i - 1));
+            } else if (activeSearch == null) {
                 addChildren(DataManager.get().getStartRecipes(i - 1));
             } else if (!recipetag.getValue().equalsIgnoreCase("Alle")) {
-                DataManager.get().getRecipeByTag(recipetag.getValue(), i - 1);
+               addChildren(DataManager.get().getRecipeByTag(recipetag.getValue(), i - 1));
             } else {
                 addChildren(DataManager.get().getRecipeList(activeSearch, i - 1));
             }
@@ -237,7 +242,10 @@ public class ControllerStartLayout implements Initializable {
 
         final List<Recipe> recipeList;
 
-        if (activeSearch == null) {
+        if (recipetag.getValue().equalsIgnoreCase("Favoriten")) {
+            recipeList = DataManager.get().getRecipeFav(i - 1);
+            addChildren(recipeList);
+        } else if (activeSearch == null) {
             recipeList = DataManager.get().getStartRecipes(i - 1);
             addChildren(recipeList);
         } else if (!recipetag.getValue().equalsIgnoreCase("Alle")) {
@@ -318,6 +326,15 @@ public class ControllerStartLayout implements Initializable {
             gridV.getChildren().clear();
             if (recipetag.getValue() != null && recipetag.getValue().equalsIgnoreCase("Alle")) {
                 btnHome.fire();
+            } else if (recipetag.getValue() != null && recipetag.getValue().equalsIgnoreCase("Favoriten")) {
+                List<Recipe> recipeList = DataManager.get().getRecipeFav(0);
+                activeSearch = null;
+                searchbox.setText("");
+                labelName.setText("Favoriten");
+                btnFront.setDisable(recipeList.size() < 9);
+                btnBack.setDisable(true);
+                page.setText("1");
+                addChildren(recipeList);
             } else {
                 List<Recipe> recipeList = DataManager.get().getRecipeByTag(recipetag.getValue(), 0);
                 activeSearch = null;

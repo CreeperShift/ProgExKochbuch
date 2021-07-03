@@ -85,4 +85,8 @@ public interface IDataManager {
     List<String> getCategories() throws SQLException;
 
     void setFavorite(int id, boolean isFav) throws SQLException;
+
+    List<Recipe> getRecipeFav(int page) throws SQLException;
+
+
 }

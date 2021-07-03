@@ -48,18 +48,8 @@ public class DataManager implements IDataManager {
         List<Recipe> recipeList = new LinkedList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM recipe WHERE recipeName LIKE '%" + name + "%' LIMIT " + i * 9 + ",9");
         while (rs.next()) {
-            Recipe recipe = new Recipe();
-            recipe.setName(rs.getString("recipeName"));
-            recipe.setRating(rs.getInt("rating"));
-            recipe.setDesc(rs.getString("recipeDescription"));
-            recipe.setSteps(rs.getString("instructions"));
-            recipe.setTime(rs.getFloat("recipeTime"));
-            recipe.setId(rs.getInt("id"));
-            recipe.setCategory(rs.getString("category"));
-            recipe.setImageRaw(rs.getBytes("picture"));
-            recipe.setFav(rs.getBoolean("isFavorite"));
-            recipe.setIngredients(getAllIngredients(rs.getInt("id")));
-            recipeList.add(recipe);
+
+            recipeList.add(getRecipeFromResult(rs));
         }
         statement.close();
         return recipeList;
@@ -69,31 +59,17 @@ public class DataManager implements IDataManager {
     public Recipe getRecipeByName(String name) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE recipeName='" + name + "'");
-        try {
-            return getFullRecipeFromResultSet(new Recipe(), resultSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        if (resultSet.next()) {
+            Recipe r = getRecipeFromResult(resultSet);
             statement.close();
+            return r;
+        } else {
+            statement.close();
+            return null;
         }
-        return null;
+
     }
 
-    private Recipe getFullRecipeFromResultSet(Recipe recipe, ResultSet resultSet) throws SQLException, IOException {
-        while (resultSet.next()) {
-            recipe.setName(resultSet.getString("recipeName"));
-            recipe.setRating(resultSet.getInt("rating"));
-            recipe.setDesc(resultSet.getString("recipeDescription"));
-            recipe.setSteps(resultSet.getString("instructions"));
-            recipe.setTime(resultSet.getFloat("recipeTime"));
-            recipe.setId(resultSet.getInt("id"));
-            recipe.setImageRaw(resultSet.getBytes("picture"));
-            recipe.setCategory(resultSet.getString("category"));
-            recipe.setFav(resultSet.getBoolean("isFavorite"));
-            recipe.setIngredients(getAllIngredients(resultSet.getInt("id")));
-        }
-        return recipe;
-    }
 
     private List<Ingredient> getAllIngredients(int id) throws SQLException {
         Statement statement2 = connection.createStatement();
@@ -167,15 +143,14 @@ public class DataManager implements IDataManager {
 
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM recipe WHERE id='" + id + "'");
-
-        try {
-            return getFullRecipeFromResultSet(new Recipe(), resultSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        if (resultSet.next()) {
+            Recipe r = getRecipeFromResult(resultSet);
             statement.close();
+            return r;
+        } else {
+            statement.close();
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -235,28 +210,15 @@ public class DataManager implements IDataManager {
     @Override
     public List<Recipe> getStartRecipes(int page) throws SQLException {
         List<Recipe> rList = new LinkedList<>();
-        try {
-            String select9 = "SELECT * from recipe ORDER BY id LIMIT " + page * 9 + ",9";
-            PreparedStatement statement = connection.prepareStatement(select9);
-            ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                Recipe r = new Recipe();
+        String select9 = "SELECT * from recipe ORDER BY id LIMIT " + page * 9 + ",9";
+        PreparedStatement statement = connection.prepareStatement(select9);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
 
-                r.setName(result.getString("recipeName"))
-                        .setDesc(result.getString("recipeDescription"))
-                        .setImageRaw(result.getBytes("picture"))
-                        .setRating(result.getInt("rating"))
-                        .setCategory(result.getString("category"))
-                        .setSteps(result.getString("instructions"))
-                        .setFav(result.getBoolean("isFavorite"))
-                        .setTime(result.getFloat("recipeTime"));
-                rList.add(r);
-
-            }
-            statement.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            rList.add(getRecipeFromResult(result));
         }
+
+        statement.close();
         return rList;
     }
 
@@ -268,21 +230,12 @@ public class DataManager implements IDataManager {
             PreparedStatement statement = connection.prepareStatement(select9);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Recipe r = new Recipe();
 
-                r.setName(result.getString("recipeName"))
-                        .setDesc(result.getString("recipeDescription"))
-                        .setImageRaw(result.getBytes("picture"))
-                        .setRating(result.getInt("rating"))
-                        .setCategory(result.getString("category"))
-                        .setSteps(result.getString("instructions"))
-                        .setFav(result.getBoolean("isFavorite"))
-                        .setTime(result.getFloat("recipeTime"));
-                rList.add(r);
-
+                rList.add(getRecipeFromResult(result));
             }
+
             statement.close();
-        } catch (IOException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return rList;
@@ -315,20 +268,7 @@ public class DataManager implements IDataManager {
         ResultSet result = statement.executeQuery();
 
         while (result.next()) {
-            try {
-                Recipe r = new Recipe();
-                r.setName(result.getString("recipeName"))
-                        .setDesc(result.getString("recipeDescription"))
-                        .setImageRaw(result.getBytes("picture"))
-                        .setRating(result.getInt("rating"))
-                        .setCategory(result.getString("category"))
-                        .setSteps(result.getString("instructions"))
-                        .setFav(result.getBoolean("isFavorite"))
-                        .setTime(result.getFloat("recipeTime"));
-                recipeIDs.add(r);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            recipeIDs.add(getRecipeFromResult(result));
         }
 
         statement.close();
@@ -358,6 +298,44 @@ public class DataManager implements IDataManager {
         preparedStatement.setInt(2, id);
         preparedStatement.setBoolean(1, isFav);
         preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public List<Recipe> getRecipeFav(int page) {
+        List<Recipe> rList = new LinkedList<>();
+        try {
+            String select9 = "SELECT * from recipe where isFavorite = true LIMIT " + page * 9 + ",9";
+            PreparedStatement statement = connection.prepareStatement(select9);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+
+                rList.add(getRecipeFromResult(result));
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rList;
+    }
+
+    private Recipe getRecipeFromResult(ResultSet result) {
+        Recipe r = new Recipe();
+
+        try {
+            r.setName(result.getString("recipeName"))
+                    .setDesc(result.getString("recipeDescription"))
+                    .setId(result.getInt("id"))
+                    .setImageRaw(result.getBytes("picture"))
+                    .setRating(result.getInt("rating"))
+                    .setCategory(result.getString("category"))
+                    .setSteps(result.getString("instructions"))
+                    .setFav(result.getBoolean("isFavorite"))
+                    .setIngredients(getAllIngredients(result.getInt("id")))
+                    .setTime(result.getFloat("recipeTime"));
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+        return r;
     }
 
     public void stopConnection() throws SQLException {
