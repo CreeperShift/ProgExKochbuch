@@ -85,8 +85,10 @@ public class ControllerNewRecipe implements Initializable {
 
     private void clearRecipe() {
         recipeSteps.setText("");
-        recipetag.setValue("Keine");
+        recipetag.setValue("Keine Kategorie");
+        recipeRating.setRating(2);
         recipeDesc.setText("");
+        recipeTime.setText("0");
         recipeName.setText("");
         ingredientList.clear();
         currentImage = null;
